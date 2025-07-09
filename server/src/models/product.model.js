@@ -27,6 +27,10 @@ const productSchema = new mongoose.Schema({
     min: [0, 'Discount cannot be negative'],
     max: [100, 'Discount cannot exceed 100'],
   },
+  discountedPrice: {
+    type: Number,
+    min: [0, 'Discounted price must be positive'],
+  },
   category: {
     type: String,
     required: [true, "Category is required"],
@@ -62,11 +66,19 @@ const productSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Auto-generate slug from name before save
+// Pre-save middleware
 productSchema.pre('save', function (next) {
+  // Auto-generate slug
   if (this.isModified('name')) {
     this.slug = slugify(this.name, { lower: true, strict: true });
   }
+
+  // Calculate discounted price
+  if (this.isModified('price') || this.isModified('discountPercent')) {
+    const discount = (this.discountPercent / 100) * this.price;
+    this.discountedPrice = Math.round((this.price - discount) * 100) / 100; // Round to 2 decimal places
+  }
+
   next();
 });
 
