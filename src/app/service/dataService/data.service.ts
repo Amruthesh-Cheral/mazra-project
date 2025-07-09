@@ -17,7 +17,7 @@ export class DataService {
         type: type,
         status: status
       },
-      duration: 50000,
+      duration: 500000,
     });
   }
 }

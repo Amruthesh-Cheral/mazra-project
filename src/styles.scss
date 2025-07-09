@@ -9,6 +9,9 @@
 // @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 // MODULES
+@import "angular-notifier/styles";
 @import "assets/scss/module/alll.css";
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap/scss/bootstrap';
+
+@import 'sweetalert2/src/sweetalert2.scss'

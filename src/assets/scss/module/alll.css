@@ -2599,6 +2599,7 @@ h6 {
     color: inherit;
     background: linear-gradient(to right, currentcolor 0%, currentcolor 100%) 0px 95%/0px 1px no-repeat;
     transition: all 500ms ease;
+    text-decoration: none;
 }
 
 .footer-widget__info li a:hover {
@@ -2675,6 +2676,7 @@ h6 {
     color: inherit;
     background: linear-gradient(to right, currentcolor 0%, currentcolor 100%) 0px 95%/0px 1px no-repeat;
     transition: all 500ms ease;
+    text-decoration: none;
 }
 
 .footer-widget__links li a:hover {
@@ -4190,6 +4192,7 @@ h6 {
     position: relative;
     font-size: 16px;
     transition: all 500ms ease;
+    text-decoration: none;
 }
 
 .main-menu .main-menu__list>li.current>a,
