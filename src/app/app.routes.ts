@@ -50,6 +50,10 @@ export const routes: Routes = [
                 path: 'products/:id',
                 component: ProductsComponent
             },
+              {
+                path: 'product-detail/:id',
+                component: ProductDetailComponent
+            },
             {
                 path: 'commercial',
                 component: CommercialComponent
@@ -76,10 +80,7 @@ export const routes: Routes = [
             },
             // etc pages
 
-            {
-                path: 'product-detail',
-                component: ProductDetailComponent
-            },
+          
             {
                 path: 'login',
                 component: LoginComponent

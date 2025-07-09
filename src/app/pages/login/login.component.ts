@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 import { DataService } from '../../service/dataService/data.service';
 import { NotifierModule, NotifierService } from 'angular-notifier';
 import Swal from 'sweetalert2'
+import { RouterModule } from '@angular/router';
 
 
 export interface login {
@@ -13,7 +14,7 @@ export interface login {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NotifierModule],
+  imports: [ReactiveFormsModule, CommonModule, NotifierModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
