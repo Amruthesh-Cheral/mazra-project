@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    unique: true,
+    unique: [true, 'Same Product name founded'],
     lowercase: true,
   },
   description: {
