@@ -47,7 +47,7 @@ export const routes: Routes = [
                 component: ContactComponent
             },
             {
-                path: 'products',
+                path: 'products/:id',
                 component: ProductsComponent
             },
             {
