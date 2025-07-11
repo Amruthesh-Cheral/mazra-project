@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
 import { NgClass } from '@angular/common';
-import { RouterModule } from "@angular/router";
+import { RouterModule, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-admin-view',
   standalone: true,
-  imports: [AdminSidebarComponent, NgClass, RouterModule],
+  imports: [AdminSidebarComponent, NgClass, RouterOutlet],
   templateUrl: './admin-view.component.html',
-  styleUrl: './admin-view.component.scss'
+  styleUrl: './admin-view.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminViewComponent {
   isSidebarCollapsed = false;

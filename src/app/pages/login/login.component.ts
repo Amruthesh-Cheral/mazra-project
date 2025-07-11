@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
  saveUserData(data:any){
     // data?.data?.language == 1 ? localStorage.setItem("lang", "en") : localStorage.setItem("lang", "du")
     localStorage.setItem("user", JSON.stringify(data?.data))
-    // localStorage.setItem("isregistered", (data?.data?.is_registered))
+    localStorage.setItem("token", data.token)
     this.loggedUser = data?.data?.role;
     localStorage.setItem("role", this.loggedUser)
   }
