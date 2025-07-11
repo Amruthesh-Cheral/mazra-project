@@ -19,6 +19,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ForgetPageComponent } from './pages/forget-page/forget-page.component';
 import { AdminViewComponent } from './admin-panel/layout/admin-view/admin-view.component';
 import { AdminDashboardComponent } from './admin-panel/pages/admin-dashboard/admin-dashboard.component';
+import { AuthGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
     {
@@ -32,9 +33,7 @@ export const routes: Routes = [
         children: [
             {
                 path: 'home',
-                loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent
-
-                )
+                loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
             },
             {
                 path: 'about',
@@ -48,11 +47,16 @@ export const routes: Routes = [
                 path: 'contact',
                 component: ContactComponent
             },
+            { path: 'products', loadComponent: () => import('./pages/products/products.component').then(m => m.ProductsComponent),canMatch:[AuthGuard]},
+            // {
+            //     path: 'products',
+            //     component: ProductsComponent
+            // },
             {
                 path: 'products/:id',
                 component: ProductsComponent
             },
-              {
+            {
                 path: 'product-detail/:id',
                 component: ProductDetailComponent
             },
@@ -82,7 +86,7 @@ export const routes: Routes = [
             },
             // etc pages
 
-          
+
             {
                 path: 'login',
                 component: LoginComponent
@@ -107,6 +111,8 @@ export const routes: Routes = [
                 path: 'forget',
                 component: ForgetPageComponent
             },
+            { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
+            { path: 'email-verification', loadComponent: () => import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent) },
 
         ]
     },

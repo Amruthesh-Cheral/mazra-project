@@ -1,10 +1,11 @@
+import { LoginService } from './service/login.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../../service/dataService/data.service';
 import { NotifierModule, NotifierService } from 'angular-notifier';
 import Swal from 'sweetalert2'
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 export interface login {
@@ -20,8 +21,9 @@ export interface login {
 })
 export class LoginComponent implements OnInit {
   private readonly notifier: NotifierService;
+  loggedUser: any;
 
-  constructor(private fb: FormBuilder, private dataService: DataService, notifierService: NotifierService) {
+  constructor( private fb: FormBuilder, private LoginService: LoginService, notifierService: NotifierService , private router: Router) {
     this.notifier = notifierService;
 
   }
@@ -34,19 +36,44 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit() {
-    // this.dataService.customSnackBar('Active group is deleted by admin', 'Group Deleted', 'success');
-    // this.notifier.notify('success', 'You are awesome! I mean it!');
-    Swal.fire("SweetAlert2 is working!");
-
-    // console.log('Form Submitted!', this.loginForm.value);
     if (this.loginForm.valid) {
-      // console.log('Form Submitted!', this.loginForm.value);
-      // this.notifier.notify('success', 'You are awesome! I mean it!');
+      const formData = this.loginForm.value;
+      console.log('Form Data:', formData);
 
-      // Here you can handle the form submission, e.g., send data to a server
-    } else {
-      console.log('Form is invalid');
-    }
+      // Call the login service here
+      // this.dataService.customSnackBar("Login successful", "success", "success");
+      // this.router.navigate(['/dashboard']);
+      this.LoginService.login(formData).subscribe(res => {
+        console.log('Login successful', res);
+        this.saveUserData(res)
+        this.router.navigate(['/products']);
+        Swal.fire({
+          title: 'Login Successful',
+          text: 'Welcome back!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      }, error => {
+        console.error('Login failed', error);
+        // Handle login error, e.g., show a notification
+        // this.dataService.customSnackBar("Login failed", "error", "error");
+        Swal.fire({
+          title: 'Login Failed',
+          text: 'Invalid email or password',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      });
+  }
+}
+
+ saveUserData(data:any){
+    // data?.data?.language == 1 ? localStorage.setItem("lang", "en") : localStorage.setItem("lang", "du")
+    localStorage.setItem("user", JSON.stringify(data?.data))
+    // localStorage.setItem("isregistered", (data?.data?.is_registered))
+    this.loggedUser = data?.data?.role;
+    localStorage.setItem("role", this.loggedUser)
   }
 
+    // Swal.fire("SweetAlert2 is working!");
 }
