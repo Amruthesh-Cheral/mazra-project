@@ -8575,6 +8575,16 @@ body.megamenu-popup-active .mobile-nav__content {
     margin-left: 15px;
 }
 
+.product-details__price__outofstock {
+    font-size: 13px;
+    line-height: 1;
+    display: inline-block;
+    color: var(--alefox-white, #fff);
+    background-color: #a04444;
+    padding: 4px 8px;
+    margin-left: 15px;
+}
+
 .product-details__review {
     display: flex;
     align-items: center;

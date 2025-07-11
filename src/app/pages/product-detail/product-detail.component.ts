@@ -1,12 +1,104 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductDetailsService } from './service/product-details.service';
+import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
+import { CartService } from '../cart/service/cart.service';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [],
+  imports: [ CommonModule ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
+
+   slug: string | null = null;
+   product: any;
+   quantity: number = 1;
+
+   constructor(private route: ActivatedRoute , private productDetailservice: ProductDetailsService , private router: Router , private cartService: CartService) { }
+
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.slug = params.get('id');
+      console.log('Product ID:', this.slug);
+    });
+
+    this.getProductDetails();
+  }
+
+
+  getProductDetails() {
+    // This method would typically call a service to fetch product details by ID
+    // For now, we are just logging the ID
+    console.log('Fetching details for product ID:', this.slug);
+    if (this.slug) {
+      this.productDetailservice.productDetails(this.slug).subscribe((res: any) => {
+        console.log('Product Details:', res);
+        // Handle the product details response
+        this.product = res.data;
+      }, error => {
+        // Handle error, e.g., show a notification
+        console.log('Error fetching product details:', error);
+
+        Swal.fire({
+          title: 'Error',
+          text: error.error.message || 'something went wrong',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        console.error('Error fetching product details:', error);
+      });
+    } else {
+      console.error('No product ID provided');
+    }
+  }
+
+
+  increase() {
+    if (this.quantity < 99) {
+      this.quantity++;
+    }
+  }
+
+  decrease() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  onInputChange(event: Event) {
+    const value = +(event.target as HTMLInputElement).value;
+    this.quantity = value >= 1 && value <= 99 ? value : 1;
+  }
+
+  addTocart(product: any) {
+    console.log('Adding to cart:', product, 'Quantity:', this.quantity);
+    
+    this.cartService.addToCart({
+      product_id: product._id,
+      quantity: this.quantity
+    }).subscribe((res: any) => {
+      console.log('Product added to cart:', res);
+      Swal.fire({
+        title: 'Added to Cart',
+        text: 'Product has been added to your cart.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      this.router.navigate(['/cart']);
+    }, error => {
+      console.error('Error adding product to cart:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to add product to cart. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    });
+  }
 
 }
