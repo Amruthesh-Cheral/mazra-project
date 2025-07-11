@@ -23,11 +23,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="register-page__form-input-box">
-                                    <input type="text" placeholder="First Name *" formControlName="firstname">
-                                    <div *ngIf="registerForm.get('firstname')?.invalid && registerForm.get('firstname')?.touched">
-                                        <small class="text-danger" *ngIf="registerForm.get('firstname')?.errors?.['required']">First Name is required.</small>
-                                        <small class="text-danger" *ngIf="registerForm.get('firstname')?.errors?.['minlength']">First Name must be at least 3 characters.</small>
-                                        <small class="text-danger" *ngIf="registerForm.get('firstname')?.errors?.['maxlength']">First Name cannot exceed 20 characters.</small>
+                                    <input type="text" placeholder="First Name *" formControlName="username">
+                                    <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+                                        <small class="text-danger" *ngIf="registerForm.get('username')?.errors?.['required']">First Name is required.</small>
+                                        <small class="text-danger" *ngIf="registerForm.get('username')?.errors?.['minlength']">First Name must be at least 3 characters.</small>
+                                        <small class="text-danger" *ngIf="registerForm.get('username')?.errors?.['maxlength']">First Name cannot exceed 20 characters.</small>
                                     </div>
                                   </div>
                             </div>

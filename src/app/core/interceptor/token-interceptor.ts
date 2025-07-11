@@ -27,9 +27,6 @@ export class MyInterceptor implements HttpInterceptor {
 
 
 
-
-
-
     return next.handle(request).pipe(
       tap(() => { }
         , error => {
