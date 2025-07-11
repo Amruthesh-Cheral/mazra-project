@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../../../../pages/products/service/product.service';
 @Component({
   selector: 'app-admin-products',
   standalone: true,
@@ -11,10 +12,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AdminProductsComponent {
   constructor(
     private _router: Router,
-    private _route: ActivatedRoute
+    private _productService: ProductService,
   ) {}
 
   createProduct() {
     this._router.navigateByUrl('/admin-panel/products/add-products');
   }
+
+  ngOnInit(): void {
+    this.getProducts();
+  }
+
+  getProducts() {
+    this._productService.productlist().subscribe(
+      response => {
+        console.log('Products fetched successfully', response);
+      },
+      error => {
+        // Handle HTTP error
+        console.error('HTTP error while fetching products', error);
+      }
+    );
+  }
+
 }

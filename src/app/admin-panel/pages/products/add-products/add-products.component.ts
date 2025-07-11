@@ -1,6 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ProductService } from '../../../../pages/products/service/product.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-products',
@@ -15,11 +18,15 @@ productForm: FormGroup;
   previewImages: string[] = [];
   imageLimitExceeded = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private _productService: ProductService,
+    private _router: Router
+  ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       price: [null, [Validators.required, Validators.min(0)]],
+      stock: [null, [Validators.required, Validators.min(0)]],
       discountPercent: [null],
       category: ['', Validators.required],
     });
@@ -62,12 +69,34 @@ productForm: FormGroup;
     formData.append('price', this.productForm.value.price);
     formData.append('discountPercent', this.productForm.value.discountPercent || '');
     formData.append('category', this.productForm.value.category);
+    formData.append('stock', this.productForm.value.stock);
 
     this.images.forEach((file, index) => {
-      formData.append('images', file);
+      formData.append(`images`, file);
     });
 
+    this._productService.addProducts(formData).subscribe(
+      response => {
+        if(response && response.success) {
+          Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: response.message || 'Product added successfully',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this._router.navigate(['/admin-panel/products']);
+        }
+        // Reset form and images after successful submission
+        this.productForm.reset();
+        this.images = [];
+        this.previewImages = [];
+      },
+      error => {
+        console.error('Error adding product', error);
+        // Handle error appropriately
+      }
+    );
     // Replace this with your API call
-    console.log('Form data ready for submission', formData);
   }
 }

@@ -47,11 +47,11 @@ export const routes: Routes = [
                 path: 'contact',
                 component: ContactComponent
             },
-            { path: 'products', loadComponent: () => import('./pages/products/products.component').then(m => m.ProductsComponent),canMatch:[AuthGuard]},
-            // {
-            //     path: 'products',
-            //     component: ProductsComponent
-            // },
+            // { path: 'products', loadComponent: () => import('./pages/products/products.component').then(m => m.ProductsComponent),canMatch:[AuthGuard]},
+            {
+                path: 'products',
+                component: ProductsComponent
+            },
             {
                 path: 'products/:id',
                 component: ProductsComponent
