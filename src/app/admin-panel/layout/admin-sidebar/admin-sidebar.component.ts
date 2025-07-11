@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
@@ -7,7 +7,8 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
   standalone: true,
   imports: [NgClass, RouterModule],
   templateUrl: './admin-sidebar.component.html',
-  styleUrl: './admin-sidebar.component.scss'
+  styleUrl: './admin-sidebar.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminSidebarComponent {
 @Input() isSidebarCollapsed = false;
