@@ -112,7 +112,8 @@ export const routes: Routes = [
     },
     {
         path: 'admin-panel',
-        component: AdminViewComponent,
+        loadComponent: () => import('./admin-panel/layout/admin-view/admin-view.component').then(m => m.AdminViewComponent),
+        // component: AdminViewComponent,
         children: [
             {
                 path: '',
@@ -126,7 +127,7 @@ export const routes: Routes = [
             {
                 path: 'products',
                 loadComponent: () => import('./admin-panel/pages/products/admin-products/admin-products.component').then(m => m.AdminProductsComponent)
-            },
+            }
         ]
     }
 ];
