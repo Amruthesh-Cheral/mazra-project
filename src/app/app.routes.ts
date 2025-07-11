@@ -17,6 +17,8 @@ import { CartComponent } from './pages/cart/cart.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ForgetPageComponent } from './pages/forget-page/forget-page.component';
+import { AdminViewComponent } from './admin-panel/layout/admin-view/admin-view.component';
+import { AdminDashboardComponent } from './admin-panel/pages/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
@@ -45,11 +47,11 @@ export const routes: Routes = [
                 path: 'contact',
                 component: ContactComponent
             },
-            { path: 'products', loadComponent: () => import('./pages/products/products.component').then(m => m.ProductsComponent),canMatch:[AuthGuard]},
-            // {
-            //     path: 'products',
-            //     component: ProductsComponent
-            // },
+            // { path: 'products', loadComponent: () => import('./pages/products/products.component').then(m => m.ProductsComponent),canMatch:[AuthGuard]},
+            {
+                path: 'products',
+                component: ProductsComponent
+            },
             {
                 path: 'products/:id',
                 component: ProductsComponent
@@ -112,6 +114,30 @@ export const routes: Routes = [
             { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
             { path: 'email-verification', loadComponent: () => import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent) },
 
+        ]
+    },
+    {
+        path: 'admin-panel',
+        loadComponent: () => import('./admin-panel/layout/admin-view/admin-view.component').then(m => m.AdminViewComponent),
+        // component: AdminViewComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            },
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./admin-panel/pages/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
+            },
+            {
+                path: 'products',
+                loadComponent: () => import('./admin-panel/pages/products/admin-products/admin-products.component').then(m => m.AdminProductsComponent),
+            },
+            {
+                path: 'products/add-products',
+                loadComponent: () => import('./admin-panel/pages/products/add-products/add-products.component').then(m => m.AddProductsComponent)
+            }
         ]
     }
 ];
