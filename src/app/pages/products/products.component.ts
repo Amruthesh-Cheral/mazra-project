@@ -12,7 +12,7 @@ import { ProductService } from './service/product.service';
 })
 export class ProductsComponent implements OnInit {
 
-  products = [];
+  products:any[] = [];
 
   constructor(private productService: ProductService ) { }
 
