@@ -37,12 +37,11 @@ export class ForgetPageComponent {
       console.log('Submitted:', this.loginForm.value);
       //  You can call your API here to send reset link
       this.ForgetService.forgetPassword(this.loginForm.value).subscribe(
-        (res) => {
+        (res:any) => {
           console.log('Reset link sent successfully', res);
           // Handle success, e.g., show a notification
           Swal.fire({
-            title: 'Login Successful',
-            text: 'Welcome back!',
+            title: res.message,
             icon: 'success',
             confirmButtonText: 'OK'
           });

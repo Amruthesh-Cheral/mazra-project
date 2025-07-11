@@ -21,12 +21,17 @@
                     <h3 class="login-page__wrap__title">Login your Account:</h3>
                     <form class="login-page__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <div class="login-page__form-input-box">
-                            <input type="email" placeholder="Username or email address *" formControlName="email" >
-                                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-                                  <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
-                                  <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['email']">Enter a valid email.</small>
-                                </div>
-                        </div>
+                            <input type="email" placeholder="Email address *" formControlName="email">
+                            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                                <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['required']">
+                                Email is required.
+                                </small>
+                                <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['email']">
+                                Enter a valid email.
+                                </small>
+                            </div>
+                            </div>
+
                         <div class="login-page__form-input-box">
                             <input type="password" placeholder="Password *" formControlName="password">
                                 <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
@@ -37,13 +42,13 @@
                         </div>
                         <div class="login-page__check-forgot">
                             <div class="login-page__checked-box">
-                                <input type="checkbox" name="save-data" id="save-data">
-                                <label for="save-data"><span></span>Remember Me?</label>
+                                <!-- <input type="checkbox" name="save-data" id="save-data"> -->
+                               <a class="pt-3" class="hash-text cursor-pointer" routerLink="/register">New Register</a>
                             </div>
                             <div class="login-page__form-forgot-password">
-                                <a routerLink="/forget">Forgot your Passowrd?</a>
+                                <a class="hash-text cursor-pointer" routerLink="/forget">Forgot your Passowrd?</a>
                                 <div>
-                                <a class="pt-3" routerLink="/register">New Register</a>
+                                <!-- <a class="pt-3" class="hash-text" routerLink="/register">New Register</a> -->
                             </div>
                             </div>
                             

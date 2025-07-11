@@ -87,14 +87,12 @@ constructor(private ResetService: ResetPasswordService , private router: Router 
       otp
     };
 
-    console.log('Payload:', payload);
 
     this.ResetService.resetPassword(payload).subscribe(
-      (res) => {
-        console.log('Password reset successful', res);
+      (res:any) => {
         Swal.fire({
-          title: 'Password Reset Successful',
-          text: 'Your password has been reset successfully.',
+          title: res.message,
+          // text: 'Your password has been reset successfully.',
           icon: 'success',
           confirmButtonText: 'OK'
         });
@@ -108,7 +106,6 @@ constructor(private ResetService: ResetPasswordService , private router: Router 
           icon: 'error',
           confirmButtonText: 'OK'
         });
-        console.error('Password reset failed', error);
         // Handle error, e.g., show a notification
       }
     );

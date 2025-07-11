@@ -4,7 +4,7 @@ import { DataService } from '../../service/dataService/data.service';
 import { CommonModule } from '@angular/common';
 import { RegisterService } from './service/register.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 export interface register {
   username: FormControl<string | null>;
@@ -17,7 +17,7 @@ export interface register {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule , ReactiveFormsModule , HttpClientModule ],
+  imports: [CommonModule , ReactiveFormsModule , HttpClientModule , RouterModule ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
