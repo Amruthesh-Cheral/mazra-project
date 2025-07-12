@@ -57,7 +57,7 @@ export class ProductsComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'OK'
           });
-          this.route.navigate(['/cart']);
+          // this.route.navigate(['/cart']);
         }, error => {
           Swal.fire({
             title: 'Error',

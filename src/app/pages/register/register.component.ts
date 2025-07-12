@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterService } from './service/register.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 export interface register {
   username: FormControl<string | null>;
@@ -42,10 +43,22 @@ constructor(private fb: FormBuilder , private router: Router , private registerS
 
       if (formData.password === formData.confirmPassword) {
         // Call the registration service here
-        this.registerService.signup(formData).subscribe(res => {
+        this.registerService.signup(formData).subscribe((res:any) => {
             console.log(res);
+            Swal.fire({
+              title: 'Registration Successful',
+              text: res.message,
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
             this.router.navigate(['/email-verification']);
           }, error => {
+            Swal.fire({
+              title: 'Registration Failed',
+              text: error.error.message || 'Please try again later.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
             console.error('Registration failed', error);
             // Handle error, e.g., show a notification
           });

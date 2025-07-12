@@ -91,8 +91,8 @@ constructor(private ResetService: ResetPasswordService , private router: Router 
     this.ResetService.resetPassword(payload).subscribe(
       (res:any) => {
         Swal.fire({
-          title: res.message,
-          // text: 'Your password has been reset successfully.',
+          title: 'Password Reset Successful',
+          text: res.message,
           icon: 'success',
           confirmButtonText: 'OK'
         });
@@ -102,7 +102,7 @@ constructor(private ResetService: ResetPasswordService , private router: Router 
       (error) => {
         Swal.fire({
           title: 'Password Reset Failed',
-          text: 'There was an error resetting your password. Please try again.',
+          text: error.error.message ,
           icon: 'error',
           confirmButtonText: 'OK'
         });

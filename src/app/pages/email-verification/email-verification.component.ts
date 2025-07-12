@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Route, Router, RouterModule } from '@angular/router';
 import { EmailService } from './service/email.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-email-verification',
@@ -82,11 +83,23 @@ constructor(private emailService: EmailService , private router: Router ) { }
 
     // Here you can handle the form submission, e.g., send data to a server
     // For demonstration, we'll just log the payload
-    this.emailService.verifyEmail(payload).subscribe(response => {
-      console.log('Email verification successful', response);
+    this.emailService.verifyEmail(payload).subscribe((res:any) => {
+      console.log('Email verification successful', res);
       // Navigate to the next page or show a success message
+      Swal.fire({
+        title: 'Email Verified',
+        text: res.message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       this.router.navigate(['/login']);
     }, error => {
+      Swal.fire({
+        title: 'Verification Failed',
+        text: error.error.message,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
       console.error('Email verification failed', error);
     });
 
