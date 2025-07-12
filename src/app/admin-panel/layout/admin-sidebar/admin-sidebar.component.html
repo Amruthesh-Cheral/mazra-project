@@ -8,6 +8,8 @@
           <li class="sidebar-menu-item">
             <a
               [routerLink]="item.route"
+              [routerLinkActive]="['menu-item-active']"
+              [routerLinkActiveOptions]="{ exact: false }"
               class="sidebar-item"
               [ngClass]="{
                 'has-children': item.children,

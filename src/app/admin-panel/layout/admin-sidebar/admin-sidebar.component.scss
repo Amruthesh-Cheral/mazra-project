@@ -51,16 +51,15 @@
   transition: all 0.2s ease;
   cursor: pointer;
 
-  &:hover {
-    background-color: #44a05b;
+    &:hover {
+    background-color: #58b96c; // lighter green on hover
     color: white;
   }
 
   &.menu-item-active {
-    background-color: #44a05b;
+    background-color: #2e7d32; // darker green when active
     color: white;
   }
-
   i {
     margin-right: 0.75rem;
 

@@ -20,6 +20,7 @@ import { ForgetPageComponent } from './pages/forget-page/forget-page.component';
 import { AdminViewComponent } from './admin-panel/layout/admin-view/admin-view.component';
 import { AdminDashboardComponent } from './admin-panel/pages/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './core/guard/auth.guard';
+import { BlogDetailsComponent } from './pages/blog-details/blog-details.component';
 
 export const routes: Routes = [
     {
@@ -104,6 +105,10 @@ export const routes: Routes = [
                 component: WishlistComponent
             },
             {
+                path: 'blog-details',
+                component: BlogDetailsComponent
+            },
+            {
                 path: 'cart',
                 component: CartComponent
             },
@@ -149,6 +154,10 @@ export const routes: Routes = [
              {
                 path: 'report-payments',
                 loadComponent: () => import('./admin-panel/pages/report-payments/report-payments.component').then(m => m.ReportPaymentsComponent),
+            },
+             {
+                path: 'service-category',
+                loadComponent: () => import('./admin-panel/pages/service-category/service-category.component').then(m => m.ServiceCategoryComponent),
             },
              {
                 path: 'blog',
