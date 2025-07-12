@@ -79,13 +79,13 @@ export class ProductDetailComponent implements OnInit {
     console.log('Adding to cart:', product, 'Quantity:', this.quantity);
     
     this.cartService.addToCart({
-      product_id: product._id,
+      productId: product._id,
       quantity: this.quantity
     }).subscribe((res: any) => {
       console.log('Product added to cart:', res);
       Swal.fire({
         title: 'Added to Cart',
-        text: 'Product has been added to your cart.',
+        text: res.message,
         icon: 'success',
         confirmButtonText: 'OK'
       });
@@ -94,7 +94,7 @@ export class ProductDetailComponent implements OnInit {
       console.error('Error adding product to cart:', error);
       Swal.fire({
         title: 'Error',
-        text: 'Failed to add product to cart. Please try again.',
+        text: error.error.message || 'Failed to add product to cart',
         icon: 'error',
         confirmButtonText: 'OK'
       });

@@ -17,4 +17,12 @@ export class CartService {
   cartList() {
     return this.http.get( this.$baseUrl + "/cart")
   }
+
+  removeItem(id: string) {
+    return this.http.delete(this.$baseUrl + "/cart/remove/" + id)
+  }
+
+  updateCartItemQuanity(id: string, data: any) {
+    return this.http.put(this.$baseUrl + "/cart/update/:productId" + id, data)
+  }
 }

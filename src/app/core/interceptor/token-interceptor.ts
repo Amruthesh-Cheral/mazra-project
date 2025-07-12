@@ -18,7 +18,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
   const firstPosition = segments[1];
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
-
+  
   if (token) {
     request = request.clone({
       setHeaders: {
