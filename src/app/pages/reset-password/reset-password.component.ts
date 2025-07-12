@@ -102,7 +102,7 @@ constructor(private ResetService: ResetPasswordService , private router: Router 
       (error) => {
         Swal.fire({
           title: 'Password Reset Failed',
-          text: error.error.message ,
+          text: error?.error?.message ,
           icon: 'error',
           confirmButtonText: 'OK'
         });

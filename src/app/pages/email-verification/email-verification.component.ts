@@ -96,7 +96,7 @@ constructor(private emailService: EmailService , private router: Router ) { }
     }, error => {
       Swal.fire({
         title: 'Verification Failed',
-        text: error.error.message,
+        text: error?.error?.message,
         icon: 'error',
         confirmButtonText: 'OK'
       });

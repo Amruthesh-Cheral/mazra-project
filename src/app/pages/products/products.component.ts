@@ -61,7 +61,7 @@ export class ProductsComponent implements OnInit {
         }, error => {
           Swal.fire({
             title: 'Error',
-            text: error.error.message,
+            text: error?.error?.message,
             icon: 'error',
             confirmButtonText: 'OK'
           });

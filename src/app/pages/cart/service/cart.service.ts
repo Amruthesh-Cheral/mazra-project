@@ -17,7 +17,7 @@ export class CartService {
     this.cartList().subscribe((res:any) => {
       console.log('Cart items fetched for count:', res);
 
-      const count = res.data ? res.data.items.length : 0;
+      const count = res.data ? res.data?.items?.length : 0;
       this.cartItemCount.next(count);
       console.log('Cart item count refreshed:', count);
     });

@@ -19,8 +19,6 @@ export class ProductDetailComponent implements OnInit {
   quantity: number = 1;
 
   constructor(private route: ActivatedRoute, private productDetailservice: ProductDetailsService, private router: Router, private cartService: CartService) { }
-
-
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.slug = params.get('id');
@@ -29,8 +27,6 @@ export class ProductDetailComponent implements OnInit {
 
     this.getProductDetails();
   }
-
-
   getProductDetails() {
     // This method would typically call a service to fetch product details by ID
     // For now, we are just logging the ID
@@ -46,7 +42,7 @@ export class ProductDetailComponent implements OnInit {
 
         Swal.fire({
           title: 'Error',
-          text: error.error.message || 'something went wrong',
+          text: error?.error?.message || 'something went wrong',
           icon: 'error',
           confirmButtonText: 'OK'
         });
@@ -111,7 +107,7 @@ export class ProductDetailComponent implements OnInit {
         console.error('Error adding product to cart:', error);
         Swal.fire({
           title: 'Error',
-          text: error.error.message || 'Failed to add product to cart',
+          text: error?.error?.message || 'Failed to add product to cart',
           icon: 'error',
           confirmButtonText: 'OK'
         });
@@ -120,29 +116,3 @@ export class ProductDetailComponent implements OnInit {
   }
 
 }
-
-
-
-// else if (this.itemCount === 0 && localStorage.getItem('token')) {
-//   Swal.fire({
-//     title: 'Empty Cart',
-//     text: 'Your cart is empty. Please add items to your cart.',
-//     icon: 'info',
-//     confirmButtonText: 'OK'
-//   });
-//   this.route.navigate(['/']);
-// } else {
-//   Swal.fire({
-//     title: 'Login Required',
-//     text: 'Please login to view your cart. Are you sure you want to login?',
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonText: 'Login',
-//     cancelButtonText: 'Cancel'
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       this.route.navigate(['/login']);
-//     }
-
-//   });
-// }

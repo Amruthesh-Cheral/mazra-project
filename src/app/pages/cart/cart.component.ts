@@ -36,7 +36,7 @@ export class CartComponent implements OnInit  {
     }, error => {
       Swal.fire({
         title: 'Error',
-        text: error.error.message || 'Failed to fetch cart items',
+        text: error?.error?.message || 'Failed to fetch cart items',
         icon: 'error',
         confirmButtonText: 'OK'
       });

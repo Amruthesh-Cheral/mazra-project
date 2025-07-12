@@ -62,7 +62,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
       if (firstPosition === 'login' && !token) {
         Swal.fire({
           title: 'Login Required',
-          text: error.error.message || 'Please log in to continue.',
+          text: error?.error?.message || 'Please log in to continue.',
           icon: 'warning',
           confirmButtonText: 'OK'
         });

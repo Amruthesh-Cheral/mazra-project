@@ -55,7 +55,7 @@ constructor(private fb: FormBuilder , private router: Router , private registerS
           }, error => {
             Swal.fire({
               title: 'Registration Failed',
-              text: error.error.message || 'Please try again later.',
+              text: error?.error?.message || 'Please try again later.',
               icon: 'error',
               confirmButtonText: 'OK'
             });
