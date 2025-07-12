@@ -16,7 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 export class HeaderComponent implements OnInit {
 
   itemCount: number = 0;
-   username:string = '';
+  username:string = '';
   email:string = '';
 
   constructor( private route:Router , private CartService: CartService) { }

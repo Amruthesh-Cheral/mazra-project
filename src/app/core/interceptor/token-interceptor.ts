@@ -7,7 +7,9 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import e from 'express';
 import { Observable, catchError, EMPTY } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class MyInterceptor implements HttpInterceptor {
@@ -16,6 +18,8 @@ export class MyInterceptor implements HttpInterceptor {
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   const segments = this.router.url.split('/');
   const firstPosition = segments[1];
+
+  console.log('First segment of the URL:', firstPosition);
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
   
@@ -32,7 +36,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
       if (
         error instanceof HttpErrorResponse &&
         error.status === 401 &&
-        firstPosition !== 'auth'
+        firstPosition !== 'login'
       ) {
         const authorizationReload = typeof window !== 'undefined'
           ? JSON.parse(sessionStorage.getItem('authorizationReload') || 'false')
@@ -54,8 +58,17 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
           return EMPTY;
         }
       }
+      // If the first segment is 'login' and there's no token, allow the request to proceed
+      if (firstPosition === 'login' && !token) {
+        Swal.fire({
+          title: 'Login Required',
+          text: error.error.message || 'Please log in to continue.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+      }
 
-      if (firstPosition !== 'auth' && !token) {
+      if (firstPosition !== 'login' && !token) {
         return EMPTY;
       }
 
@@ -68,7 +81,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
   logout() {
     localStorage.clear();
     sessionStorage.clear();
-    this.router.navigateByUrl('auth/login').then(() => {
+    this.router.navigateByUrl('/login').then(() => {
       window.location.reload();
     });
   }
