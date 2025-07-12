@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-policy-guidelines',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './policy-guidelines.component.html',
   styleUrl: './policy-guidelines.component.scss'
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductDetailsService } from './service/product-details.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { CartService } from '../cart/service/cart.service';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })

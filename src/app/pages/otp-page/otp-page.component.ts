@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-otp-page',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './otp-page.component.html',
   styleUrl: './otp-page.component.scss'
 })

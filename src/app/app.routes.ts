@@ -137,7 +137,24 @@ export const routes: Routes = [
             {
                 path: 'products/add-products',
                 loadComponent: () => import('./admin-panel/pages/products/add-products/add-products.component').then(m => m.AddProductsComponent)
-            }
+            },
+             {
+                path: 'order',
+                loadComponent: () => import('./admin-panel/pages/order-management/order-management.component').then(m => m.OrderManagementComponent),
+            },
+             {
+                path: 'customers',
+                loadComponent: () => import('./admin-panel/pages/customer-management/customer-management.component').then(m => m.CustomerManagementComponent),
+            },
+             {
+                path: 'report-payments',
+                loadComponent: () => import('./admin-panel/pages/report-payments/report-payments.component').then(m => m.ReportPaymentsComponent),
+            },
+             {
+                path: 'blog',
+                loadComponent: () => import('./admin-panel/pages/blog-management/blog-management.component').then(m => m.BlogManagementComponent),
+            },
+            
         ]
     }
 ];
