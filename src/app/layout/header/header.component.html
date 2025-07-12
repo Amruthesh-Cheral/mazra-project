@@ -101,9 +101,9 @@
                 </nav>
                 <!-- /.main-header__nav -->
                 <div class="main-header__right">
-                    <a routerLink="/cart" class="main-header__cart" (click)="goToCart()">
+                    <a  class="main-header__cart" (click)="goToCart()">
                             <i class="icon-shopping-cart" aria-hidden="true"></i>
-                            <span class="main-header__cart__count">02</span>
+                            <span class="main-header__cart__count">{{itemCount}}</span>
                             <span class="sr-only">Search</span>
                         </a>
                     <div class="mobile-nav__btn mobile-nav__toggler">
@@ -121,6 +121,24 @@
                     </div>
                     <!-- /. main-header__info -->
                 </div>
+
+                <!-- Profile Icon Button -->
+                <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-trigger">
+                  <mat-icon>account_circle</mat-icon>
+                </button>
+
+                <!-- Profile Dropdown Menu -->
+                <mat-menu #profileMenu="matMenu" class="profile-menu">
+                  <div style="padding: 10px 16px; max-width: 200px;">
+                    <div style="font-size: 18px; font-weight: bold;">{{ username }}</div>
+                    <div style="font-size: 13px; color: gray;">{{ email }}</div>
+                  </div>
+                  <!-- <mat-divider></mat-divider> -->
+                  <button mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    <span style="font-size: 18px;">Logout</span>
+                  </button>
+                </mat-menu>
                 <!-- /.main-header__right -->
             </div>
             <!-- /.main-header__inner -->

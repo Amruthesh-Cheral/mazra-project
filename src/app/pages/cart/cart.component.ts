@@ -49,21 +49,24 @@ export class CartComponent implements OnInit  {
 increase(id:string , index: number) {
     if (this.cartItems[index].quantity < 99) {
       this.cartItems[index].quantity++;
-      this.calculateTotal();
+      // this.calculateTotal();
+      this.updateCartItemQuantity(id, index)
     }
   }
 
   decrease(id:string , index: number) {
     if (this.cartItems[index].quantity > 1) {
       this.cartItems[index].quantity--;
-      this.calculateTotal();
+      // this.calculateTotal();
+      this.updateCartItemQuantity(id, index)
     }
   }
 
-  onInputChange(event: Event, index: number) {
+  onInputChange(event: Event, index: number , id: string) {
     const value = +(event.target as HTMLInputElement).value;
     this.cartItems[index].quantity = value >= 1 && value <= 99 ? value : 1;
-    this.calculateTotal();
+    // this.calculateTotal();
+    this.updateCartItemQuantity(id, index)
   }
 
   calculateTotal() {
@@ -74,18 +77,18 @@ increase(id:string , index: number) {
     this.alldetails.total = total;
   }
 
-  // updateCartItemQuantity(id: string, index: number) {
-  //   const data = { quantity: this.cartItems[index].quantity };
-  //   this.cartService.updateCartItemQuanity(id, data).subscribe({
-  //     next: () => {
-  //       console.log('Cart item updated successfully');
-  //       this.calculateTotal();
-  //     },
-  //     error: err => {
-  //       console.error('Update failed:', err);
-  //     }
-  //   });
-  // }
+  updateCartItemQuantity(id: string, index: number) {
+    const data = { quantity: this.cartItems[index].quantity };
+    this.cartService.updateCartItemQuanity(id, data).subscribe({
+      next: () => {
+        console.log('Cart item updated successfully');
+        this.calculateTotal();
+      },
+      error: err => {
+        console.error('Update failed:', err);
+      }
+    });
+  }
 
   removeItem(id:string , index: number) {
     Swal.fire({

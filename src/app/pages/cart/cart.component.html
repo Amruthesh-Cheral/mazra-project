@@ -36,7 +36,7 @@
                                         <div class="cart-page__table__meta-img">
                                             <img [src]="item.product.images[0].url" alt="alefox">
                                         </div>
-                                        <h3 class="cart-page__table__meta-title"><a href="product-details.html">{{item.product.name}}</a>
+                                        <h3 class="cart-page__table__meta-title"><a>{{item.product.name}}</a>
                                         </h3>
                                     </div>
                                 </td>
@@ -49,7 +49,7 @@
                                           <input
                                           type="number"
                                           [value]="item.quantity"
-                                          (input)="onInputChange($event, i)"
+                                          (input)="onInputChange($event, i , item.product._id)"
                                           class="custom-input"
                                           min="1"
                                           max="99"

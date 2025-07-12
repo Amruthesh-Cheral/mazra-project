@@ -36,8 +36,8 @@
                             <span class="product__item__flash__off">{{ product?.offer }}</span>
                         </div>
                         <div class="product__item__btn">
-                            <a href="#"><i class="icon-shopping-cart"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
+                            <a (click)="addToCart(product._id)"><i class="icon-shopping-cart"></i></a>
+                            <!-- <a href="#"><i class="far fa-heart"></i></a> -->
                             <a [routerLink]="['/product-detail', product?.slug]" >
                                 <i class="fas fa-eye"></i>
                                 </a>

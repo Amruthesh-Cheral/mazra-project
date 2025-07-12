@@ -35,3 +35,23 @@
 @import 'assets/vendors/owl-carousel/css/owl.theme.default.min.css';
 // INDEX PAGE LINKS
 @import 'sweetalert2/src/sweetalert2.scss';
+
+.mat-mdc-menu-panel {
+  background-color: #fff;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.mat-mdc-menu-item {
+  font-size: 14px !important;
+  color: #333 !important;
+  padding: 10px 16px !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: #f3f3f3 !important;
+}
+
+.mat-mdc-divider {
+  margin: 6px 0 !important;
+}
