@@ -16,7 +16,8 @@
 
 
     <!-- Cart Start -->
-        <section class="cart-page">
+
+        <section class="cart-page" *ngIf="cartItems.length >= 1">
             <div class="container">
                 <div class="table-responsive">
                     <table class="table cart-page__table">
@@ -105,4 +106,8 @@
                 </div>
             </div>
         </section>
+
+        <div class="d-flex align-items-center justify-content-center container" *ngIf="cartItems.length == 0">
+            <img src="../../../assets/images/products/no-product.png" class="img-fluid" alt="">
+        </div>
         <!-- Cart End -->
