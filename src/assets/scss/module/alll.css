@@ -7928,7 +7928,7 @@ body.megamenu-popup-active .mobile-nav__content {
 .product__item {
     position: relative;
 }
-
+ 
 .product__item__img {
     min-height: 240px;
     background-color: var(--alefox-gray2, #e1eff0);
@@ -7955,8 +7955,9 @@ body.megamenu-popup-active .mobile-nav__content {
 
 .product__item__img img {
     width: auto !important;
-    height: auto;
+    height: 200px;
     transition: all 500ms ease;
+    object-fit: contain;
     max-width: 100%;
 }
 

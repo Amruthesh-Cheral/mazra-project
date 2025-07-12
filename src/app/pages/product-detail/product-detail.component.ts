@@ -8,17 +8,17 @@ import { CartService } from '../cart/service/cart.service';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [ CommonModule ],
+  imports: [CommonModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
 
-   slug: string | null = null;
-   product: any;
-   quantity: number = 1;
+  slug: string | null = null;
+  product: any;
+  quantity: number = 1;
 
-   constructor(private route: ActivatedRoute , private productDetailservice: ProductDetailsService , private router: Router , private cartService: CartService) { }
+  constructor(private route: ActivatedRoute, private productDetailservice: ProductDetailsService, private router: Router, private cartService: CartService) { }
 
 
   ngOnInit() {
@@ -77,28 +77,72 @@ export class ProductDetailComponent implements OnInit {
 
   addTocart(product: any) {
     console.log('Adding to cart:', product, 'Quantity:', this.quantity);
-    
-    this.cartService.addToCart({
-      productId: product._id,
-      quantity: this.quantity
-    }).subscribe((res: any) => {
-      console.log('Product added to cart:', res);
+
+
+    if (!localStorage.getItem('token')) {
       Swal.fire({
-        title: 'Added to Cart',
-        text: res.message,
-        icon: 'success',
-        confirmButtonText: 'OK'
+        title: 'Login Required',
+        text: 'Please login to view your cart. Are you sure you want to login?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+
+        }
+
+      })
+    } else {
+      this.cartService.addToCart({
+        productId: product._id,
+        quantity: this.quantity
+      }).subscribe((res: any) => {
+        console.log('Product added to cart:', res);
+        Swal.fire({
+          title: 'Added to Cart',
+          text: res.message,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.router.navigate(['/cart']);
+      }, error => {
+        console.error('Error adding product to cart:', error);
+        Swal.fire({
+          title: 'Error',
+          text: error.error.message || 'Failed to add product to cart',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       });
-      this.router.navigate(['/cart']);
-    }, error => {
-      console.error('Error adding product to cart:', error);
-      Swal.fire({
-        title: 'Error',
-        text: error.error.message || 'Failed to add product to cart',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-    });
+    }
   }
 
 }
+
+
+
+// else if (this.itemCount === 0 && localStorage.getItem('token')) {
+//   Swal.fire({
+//     title: 'Empty Cart',
+//     text: 'Your cart is empty. Please add items to your cart.',
+//     icon: 'info',
+//     confirmButtonText: 'OK'
+//   });
+//   this.route.navigate(['/']);
+// } else {
+//   Swal.fire({
+//     title: 'Login Required',
+//     text: 'Please login to view your cart. Are you sure you want to login?',
+//     icon: 'warning',
+//     showCancelButton: true,
+//     confirmButtonText: 'Login',
+//     cancelButtonText: 'Cancel'
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       this.route.navigate(['/login']);
+//     }
+
+//   });
+// }
