@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
+import { FunctionService } from '../../../service/dataService/function.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,11 @@ import { Observable } from 'rxjs';
 export class ProductService {
   $baseUrl = environment.baseUrl
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _fun :FunctionService) { }
 
-    productlist() {
-      return this.http.get( this.$baseUrl + "/products")
+    productlist(params?:any) {
+      const param = this._fun.objectToQueryParams(params);
+      return this.http.get( this.$baseUrl + "/products"+(param ?? ''))
     }
 
     addProducts(data: any): Observable<any> {

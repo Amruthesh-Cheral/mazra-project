@@ -1,54 +1,9 @@
-<div class="container mt-4">
-
-  <!-- Title and Create button -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">Product List</h4>
-    <button class="btn btn-primary" (click)="createProduct()">Create</button>
-  </div>
-
-  <!-- Table -->
-  <table class="table table-bordered table-striped">
-    <thead >
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>mdo</td>
-        <td>
-          <button class="btn btn-sm btn-warning me-2">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>fat</td>
-        <td>
-          <button class="btn btn-sm btn-warning me-2">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>twitter</td>
-        <td>
-          <button class="btn btn-sm btn-warning me-2">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-</div>
+<app-data-table 
+[tableConfig]="tableConfig" 
+[tableSettings]="tableSettings" 
+[tableData]="tableData" 
+[totalCount]="totalCount"
+[isLoading]="isLoading"
+(tableEvent)="tableEvent($event)"
+>
+</app-data-table>
