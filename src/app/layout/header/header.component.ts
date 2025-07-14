@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     // Also load once on init
     this.CartService.refreshCartCount();
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage?.getItem('user') || '{}');
     this.username = user?.username;
     this.email = user?.email;
   }

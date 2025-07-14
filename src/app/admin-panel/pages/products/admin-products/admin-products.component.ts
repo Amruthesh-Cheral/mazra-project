@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../../pages/products/service/product.service';
 @Component({
@@ -9,7 +9,7 @@ import { ProductService } from '../../../../pages/products/service/product.servi
   styleUrl: './admin-products.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class AdminProductsComponent {
+export class AdminProductsComponent implements OnInit {
   constructor(
     private _router: Router,
     private _productService: ProductService,
@@ -20,6 +20,8 @@ export class AdminProductsComponent {
   }
 
   ngOnInit(): void {
+    console.log('Admin Products Component Initialized');
+    
     this.getProducts();
   }
 

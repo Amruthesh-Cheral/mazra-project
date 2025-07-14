@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { ProductService } from '../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { serviceCategoryMap } from '../../../../core/constant/categories';
 
 @Component({
   selector: 'app-add-products',
@@ -17,7 +18,8 @@ productForm: FormGroup;
   images: File[] = [];
   previewImages: string[] = [];
   imageLimitExceeded = false;
-
+  servicesSet: any = serviceCategoryMap
+  categoryKeys = Object.keys(this.servicesSet);
   constructor(private fb: FormBuilder,
     private _productService: ProductService,
     private _router: Router
@@ -29,6 +31,7 @@ productForm: FormGroup;
       stock: [null, [Validators.required, Validators.min(0)]],
       discountPercent: [null],
       category: ['', Validators.required],
+      service: ['', Validators.required],
     });
   }
 
@@ -70,6 +73,7 @@ productForm: FormGroup;
     formData.append('discountPercent', this.productForm.value.discountPercent || '');
     formData.append('category', this.productForm.value.category);
     formData.append('stock', this.productForm.value.stock);
+    formData.append('service', this.productForm.value.service);
 
     this.images.forEach((file, index) => {
       formData.append(`images`, file);
