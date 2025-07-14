@@ -12,9 +12,9 @@
         <br>
 
     </div><!-- /.container -->
-</section><!-- /.page-header -->  
+</section><!-- /.page-header -->
   <!-- Cart Start -->
-        <section class="wishlist-page">
+        <section class="wishlist-page" *ngIf="wishlistItems.length >= 1">
             <div class="container">
                 <div class="table-responsive">
                     <table class="table wishlist-page__table">
@@ -28,20 +28,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let item of wishlistItems; let i = index">
                                 <td>
                                     <div class="wishlist-page__table__meta">
                                         <div class="wishlist-page__table__meta-img">
-                                            <img src="assets/images/products/cart-1-1.png" alt="alefox">
+                                            <img [src]="item.product.images[0].url" alt="alefox">
                                         </div>
-                                        <h3 class="wishlist-page__table__meta-title"><a href="product-details.html">Fresh Orange</a>
+                                        <h3 class="wishlist-page__table__meta-title"><a href="product-details.html">{{item.product.name}}</a>
                                         </h3>
                                     </div>
                                 </td>
-                                <td>$10.99</td>
+                                <td class="wishlist-page__table__price ">
+                                  <span class="product-details__price__regular d-flex align-items-center">${{item.product.discountedPrice}}/
+                                    <span class="product-details__price__offer m-0">${{item.product.price}}
+                                    </span>
+                                  </span>
+                                </td>
                                 <td>23 Oct 2023</td>
-                                <td class="wishlist-page__table__cart">
-                                    <a href="cart.html" class="alefox-btn">
+                                <td class="wishlist-page__table__cart cursor-pointer">
+                                    <a (click)="addToCart(item.product._id)" class="alefox-btn">
                                         <span class="alefox-btn__item"></span>
                                         <span class="alefox-btn__item"></span>
                                         <span class="alefox-btn__item"></span>
@@ -50,10 +55,10 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="cart.html" class="table wishlist-page__table__remove"><span class="icofont-close-line"></span></a>
+                                    <a (click)="removeItem(item.product._id)" class="table wishlist-page__table__remove cursor-pointer"><span class="icofont-close-line"></span></a>
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>
                                     <div class="wishlist-page__table__meta">
                                         <div class="wishlist-page__table__meta-img">
@@ -75,10 +80,25 @@
                                     </a>
                                 </td>
                                 <td><a href="cart.html" class="table wishlist-page__table__remove"><span class="icofont-close-line"></span></a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
+                <div class="col-xl-4 col-lg-5">
+                  <div class="cart-page__buttons">
+                    <a (click)="clearWishlist()" class="alefox-btn cursor-pointer">
+                      <span class="alefox-btn__item"></span>
+                      <span class="alefox-btn__item"></span>
+                      <span class="alefox-btn__item"></span>
+                      <span class="alefox-btn__item"></span>
+                      Clear Wishlist
+                    </a>
+                  </div>
+                </div>
             </div>
         </section>
+
+        <div class="d-flex align-items-center justify-content-center container" *ngIf="wishlistItems.length == 0">
+            <img src="../../../assets/images/products/no-product.png" class="img-fluid" alt="">
+        </div>
         <!-- Cart End -->

@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("token", data.token)
     this.loggedUser = data?.data?.role;
     localStorage.setItem("role", this.loggedUser)
+    this.LoginService.islogin.next(true);
   }
 
     // Swal.fire("SweetAlert2 is working!");

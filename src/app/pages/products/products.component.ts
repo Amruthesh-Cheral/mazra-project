@@ -1,3 +1,4 @@
+import { WishlistService } from './../wishlist/service/wishlist.service';
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe, NgIf, NgFor } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -16,7 +17,7 @@ export class ProductsComponent implements OnInit {
 
   products:any[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService , private route: Router ) { }
+  constructor(private productService: ProductService, private cartService: CartService , private route: Router , private wishlistService: WishlistService ) { }
 
   ngOnInit(): void {
     this.getProductlist();
@@ -70,5 +71,37 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+
+addToWishlist(id: string) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You want to add this product to the wishlist?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, add it!',
+    cancelButtonText: 'No, cancel!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.wishlistService.addToWishlist({
+        productId: id
+      }).subscribe((res: any) => {
+        console.log('Product added to wishlist:', res);
+        Swal.fire({
+          title: 'Added!',
+          text: res.message,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      }, error => {
+        Swal.fire({
+          title: 'Error',
+          text: error?.error?.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      });
+    }
+  });
+}
 
 }
