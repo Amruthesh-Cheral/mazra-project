@@ -90,7 +90,7 @@
                                 <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
                                 <li><a routerLink="/register" routerLinkActive="active">Register</a></li>
                                 <li><a routerLink="/checkout" routerLinkActive="active">Checkout</a></li>
-                                <li><a routerLink="/Wishlist" routerLinkActive="active">Wishlist</a></li>
+                                <li><a routerLink="/wishlist" routerLinkActive="active">Wishlist</a></li>
                                 <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li>
                             </ul>
                         </li>
@@ -123,9 +123,11 @@
                 </div>
 
                 <!-- Profile Icon Button -->
-                <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-trigger">
-                  <mat-icon>account_circle</mat-icon>
-                </button>
+                <div *ngIf="isLoggedIn">
+                   <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-trigger">
+                     <mat-icon>account_circle</mat-icon>
+                    </button>
+                </div>
 
                 <!-- Profile Dropdown Menu -->
                 <mat-menu #profileMenu="matMenu" class="profile-menu">
@@ -139,6 +141,14 @@
                     <span style="font-size: 18px;">Logout</span>
                   </button>
                 </mat-menu>
+
+                <div *ngIf="!isLoggedIn">
+                  <button mat-icon-button  class="profile-trigger d-flex" routerLink="/login">
+                     <mat-icon>account_circle</mat-icon>
+                     Login
+                  </button>
+                </div>
+
                 <!-- /.main-header__right -->
             </div>
             <!-- /.main-header__inner -->

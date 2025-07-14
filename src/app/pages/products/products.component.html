@@ -37,7 +37,7 @@
                         </div>
                         <div class="product__item__btn">
                             <a (click)="addToCart(product._id)"><i class="icon-shopping-cart"></i></a>
-                            <!-- <a href="#"><i class="far fa-heart"></i></a> -->
+                            <a (click)="addToWishlist(product._id)"><i class="far fa-heart"></i></a>
                             <a [routerLink]="['/product-detail', product?.slug]" >
                                 <i class="fas fa-eye"></i>
                                 </a>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="product__item__content">
                         <h4 class="product__item__title">
-                            <a href="#">{{ product?.name }}</a>
+                            <a>{{ product?.name }}</a>
                         </h4>
                         <div class="product__item__price">₹ {{ product?.price | number:'1.2-2' }}</div>
                         <div class="product__item__ratings">

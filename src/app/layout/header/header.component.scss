@@ -44,3 +44,14 @@
   border-top-color: #44a05b !important;
   color: #44a05b !important;
 }
+
+.profile-trigger{
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: large;
+  font-weight: 700;
+  cursor:pointer;
+}
