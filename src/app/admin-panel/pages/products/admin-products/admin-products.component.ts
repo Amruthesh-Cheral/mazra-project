@@ -78,7 +78,7 @@ export class AdminProductsComponent implements OnInit {
     const defparams = {
         page : 1,
         limit : 10,
-        keyword : ''
+        search : ''
     }
     this._productService.productlist(params ?? defparams).subscribe(
       (response:any) => {

@@ -75,7 +75,7 @@ export class DataTableComponent {
       {
         page : this.currentPage,
         limit : this.pageLimit,
-        keyword : this.searchTerm
+        search : this.searchTerm
       }
     })
   }
