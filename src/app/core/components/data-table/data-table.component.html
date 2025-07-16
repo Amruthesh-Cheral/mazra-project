@@ -7,7 +7,9 @@
       <input class="form-control me-2" [(ngModel)]="searchTerm" (input)="searchItem()" type="search" placeholder="Search" aria-label="Search">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchItem()"  type="submit">Search</button> -->
     </div>
-    <button class="btn btn-primary ms-2" (click)="createClick()">{{tableConfig?.createButtonText}}</button>
+    @if(tableConfig?.createButtonText){
+      <button class="btn btn-primary ms-2" (click)="createClick()">{{tableConfig?.createButtonText}}</button>
+    }
   </div>
 
   <!-- Table -->

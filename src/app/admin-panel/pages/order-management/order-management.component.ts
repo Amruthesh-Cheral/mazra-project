@@ -1,34 +1,78 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { OrderService } from './service/order.service';
+import { DataTableComponent } from '../../../core/components/data-table/data-table.component';
 
 @Component({
   selector: 'app-order-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DataTableComponent],
   templateUrl: './order-management.component.html',
   styleUrl: './order-management.component.scss'
 })
 export class OrderManagementComponent {
- orders = [
-    { orderId: 'ORD001', customer: 'Alice', total: 120.50, date: '2025-07-12' },
-    { orderId: 'ORD002', customer: 'Bob', total: 230.00, date: '2025-07-11' },
-    { orderId: 'ORD003', customer: 'Charlie', total: 90.99, date: '2025-07-10' },
-  ];
-
-  editOrder(order: any) {
-    console.log('Edit order', order);
-    // here you can populate form data
-  }
-
-  deleteOrder(orderId: string) {
-    if(confirm(`Are you sure to delete order ${orderId}?`)) {
-      this.orders = this.orders.filter(o => o.orderId !== orderId);
-    }
-  }
-
-  saveOrder() {
-    console.log('Save new order');
-    // you can get values from form controls by template reference or reactive forms
-    alert('Order saved (dummy)');
-  }
+ tableConfig = {
+     title: 'Customer List',
+   }
+   totalCount!:number;
+   tableData:any[]=[];
+   isLoading:boolean=false;
+   
+   tableSettings = {
+   columns: {
+     id: {
+       title: '#',
+       type: 'id',
+     },
+     username: {
+       title: 'Name',
+       type: 'string',
+     },
+     email: {
+       title: 'Email',
+       type: 'string',
+     },
+     role: {
+       title: 'Role',
+       type: 'string',
+     },
+     createdAt: {
+       title: 'Created At',
+       type: 'string',
+     },
+   }
+ }
+  
+  constructor(
+   private _order : OrderService
+  ){}
+ 
+   ngOnInit(): void {
+     console.log('Admin Products Component Initialized');
+     
+     this.getProducts();
+   }
+ 
+   getProducts(params?:any) {
+     this.isLoading = true;
+     const defparams = {
+         page : 1,
+         limit : 10,
+         search : ''
+     }
+     this._order.orderlist(params ?? defparams).subscribe(
+       (response:any) => {
+         this.tableData = response?.data;
+         this.totalCount = response?.total;
+         this.isLoading = false;
+       }
+     );
+   }
+ 
+ 
+   tableEvent(env:any){
+     if(env?.type === 'apievent'){
+       this.getProducts(env?.event)
+     }
+   }
 }
