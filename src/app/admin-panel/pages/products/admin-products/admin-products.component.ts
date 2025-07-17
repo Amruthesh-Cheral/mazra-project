@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../../pages/products/service/product.service';
 import { DataTableComponent } from '../../../../core/components/data-table/data-table.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-products',
   standalone: true,
@@ -82,6 +83,7 @@ export class AdminProductsComponent implements OnInit {
     }
     this._productService.productlist(params ?? defparams).subscribe(
       (response:any) => {
+        console.log(response);
         this.tableData = response?.data;
         this.totalCount = response?.total;
         this.isLoading = false;
@@ -95,11 +97,40 @@ export class AdminProductsComponent implements OnInit {
 
 
   tableEvent(env:any){
-    if(env?.type === 'apievent'){
-      this.getProducts(env?.event)
-    } else {
-      this.createProduct();
+    switch (env?.type) {
+      case 'apievent':
+        this.getProducts(env?.event);
+        break;
+
+      case 'add':
+        this.createProduct();
+        break;
+
+      case 'delete':
+        this.deleteProduct(env?.event?._id);
+        break;
+    
+      default:
+        break;
     }
   }
 
+  deleteProduct(id:string){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won’t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          this._productService.deleteProducts(id)
+          .subscribe((res:any)=>{
+            this.getProducts();
+            Swal.fire('Deleted!', res?.message, 'success');
+          })
+        }
+      });
+  }
+  
 }

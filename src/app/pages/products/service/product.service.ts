@@ -20,4 +20,8 @@ export class ProductService {
     addProducts(data: any): Observable<any> {
       return this.http.post( this.$baseUrl + "/products", data)
     }
+
+    deleteProducts(id:string): Observable<any> {
+      return this.http.delete( this.$baseUrl + "/products/"+id)
+    }
 }
