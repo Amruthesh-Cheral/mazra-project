@@ -64,6 +64,20 @@ export class DataTableComponent {
     })  
   }
 
+  editItem(){
+    this.tableEvent?.emit({
+      type: 'edit',
+      event: {}
+    })  
+  }
+  
+  deleteItem(data:any){
+    this.tableEvent?.emit({
+      type: 'delete',
+      event: data
+    })  
+  }
+
   searchItem(){
     this.emitOut();
   }

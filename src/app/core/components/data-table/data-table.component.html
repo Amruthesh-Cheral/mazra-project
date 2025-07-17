@@ -55,10 +55,10 @@
                  @if(tableSettings?.actions) {
                      <td>
                        @if(tableSettings?.actions?.edit) {
-                        <button class="btn btn-sm btn-warning me-2">Edit</button>
+                        <button (click)="editItem()" class="btn btn-sm btn-warning me-2">Edit</button>
                        }
                        @if(tableSettings?.actions?.delete) {
-                           <button class="btn btn-sm btn-danger">Delete</button>
+                        <button (click)="deleteItem(data)" class="btn btn-sm btn-danger">Delete</button>
                        }
                      </td>
                  }
