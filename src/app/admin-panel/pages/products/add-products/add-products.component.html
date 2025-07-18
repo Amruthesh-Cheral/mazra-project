@@ -24,9 +24,9 @@
     <div class="mb-4 row">
       <label for="service" class="col-sm-2 col-form-label">Service *</label>
       <div class="col-sm-4">
-        <select class="form-control" formControlName="service" id="service">
-            @for (item of categoryKeys; track $index) {
-                <option [value]="item">{{item}}</option>
+        <select class="form-control" formControlName="service" id="service" (change)="onServiceChange($event)" >
+            @for (item of services; track $index) {
+                <option [value]="item._id">{{item.name}}</option>
             }
         </select>
         <!-- <input type="number" id="price" class="form-control" formControlName="price" /> -->
@@ -36,8 +36,8 @@
     <label for="category" class="col-sm-2 col-form-label">Category</label>
     <div class="col-sm-4">
         <select [disabled]="f['service'].valid" class="form-control" formControlName="category" id="category">
-           @for (item of servicesSet?.[f['service']?.value]; track $index) {
-            <option [value]="item">{{item}}</option>
+           @for (item of categorys; track $index) {
+            <option [value]="item._id">{{item.name}}</option>
            }
         </select>
         <div class="text-danger" *ngIf="f['category'].touched && f['category'].invalid">Category is required</div>

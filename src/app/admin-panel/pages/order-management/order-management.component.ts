@@ -12,7 +12,7 @@ import { DataTableComponent } from '../../../core/components/data-table/data-tab
 })
 export class OrderManagementComponent {
  tableConfig = {
-     title: 'Customer List',
+     title: 'Order List',
    }
    totalCount!:number;
    tableData:any[]=[];

@@ -1,10 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from '../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { serviceCategoryMap } from '../../../../core/constant/categories';
+import { ProductCategoryService } from '../../service-category/product-category/service/product-category.service';
+import { ProductServicesService } from '../../service-category/product-services/service/product-services.service';
 
 @Component({
   selector: 'app-add-products',
@@ -13,16 +15,18 @@ import { serviceCategoryMap } from '../../../../core/constant/categories';
   templateUrl: './add-products.component.html',
   styleUrl: './add-products.component.scss'
 })
-export class AddProductsComponent {
+export class AddProductsComponent implements OnInit {
 productForm: FormGroup;
   images: File[] = [];
   previewImages: string[] = [];
   imageLimitExceeded = false;
-  servicesSet: any = serviceCategoryMap
-  categoryKeys = Object.keys(this.servicesSet);
+  services: any [] = [];
+  categorys:any [] = []; 
   constructor(private fb: FormBuilder,
     private _productService: ProductService,
-    private _router: Router
+    private _router: Router,
+    private categoryService: ProductCategoryService , 
+    private productService: ProductServicesService
   ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -34,6 +38,55 @@ productForm: FormGroup;
       service: ['', Validators.required],
     });
   }
+
+  ngOnInit(): void {
+    this.getserviceList();
+  }
+
+
+  getserviceList() {
+    this.productService.getServiceList().subscribe({
+      next: (response:any) => {
+        console.log('Service list fetched successfully', response);
+        this.services = response?.data;
+        // Handle the response as needed
+      },
+      error: (error) => {
+        console.error('Error fetching service list', error);
+        Swal.fire({
+          title: 'Error',
+          text: error?.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
+  }
+
+  onServiceChange(event: Event) {
+  const selectedServiceId = (event.target as HTMLSelectElement).value;
+
+  console.log('Selected Service ID:', event);
+
+  if (selectedServiceId) {
+    this.categoryService.getCategoryById(selectedServiceId).subscribe({
+      next: (res: any) => {
+        this.categorys = res?.data || [];
+        this.productForm.get('category')?.enable();
+      },
+      error:( err:any)=> {
+        console.error('Category fetch error', err);
+        this.categorys = [];
+        this.productForm.get('category')?.disable();
+      }
+    });
+  } else {
+    this.categorys = [];
+    this.productForm.get('category')?.setValue('');
+    this.productForm.get('category')?.disable();
+  }
+}
+
 
   get f() {
     return this.productForm.controls;
@@ -65,6 +118,9 @@ productForm: FormGroup;
 
   onSubmit() {
     if (this.productForm.invalid || this.imageLimitExceeded) return;
+
+    console.log('Form Data:', this.productForm.value);
+    
 
     const formData = new FormData();
     formData.append('name', this.productForm.value.name);

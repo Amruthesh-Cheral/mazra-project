@@ -34,7 +34,7 @@
                 </div>
             </tr>
             } @else {
-            @for (data of tableData;let i=$index; track data) {
+            @for (data of tableData;let i=$index; track data ) {
                <tr>
                  @for (item of tableKeys; track $index) {
                      <td scope="col">
@@ -49,7 +49,7 @@
                              <span> {{i+1}} </span>
                             }
                          }
-                         
+
                      </td>
                  }
                  @if(tableSettings?.actions) {

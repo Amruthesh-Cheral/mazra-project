@@ -1,3 +1,4 @@
+import { AddServiceComponent } from './admin-panel/pages/service-category/product-services/add-service/add-service.component';
 import { Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -159,11 +160,19 @@ export const routes: Routes = [
                 path: 'service-category',
                 loadComponent: () => import('./admin-panel/pages/service-category/service-category.component').then(m => m.ServiceCategoryComponent),
             },
+           {
+                path: 'service-category/add-service',
+                loadComponent: () => import('./admin-panel/pages/service-category/product-services/add-service/add-service.component').then(m => m.AddServiceComponent)
+            },
+           {
+                path: 'service-category/add-category',
+                loadComponent: () => import('./admin-panel/pages/service-category/product-category/add-category/add-category.component').then(m => m.AddCategoryComponent)
+            },
              {
                 path: 'blog',
                 loadComponent: () => import('./admin-panel/pages/blog-management/blog-management.component').then(m => m.BlogManagementComponent),
             },
-            
+
         ]
     }
 ];

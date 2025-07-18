@@ -159,24 +159,6 @@
                                 <button type="button" class="add" (click)="increase()"><i class="icofont-thin-up"></i></button>
                             </div>
                         </div>
-                        <!-- <div class="quantity-box">
-                          <button type="button" class="sub" (click)="decrease()">
-                            <i class="icofont-thin-down"></i>
-                          </button>
-
-                          <input
-                            type="number"
-                            [value]="quantity"
-                            (input)="onInputChange($event)"
-                            class="custom-input"
-                            min="1"
-                            max="99"
-                          />
-
-                          <button type="button" class="add" (click)="increase()">
-                            <i class="icofont-thin-up"></i>
-                          </button>
-                        </div> -->
                         <div class="product-details__buttons">
                             <a (click)="addTocart(product)" class="alefox-btn">
                                 <span class="alefox-btn__item"></span>
@@ -184,6 +166,13 @@
                                 <span class="alefox-btn__item"></span>
                                 <span class="alefox-btn__item"></span>
                                 Add to Cart
+                            </a>
+                            <a (click)="buyNow(product)" class="alefox-btn">
+                                <span class="alefox-btn__item"></span>
+                                <span class="alefox-btn__item"></span>
+                                <span class="alefox-btn__item"></span>
+                                <span class="alefox-btn__item"></span>
+                                Buy Now
                             </a>
                             <!-- <a href="wishlist.html" class="product-details__buttons__wishlist"><i
                                     class="far fa-heart"></i></a> -->

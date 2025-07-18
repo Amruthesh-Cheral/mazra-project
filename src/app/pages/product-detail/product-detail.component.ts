@@ -115,4 +115,30 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  buyNow(product: any) {
+    console.log('Buying now:', product, 'Quantity:', this.quantity);
+    if (!localStorage.getItem('token')) {
+      Swal.fire({
+        title: 'Login Required',
+        text: 'Please login to proceed with the purchase.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        }
+      });
+    } else {
+      // Navigate to the checkout page with the product details with quantity
+      this.router.navigate(['/checkout'], {
+        queryParams: {
+          productId: product._id,
+          quantity: this.quantity
+        }
+      });
+    }
+  }
+
 }

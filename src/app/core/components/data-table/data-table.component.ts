@@ -1,10 +1,11 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule , NgIf],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss'
 })
@@ -61,21 +62,21 @@ export class DataTableComponent {
     this.tableEvent?.emit({
       type: 'add',
       event: {}
-    })  
+    })
   }
 
   editItem(){
     this.tableEvent?.emit({
       type: 'edit',
       event: {}
-    })  
+    })
   }
-  
+
   deleteItem(data:any){
     this.tableEvent?.emit({
       type: 'delete',
       event: data
-    })  
+    })
   }
 
   searchItem(){
