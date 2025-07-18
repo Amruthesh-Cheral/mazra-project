@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   username:string = '';
   email:string = '';
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
 
   constructor( private route:Router , private CartService: CartService , private authService: LoginService) { }
 
@@ -41,6 +42,8 @@ export class HeaderComponent implements OnInit {
         this.username = '';
         this.email = '';
       }
+      this.isAdmin = JSON.parse(localStorage.getItem('user') || '{}').role === 'Admin';
+      console.log('User role:', this.isAdmin);
     });
 
     // Also load once on init
