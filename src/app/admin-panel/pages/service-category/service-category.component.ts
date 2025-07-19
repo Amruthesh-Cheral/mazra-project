@@ -1,4 +1,4 @@
-import { Component , ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CategoryListComponent } from "./product-category/category-list/category-list.component";
 import { ServiceListComponent } from './product-services/service-list/service-list.component';
@@ -12,5 +12,12 @@ import { ServiceListComponent } from './product-services/service-list/service-li
   encapsulation: ViewEncapsulation.None
 })
 export class ServiceCategoryComponent {
+
+
+  selectedIndex = 0;
+
+  selectTab(index: number) {
+    this.selectedIndex = index;
+  }
 
 }

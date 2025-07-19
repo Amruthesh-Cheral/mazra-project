@@ -170,7 +170,11 @@ export const routes: Routes = [
             },
              {
                 path: 'blog',
-                loadComponent: () => import('./admin-panel/pages/blog-management/blog-management.component').then(m => m.BlogManagementComponent),
+                loadComponent: () => import('./admin-panel/pages/blogs/blog-management/blog-management.component').then(m => m.BlogManagementComponent),
+            },
+             {
+                path: 'blogs/blogs-create',
+                loadComponent: () => import('./admin-panel/pages/blogs/blog-create/blog-create.component').then(m => m.BlogCreateComponent),
             },
 
         ]

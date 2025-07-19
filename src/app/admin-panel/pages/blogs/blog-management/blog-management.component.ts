@@ -1,15 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-blog-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule ,FormsModule],
   templateUrl: './blog-management.component.html',
   styleUrl: './blog-management.component.scss'
 })
 export class BlogManagementComponent {
- blogs: BlogPost[] = [
+  constructor(private router: Router) { }
+
+
+  blogs: BlogPost[] = [
     {
       id: 1,
       image: 'assets/images/blog/blog-details-1-1.jpg',
@@ -52,7 +57,9 @@ export class BlogManagementComponent {
   ];
 
   createBlog() {
-    Swal.fire('Create Blog', 'This would open a create blog modal (dummy).', 'info');
+    // Swal.fire('Create Blog', 'This would open a create blog modal (dummy).', 'info');
+    this.router.navigate(['/admin-panel/blogs/blogs-create']);
+
   }
 
   editBlog(blog: BlogPost) {
