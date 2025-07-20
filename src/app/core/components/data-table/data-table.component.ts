@@ -65,10 +65,10 @@ export class DataTableComponent {
     })
   }
 
-  editItem(){
+  editItem(data:any){
     this.tableEvent?.emit({
       type: 'edit',
-      event: {}
+      event: data
     })
   }
 

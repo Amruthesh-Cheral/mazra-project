@@ -4,6 +4,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ProductServicesService } from '../../product-services/service/product-services.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category',
@@ -23,7 +24,9 @@ categoryForm!: FormGroup;
   @ViewChild('imageInput') imageInputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('videoInput') videoInputRef!: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder , private categoryService: ProductCategoryService , private productService: ProductServicesService) {}
+  constructor(private fb: FormBuilder , private categoryService: ProductCategoryService , private productService: ProductServicesService, private _router:Router
+    , private _activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.categoryForm = this.fb.group({
@@ -33,6 +36,9 @@ categoryForm!: FormGroup;
       image: [null],
       video: [null]
     });
+    this._activatedRoute.params.subscribe((data:any)=>{
+      console.log(data?.id);
+    })
     this.getserviceList();
   }
 
@@ -42,7 +48,6 @@ categoryForm!: FormGroup;
         console.log('Service list fetched successfully', response);
         this.categoryOptions = response?.data;
         console.log(this.categoryOptions);
-
         // Handle the response as needed
       },
       error: (error) => {
@@ -115,7 +120,7 @@ categoryForm!: FormGroup;
           icon: 'success',
           confirmButtonText: 'OK'
         });
-
+        this._router.navigateByUrl('admin-panel/service-category')
       },
       error: (error) => {
         console.error('Error adding service', error);
