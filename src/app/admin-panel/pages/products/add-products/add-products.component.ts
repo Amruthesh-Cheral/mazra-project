@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductService } from '../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { ProductServicesService } from '../../service-category/product-services/
 @Component({
   selector: 'app-add-products',
   standalone: true,
-  imports: [NgIf,NgFor, ReactiveFormsModule],
+  imports: [NgIf,NgFor, ReactiveFormsModule , FormsModule],
   templateUrl: './add-products.component.html',
   styleUrl: './add-products.component.scss'
 })
@@ -87,6 +87,17 @@ productForm: FormGroup;
   }
 }
 
+
+
+ items = [{ name: '' }];
+
+  addItem() {
+    this.items.push({ name: '' });
+  }
+
+  deleteItem(index: number) {
+    this.items.splice(index, 1);
+  }
 
   get f() {
     return this.productForm.controls;
