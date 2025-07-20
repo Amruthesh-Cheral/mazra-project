@@ -26,7 +26,7 @@ export class ProductServicesService {
   }
 
   getService(id: any): Observable<any> {
-    return this.http.get(this.$baseUrl + "/service/"+ id);
+    return this.http.get(this.$baseUrl + "/service/service/"+ id);
   }
 
 }

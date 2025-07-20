@@ -9,13 +9,18 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-service',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule , NgFor],
   templateUrl: './add-service.component.html',
   styleUrl: './add-service.component.scss'
 })
 export class AddServiceComponent {
 serviceForm!: FormGroup;
-  previewImage: string | null = null;
+  images: File[] = [];
+  previewImages: string[] = [];
+  imageLimitExceeded = false;
+  videos: File[] = [];
+  previewVideos: string[] = [];
+  videoLimitExceeded = false;
   previewVideo: string | null = null;
   selectedImageFile?: File;
   selectedVideoFile?: File;
@@ -31,7 +36,8 @@ serviceForm!: FormGroup;
     this.serviceForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      // category: ['', Validators.required],
+      subdescription: ['', Validators.required],
+      subhead: ['', Validators.required],
       image: [null],
       video: [null]
     });
@@ -41,24 +47,60 @@ serviceForm!: FormGroup;
     return this.serviceForm.controls;
   }
 
-  onImageChange(event: Event) {
-    const file = (event.target as HTMLInputElement)?.files?.[0];
-    if (file) {
-      this.selectedImageFile = file;
-      const reader = new FileReader();
-      reader.onload = () => (this.previewImage = reader.result as string);
-      reader.readAsDataURL(file);
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const files = input.files ? Array.from(input.files) : [];
+
+    if (files.length > 5) {
+      this.imageLimitExceeded = true;
+      return;
     }
+
+    this.imageLimitExceeded = false;
+    this.images = files;
+    this.previewImages = [];
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          this.previewImages.push(reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
   onVideoChange(event: Event) {
-    const file = (event.target as HTMLInputElement)?.files?.[0];
-    if (file) {
-      this.selectedVideoFile = file;
-      const reader = new FileReader();
-      reader.onload = () => (this.previewVideo = reader.result as string);
-      reader.readAsDataURL(file);
+    const input = event.target as HTMLInputElement;
+    const file = input.files ? Array.from(input.files) : [];
+
+    if (file.length > 5) {
+      this.videoLimitExceeded = true;
+      return;
     }
+
+    this.videoLimitExceeded = false;
+    this.videos = file;
+    this.previewVideos = [];
+
+    file.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          this.previewVideos.push(reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // const file = (event.target as HTMLInputElement)?.files?.[0];
+    // if (file) {
+    //   this.selectedVideoFile = file;
+    //   const reader = new FileReader();
+    //   reader.onload = () => (this.previewVideo = reader.result as string);
+    //   reader.readAsDataURL(file);
+    // }
   }
 
   onSubmit() {
@@ -67,15 +109,21 @@ serviceForm!: FormGroup;
     const formData = new FormData();
     formData.append('name', this.serviceForm.value.name);
     formData.append('description', this.serviceForm.value.description);
+    formData.append('subdescription', this.serviceForm.value.subdescription);
+    formData.append('subhead', this.serviceForm.value.subhead);
     // formData.append('category', this.serviceForm.value.category);
 
-    if (this.selectedImageFile) {
-      formData.append('image', this.selectedImageFile);
-    }
+    this.images.forEach((file, index) => {
+      formData.append(`image`, file);
+    });
 
-    if (this.selectedVideoFile) {
-      formData.append('video', this.selectedVideoFile);
-    }
+    this.videos.forEach((file, index) => {
+      formData.append(`video`, file);
+    });
+
+    // if (this.selectedVideoFile) {
+    //   formData.append('video', this.selectedVideoFile);
+    // }
 
     // Call the service to add the service
     this.productService.addService(formData).subscribe({
@@ -83,7 +131,7 @@ serviceForm!: FormGroup;
         console.log('Service added successfully', response);
         // Optionally, reset the form or navigate to another page
         this.serviceForm.reset();
-        this.previewImage = null;
+        this.previewImages = [];
         this.previewVideo = null;
 
         this.imageInputRef.nativeElement.value = '';
