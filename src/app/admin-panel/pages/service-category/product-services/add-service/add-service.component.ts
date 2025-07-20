@@ -3,8 +3,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
-import e from 'express';
 import { ProductServicesService } from '../service/product-services.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-service',
@@ -25,7 +25,7 @@ serviceForm!: FormGroup;
 
   // categoryOptions: string[] = ['Residential', 'Commercial', 'Agricultural'];
 
-  constructor(private fb: FormBuilder , private productService: ProductServicesService) {}
+  constructor(private fb: FormBuilder , private productService: ProductServicesService, private _router:Router) {}
 
   ngOnInit(): void {
     this.serviceForm = this.fb.group({
@@ -95,7 +95,7 @@ serviceForm!: FormGroup;
           icon: 'success',
           confirmButtonText: 'OK'
         });
-
+        this._router.navigateByUrl('admin-panel/service-category')
       },
       error: (error) => {
         console.error('Error adding service', error);

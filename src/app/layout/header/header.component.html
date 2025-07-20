@@ -70,10 +70,9 @@
                         <li class="dropdown">
                             <a>Services</a>
                             <ul>
-                                <li><a routerLink="/institutional">institutional</a></li>
-                                <li><a routerLink="/residential">Residential</a></li>
-                                <li><a routerLink="/commercial">Commercial</a></li>
-                                <li><a routerLink="/industrial">Industrial</a></li>
+                                @for (item of service; track $index) {
+                                    <li><a (click)="gotoService(item?._id)">{{item?.name}}</a></li>
+                                }
                             </ul>
                         </li>
                         <li>

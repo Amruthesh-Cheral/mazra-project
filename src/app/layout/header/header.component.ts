@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../pages/login/service/login.service';
+import { ProductServicesService } from '../../admin-panel/pages/service-category/product-services/service/product-services.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -22,8 +23,8 @@ export class HeaderComponent implements OnInit {
   email:string = '';
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
-
-  constructor( private route:Router , private CartService: CartService , private authService: LoginService) { }
+  service:any;
+  constructor( private route:Router , private CartService: CartService , private authService: LoginService, private productService:ProductServicesService) { }
 
   ngOnInit() {
     this.CartService.cartItemCount$.subscribe(count => {
@@ -46,8 +47,8 @@ export class HeaderComponent implements OnInit {
       console.log('User role:', this.isAdmin);
     });
 
-    // Also load once on init
     this.CartService.refreshCartCount();
+    this.getServices();
   }
 
   goToCart(){
@@ -90,4 +91,16 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = false;
   }
 
+  getServices() {
+    this.productService.getServiceList().subscribe(
+      (response:any) => {
+        console.log(response);
+        this.service = response?.data;
+      }
+    );
+  }
+
+  gotoService(id:string){
+    this.route.navigateByUrl('service/'+id)
+  }
 }

@@ -22,6 +22,7 @@ import { AdminViewComponent } from './admin-panel/layout/admin-view/admin-view.c
 import { AdminDashboardComponent } from './admin-panel/pages/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { BlogDetailsComponent } from './pages/blog-details/blog-details.component';
+import { ServicePageComponent } from './pages/service-page/service-page.component';
 
 export const routes: Routes = [
     {
@@ -61,6 +62,10 @@ export const routes: Routes = [
             {
                 path: 'product-detail/:id',
                 component: ProductDetailComponent
+            },
+            {
+                path: 'service/:id',
+                component: ServicePageComponent
             },
             {
                 path: 'commercial',
@@ -166,6 +171,10 @@ export const routes: Routes = [
             },
            {
                 path: 'service-category/add-category',
+                loadComponent: () => import('./admin-panel/pages/service-category/product-category/add-category/add-category.component').then(m => m.AddCategoryComponent)
+            },
+            {
+                path: 'service-category/edit-category/:id',
                 loadComponent: () => import('./admin-panel/pages/service-category/product-category/add-category/add-category.component').then(m => m.AddCategoryComponent)
             },
              {

@@ -68,9 +68,11 @@ tableConfig = {
     this._router.navigateByUrl('/admin-panel/service-category/add-category');
   }
 
-  ngOnInit(): void {
-    console.log('Admin Products Component Initialized');
+  editProduct(id:string) {
+    this._router.navigateByUrl('/admin-panel/service-category/edit-category/'+id);
+  }
 
+  ngOnInit(): void {
     this.getCategory();
   }
 
@@ -108,6 +110,10 @@ tableConfig = {
 
       case 'delete':
         this.deleteProduct(env?.event?._id);
+        break;
+
+      case 'edit':
+        this.editProduct(env?.event?._id);
         break;
 
       default:
