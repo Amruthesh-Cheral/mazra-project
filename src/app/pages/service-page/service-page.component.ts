@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductServicesService } from '../../admin-panel/pages/service-category/product-services/service/product-services.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCategoryService } from '../../admin-panel/pages/service-category/product-category/service/product-category.service';
+
 
 @Component({
   selector: 'app-service-page',
@@ -12,10 +13,12 @@ import { ProductCategoryService } from '../../admin-panel/pages/service-category
 })
 export class ServicePageComponent {
   categorys:any[]=[];
+  serviceDetails:any;
   constructor(
     private productService: ProductServicesService,
     private _activatedRoute: ActivatedRoute,
-    private categoryService: ProductCategoryService
+    private categoryService: ProductCategoryService,
+    private _router: Router
   ){}
 
   ngOnInit(): void {
@@ -30,6 +33,7 @@ export class ServicePageComponent {
     this.productService.getService(id)
     .subscribe((res:any)=>{
       console.log(res);
+      this.serviceDetails = res?.data;
     })
   }
 
@@ -42,6 +46,12 @@ export class ServicePageComponent {
           console.error('Category fetch error', err);
         }
     });
+  }
+
+  goToProducts(id: string) {
+    // Navigate to the products page for the selected category
+    // this._activatedRoute.parent?.parent?.parent?.parent?.parent?.navigate(['/products', id]);
+    this._router.navigate(['/products', id]);
   }
 
 }

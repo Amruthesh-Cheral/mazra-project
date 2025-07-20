@@ -16,9 +16,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddCategoryComponent {
 categoryForm!: FormGroup;
   previewImage: string | null = null;
-  previewVideo: string | null = null;
+  // previewVideo: string | null = null;
   selectedImageFile?: File;
-  selectedVideoFile?: File;
+  // selectedVideoFile?: File;
 
   categoryOptions: any[] = [];
   @ViewChild('imageInput') imageInputRef!: ElementRef<HTMLInputElement>;
@@ -34,7 +34,7 @@ categoryForm!: FormGroup;
       description: ['', Validators.required],
       service: ['', Validators.required],
       image: [null],
-      video: [null]
+      // video: [null]
     });
     this._activatedRoute.params.subscribe((data:any)=>{
       console.log(data?.id);
@@ -76,15 +76,15 @@ categoryForm!: FormGroup;
     }
   }
 
-  onVideoChange(event: Event) {
-    const file = (event.target as HTMLInputElement)?.files?.[0];
-    if (file) {
-      this.selectedVideoFile = file;
-      const reader = new FileReader();
-      reader.onload = () => (this.previewVideo = reader.result as string);
-      reader.readAsDataURL(file);
-    }
-  }
+  // onVideoChange(event: Event) {
+  //   const file = (event.target as HTMLInputElement)?.files?.[0];
+  //   if (file) {
+  //     this.selectedVideoFile = file;
+  //     const reader = new FileReader();
+  //     reader.onload = () => (this.previewVideo = reader.result as string);
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
 
   onSubmit() {
     if (this.categoryForm.invalid) return;
@@ -98,9 +98,9 @@ categoryForm!: FormGroup;
       formData.append('image', this.selectedImageFile);
     }
 
-    if (this.selectedVideoFile) {
-      formData.append('video', this.selectedVideoFile);
-    }
+    // if (this.selectedVideoFile) {
+    //   formData.append('video', this.selectedVideoFile);
+    // }
 
     // Call the service to add the service
     this.categoryService.addCategory(formData).subscribe({
@@ -109,10 +109,10 @@ categoryForm!: FormGroup;
         // Optionally, reset the form or navigate to another page
         this.categoryForm.reset();
         this.previewImage = null;
-        this.previewVideo = null;
+        // this.previewVideo = null;
 
       this.imageInputRef.nativeElement.value = '';
-      this.videoInputRef.nativeElement.value = '';
+      // this.videoInputRef.nativeElement.value = '';
 
         Swal.fire({
           title: 'Success',

@@ -27,10 +27,6 @@ export class HeaderComponent implements OnInit {
   constructor( private route:Router , private CartService: CartService , private authService: LoginService, private productService:ProductServicesService) { }
 
   ngOnInit() {
-    this.CartService.cartItemCount$.subscribe(count => {
-      this.itemCount = count;
-    });
-
     // Check if user is logged in
     this.authService.islogin$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
@@ -45,6 +41,9 @@ export class HeaderComponent implements OnInit {
       }
       this.isAdmin = JSON.parse(localStorage.getItem('user') || '{}').role === 'Admin';
       console.log('User role:', this.isAdmin);
+      this.CartService.cartItemCount$.subscribe(count => {
+      this.itemCount = count || 0;
+    });
     });
 
     this.CartService.refreshCartCount();

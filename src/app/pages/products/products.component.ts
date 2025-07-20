@@ -1,10 +1,11 @@
 import { WishlistService } from './../wishlist/service/wishlist.service';
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe, NgIf, NgFor } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from './service/product.service';
 import { CartService } from '../cart/service/cart.service';
 import Swal from 'sweetalert2';
+import { ProductCategoryService } from '../../admin-panel/pages/service-category/product-category/service/product-category.service';
 
 @Component({
   selector: 'app-products',
@@ -17,10 +18,32 @@ export class ProductsComponent implements OnInit {
 
   products:any[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService , private route: Router , private wishlistService: WishlistService ) { }
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService ,
+    private route: Router ,
+    private wishlistService: WishlistService,
+    private _activatedRoute: ActivatedRoute,
+    private categoryService: ProductCategoryService
+  ) { }
 
   ngOnInit(): void {
-    this.getProductlist();
+    this._activatedRoute.params.subscribe((data:any)=>{
+      console.log(data?.id);
+      this.getCategoryById(data?.id);
+    })
+
+
+    // this.getProductlist();
+  }
+
+  getCategoryById(id: string) {
+    this.categoryService.getCategoryById(id).subscribe((res: any) => {
+      console.log(res);
+      this.products = res.data;
+    }, error => {
+      console.error('Error fetching category by ID:', error);
+    });
   }
 
 

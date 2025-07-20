@@ -4,18 +4,17 @@
         <div class="page-header__bg"></div>
         <!-- /.page-header__bg -->
         <div class="container">
-            <h2 class="page-header__title bw-split-in-down">Commercial</h2>
+            <h2 class="page-header__title bw-split-in-down">{{serviceDetails.name}}</h2>
             <ul class="alefox-breadcrumb list-unstyled">
                 <li><a routerLink="/home">Home</a></li>
-                <li><span>Commercial</span></li>
+                <li><span>{{serviceDetails.name}}</span></li>
             </ul><!-- /.thm-breadcrumb list-unstyled -->
             <br>
             <ul class="subpoints">
                 <h5>
-                    <li>Enhances brand image, reduces food costs, and creates engaging customer experiences.
-                    </li>
-                    <li>Smart automation, low manpower, and consistent yields.
-                    </li>
+                    <li>{{serviceDetails.description}}</li>
+                    <!-- <li>Smart automation, low manpower, and consistent yields.
+                    </li> -->
                 </h5>
             </ul>
         </div><!-- /.container -->
@@ -30,7 +29,7 @@
             <!-- /.service-details__text -->
             <div class="row gutter-y-30">
                 @for (item of categorys; track $index) {
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6" (click)="goToProducts(item?._id)">
                         <div class="service-two__item wow fadeInUp" data-wow-delay="00ms">
                             <div class="service-two__item__image">
                                 <img [src]="item?.image?.url ?? 'assets/images/pintrest/off.jpg'" alt="alefox">
