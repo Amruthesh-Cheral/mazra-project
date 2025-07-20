@@ -70,7 +70,7 @@
                         <li class="dropdown">
                             <a>Services</a>
                             <ul>
-                                @for (item of service; track $index) {
+                                @for (item of service; track $index) { 
                                     <li><a (click)="gotoService(item?._id)">{{item?.name}}</a></li>
                                 }
                             </ul>
@@ -81,7 +81,7 @@
                         <li>
                             <a routerLink="/contact" routerLinkActive="active">Contact</a>
                         </li>
-                        <li class="dropdown">
+                        <!-- <li class="dropdown">
                             <a>Etc pages</a>
                             <ul>
                                <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
@@ -92,7 +92,7 @@
                                 <li><a routerLink="/wishlist" routerLinkActive="active">Wishlist</a></li>
                                 <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li *ngIf="isAdmin">
                             <a routerLink="/admin-panel"  routerLinkActive="active">Admin Panel</a>
                         </li>

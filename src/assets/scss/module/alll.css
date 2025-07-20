@@ -3685,6 +3685,7 @@ h6 {
     transition: all 500ms ease;
     margin-left: 20px;
     line-height: 1em;
+    cursor: pointer;
 }
 
 .main-header__cart:hover,
