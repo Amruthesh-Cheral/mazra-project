@@ -36,7 +36,7 @@
                             </div>
                             <div class="mt-0 service-two__item__content">
                                 <h3 class="service-two__item__title">
-                                    <a href="#">{{item?.name}}</a>
+                                    <a>{{item?.name}}</a>
                                 </h3><!-- /.service-title -->
                                 <p class="service-two__item__text">
                                     {{item?.description}} </p>
@@ -54,36 +54,23 @@
     <!-- Service End -->
 
     <section class="pt-5" style="margin-bottom: 40px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-3 col-sm-12">
-                    <img src="assets/images/resources/comrc.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-md-6 col-lg-3 col-sm-12">
-                    <img src="assets/images/resources/comcr1.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-md-6 col-lg-3 col-sm-12">
-                    <img src="assets/images/resources/comcr2.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-md-6 col-lg-3 col-sm-12">
-                    <img src="assets/images/resources/comcr3.jpg" class="img-fluid" alt="">
-                </div>
-
-                <div class="col-md-6 col-lg-6 col-sm-12 pt-4">
-                    <!-- <video autoplay muted loop playsinline style="max-width: 100%; height: auto; ">
-                        <source src="assets/images/video/farm3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-
-                    </video> -->
-                </div>
-
-                <div class="col-md-6 col-lg-6 col-sm-12 pt-4">
-                    <!-- <video autoplay muted loop playsinline style="max-width: 100%; height: auto; ">
-                        <source src="assets/images/video/green2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-
-                    </video> -->
-                </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          @for (item of serviceDetails.image; track $index) {
+          <div class="col-md-6 col-lg-3 col-sm-12">
+            <img [src]="item.url" class="img-fluid" alt="">
+          </div>
+          }
         </div>
+        <div class="row">
+          @for (item of serviceDetails.video; track $index) {
+          <div class="col-md-6 col-lg-6 col-sm-12 pt-4">
+            <video autoplay muted loop playsinline style="max-width: 100%; height: auto; ">
+              <source [src]="item.url" type="video/mp4">
+            </video>
+          </div>
+          }
+        </div>
+
+      </div>
     </section>

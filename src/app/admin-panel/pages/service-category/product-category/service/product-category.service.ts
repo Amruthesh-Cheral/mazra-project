@@ -29,4 +29,8 @@ export class ProductCategoryService {
     return this.http.get( this.$baseUrl + "/service/categories/"+id)
   }
 
+  getProductsByCategoryId(id: string): Observable<any> {
+    return this.http.get( this.$baseUrl + "/products/category/"+id);
+  }
+
 }

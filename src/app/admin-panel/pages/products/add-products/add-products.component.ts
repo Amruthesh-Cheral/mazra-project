@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule, FormArray } from '@angular/forms';
 import { ProductService } from '../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -21,11 +21,11 @@ productForm: FormGroup;
   previewImages: string[] = [];
   imageLimitExceeded = false;
   services: any [] = [];
-  categorys:any [] = []; 
+  categorys:any [] = [];
   constructor(private fb: FormBuilder,
     private _productService: ProductService,
     private _router: Router,
-    private categoryService: ProductCategoryService , 
+    private categoryService: ProductCategoryService ,
     private productService: ProductServicesService
   ) {
     this.productForm = this.fb.group({
@@ -36,12 +36,17 @@ productForm: FormGroup;
       discountPercent: [null],
       category: ['', Validators.required],
       service: ['', Validators.required],
+      points: this.fb.array([this.fb.control('')])
     });
   }
 
   ngOnInit(): void {
     this.getserviceList();
   }
+
+  get points(): FormArray {
+  return this.productForm.get('points') as FormArray;
+}
 
 
   getserviceList() {
@@ -89,15 +94,13 @@ productForm: FormGroup;
 
 
 
- items = [{ name: '' }];
+addItem() {
+  this.points.push(this.fb.control(''));
+}
 
-  addItem() {
-    this.items.push({ name: '' });
-  }
-
-  deleteItem(index: number) {
-    this.items.splice(index, 1);
-  }
+deleteItem(index: number) {
+  this.points.removeAt(index);
+}
 
   get f() {
     return this.productForm.controls;
@@ -131,7 +134,7 @@ productForm: FormGroup;
     if (this.productForm.invalid || this.imageLimitExceeded) return;
 
     console.log('Form Data:', this.productForm.value);
-    
+
 
     const formData = new FormData();
     formData.append('name', this.productForm.value.name);
@@ -141,6 +144,10 @@ productForm: FormGroup;
     formData.append('category', this.productForm.value.category);
     formData.append('stock', this.productForm.value.stock);
     formData.append('service', this.productForm.value.service);
+
+    this.productForm.value.points.forEach((point: string, index: number) => {
+    formData.append(`usp[]`, point);
+    });
 
     this.images.forEach((file, index) => {
       formData.append(`images`, file);
@@ -166,6 +173,12 @@ productForm: FormGroup;
       error => {
         console.error('Error adding product', error);
         // Handle error appropriately
+        Swal.fire({
+          title: 'Error',
+          text: error?.error?.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
     // Replace this with your API call

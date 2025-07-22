@@ -129,6 +129,15 @@ serviceForm!: FormGroup;
     this.productService.addService(formData).subscribe({
       next: (response) => {
         console.log('Service added successfully', response);
+        if(response && response.success) {
+        Swal.fire({
+          title: 'Success',
+          text: response?.message,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this._router.navigate(['/admin-panel/service-category']);
+        }
         // Optionally, reset the form or navigate to another page
         this.serviceForm.reset();
         this.previewImages = [];
@@ -137,19 +146,12 @@ serviceForm!: FormGroup;
         this.imageInputRef.nativeElement.value = '';
         this.videoInputRef.nativeElement.value = '';
 
-        Swal.fire({
-          title: 'Success',
-          text: response?.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-        this._router.navigateByUrl('admin-panel/service-category')
       },
       error: (error) => {
         console.error('Error adding service', error);
         Swal.fire({
           title: 'Error',
-          text: error?.message,
+          text: error?.error.message,
           icon: 'error',
           confirmButtonText: 'OK'
         });
