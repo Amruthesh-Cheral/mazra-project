@@ -96,43 +96,45 @@ productForm: FormGroup;
         for (let i = 0; i < this.previewImages.length; i++) {
         const file = await this.urlToFile(this.previewImages[i], `image-${i}.jpg`);
         console.log('File converted from URL:', file);
+        this.onFileChange(file)
+        // this.images.push(file);
+        // console.log('Images after conversion:', this.images);
 
-        this.images.push(file);
-    }
+        }
 
       },
       error: (err) => console.error('Failed to load product', err)
     });
   }
 
-    // async urlToFile(url: string, filename: string): Promise<File> {
+    async urlToFile(url: string, filename: string): Promise<File> {
 
-    //   const response = await fetch(url);
-    //   const blob = await response.blob();
-    //   console.log('Blob fetched from URL:', blob);
+      const response = await fetch(url);
+      const blob = await response.blob();
+      console.log('Blob fetched from URL:', blob);
 
-    //   // Default to 'image/jpeg' if blob.type is not valid
-    //   const mimeType = blob.type.startsWith('image/') ? blob.type : 'image/jpeg';
+      // Default to 'image/jpeg' if blob.type is not valid
+      const mimeType = blob.type.startsWith('image/') ? blob.type : 'image/jpeg';
 
-    //   return new File([blob], filename, { type: mimeType });
-    // }
-
-  async urlToFile(url: string, filename?: string): Promise<File> {
-    const response = await fetch(url, { mode: 'cors' }); // Ensure CORS
-    if (!response.ok) throw new Error(`Failed to fetch image: ${response.status}`);
-
-    const blob = await response.blob();
-
-    // Verify if it's an image
-    if (!blob.type.startsWith('image/')) {
-      throw new Error(`Invalid file type fetched: ${blob.type}`);
+      return new File([blob], filename, { type: mimeType });
     }
 
-    const extension = blob.type.split('/')[1] || 'jpg';
-    const name = filename || `image-${Date.now()}.${extension}`;
+  // async urlToFile(url: string, filename?: string): Promise<File> {
+  //   const response = await fetch(url, { mode: 'cors' }); // Ensure CORS
+  //   if (!response.ok) throw new Error(`Failed to fetch image: ${response.status}`);
 
-    return new File([blob], name, { type: blob.type });
-  }
+  //   const blob = await response.blob();
+
+  //   // Verify if it's an image
+  //   if (!blob.type.startsWith('image/')) {
+  //     throw new Error(`Invalid file type fetched: ${blob.type}`);
+  //   }
+
+  //   const extension = blob.type.split('/')[1] || 'jpg';
+  //   const name = filename || `image-${Date.now()}.${extension}`;
+
+  //   return new File([blob], name, { type: blob.type });
+  // }
 
 
   getserviceList() {
@@ -200,7 +202,9 @@ deleteItem(index: number) {
     return this.productForm.controls;
   }
 
-  onFileChange(event: Event) {
+  onFileChange(event: any) {
+    console.log('File input changed:', event);
+
     const input = event.target as HTMLInputElement;
     const files = input.files ? Array.from(input.files) : [];
 
