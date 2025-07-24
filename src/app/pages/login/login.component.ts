@@ -54,7 +54,10 @@ export class LoginComponent implements OnInit {
       this.LoginService.login(formData).subscribe(res => {
         console.log('Login successful', res);
         this.saveUserData(res)
-        this.router.navigate(['/products']);
+        if(this.loggedUser === 'Admin')
+          this.router.navigate(['/admin-panel/dashboard']);
+        else
+          this.router.navigate(['/home']);
         Swal.fire({
           title: 'Login Successful',
           text: 'Welcome back!',

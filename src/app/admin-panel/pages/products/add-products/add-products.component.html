@@ -1,5 +1,5 @@
 <div class="container mb-5">
-  <h2 class="mb-4">Add New Product</h2>
+  <h2 class="mb-4">{{isEdit ? 'Update Product' : 'Add Product' }}</h2>
 
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <!-- Product Name -->
@@ -86,7 +86,7 @@
         <div class="form-text">Upload up to 5 images</div>
         <div class="text-danger" *ngIf="imageLimitExceeded">You can upload a maximum of 5 images.</div>
         <div class="mt-3 d-flex flex-wrap gap-2">
-          <img *ngFor="let img of previewImages" [src]="img" class="img-thumbnail" width="100" />
+          <img *ngFor="let img of previewImages" [src]="img?.url ? img?.url : img " class="img-thumbnail" width="100" />
         </div>
       </div>
     </div>
@@ -95,7 +95,7 @@
     <div class="row">
       <div class="offset-sm-2 col-sm-10 text-end">
         <button type="submit" class="btn btn-success" [disabled]="productForm.invalid || imageLimitExceeded">
-          Submit Product
+          {{isEdit ? 'Update Product' : 'Add Product'}}
         </button>
       </div>
     </div>

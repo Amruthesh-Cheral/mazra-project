@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<!-- <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Blog Management</h2>
     <button class="btn btn-success" (click)="createBlog()">
@@ -30,11 +30,11 @@
           <td>{{ blog.author }}</td>
           <td>{{ blog.date }}</td>
           <td>{{ blog.category }}</td>
-           
+
           <td>
             {{ blog.content}}
           </td>
-           
+
           <td>
           <div class="d-flex justify-content-between">
               <button class="btn d-flex align-items-center me-3  btn-sm btn-warning me-2" (click)="editBlog(blog)">
@@ -49,4 +49,14 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
+
+<app-data-table
+ngSkipHydration
+[tableConfig]="tableConfig"
+[tableSettings]="tableSettings"
+[tableData]="tableData"
+[totalCount]="totalCount"
+[isLoading]="isLoading"
+(tableEvent)="tableEvent($event)">
+</app-data-table>

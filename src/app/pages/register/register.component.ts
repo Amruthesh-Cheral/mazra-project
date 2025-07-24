@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 export interface register {
   username: FormControl<string | null>;
   lastname: FormControl<string | null>;
+  // phone: FormControl<string | null>;
   email: FormControl<string | null>;
   password: FormControl<string | null>;
   confirmPassword: FormControl<string | null>;
@@ -29,6 +30,7 @@ constructor(private fb: FormBuilder , private router: Router , private registerS
   registerForm = this.fb.group<register>({
     username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     lastname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
+    // phone: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
     email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]),
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(15)])
@@ -37,6 +39,8 @@ constructor(private fb: FormBuilder , private router: Router , private registerS
   ngOnInit(): void {}
 
   onSubmit() {
+    this.registerForm.markAllAsTouched(); // Mark all fields as touched to show validation errors
+
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
       console.log('Form Data:', formData);
@@ -53,6 +57,8 @@ constructor(private fb: FormBuilder , private router: Router , private registerS
             });
             this.router.navigate(['/email-verification']);
           }, error => {
+            console.log(error);
+
             Swal.fire({
               title: 'Registration Failed',
               text: error?.error?.message || 'Please try again later.',
@@ -64,10 +70,20 @@ constructor(private fb: FormBuilder , private router: Router , private registerS
           });
             // this.dataService.customSnackBar("Registration successful", "success", "success");
       } else {
-        // this.dataService.customSnackBar("Passwords do not match", "error", "error");
+        Swal.fire({
+          title: 'Password Mismatch',
+          text: 'The passwords do not match. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     } else {
-      // this.dataService.customSnackBar("Please fill all required fields correctly", "error", "error");
+      Swal.fire({
+        title: 'Invalid Form',
+        text: 'Please fill out all required fields correctly.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
     }
   }
 

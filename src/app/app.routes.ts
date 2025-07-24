@@ -149,6 +149,10 @@ export const routes: Routes = [
                 path: 'products/add-products',
                 loadComponent: () => import('./admin-panel/pages/products/add-products/add-products.component').then(m => m.AddProductsComponent)
             },
+            {
+                path: 'products/add-products/:id',
+                loadComponent: () => import('./admin-panel/pages/products/add-products/add-products.component').then(m => m.AddProductsComponent)
+              },
              {
                 path: 'order',
                 loadComponent: () => import('./admin-panel/pages/order-management/order-management.component').then(m => m.OrderManagementComponent),

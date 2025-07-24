@@ -32,21 +32,27 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
       console.log('User is logged in:', isLoggedIn);
       console.log(JSON.parse(localStorage.getItem('user') || '{}').username)
-      if (isLoggedIn) {
+      if (this.isLoggedIn) {
         this.username = JSON.parse(localStorage.getItem('user') || '{}').username || '';
         this.email = JSON.parse(localStorage.getItem('user') || '{}').email || '';
+        console.log('Username:');
+        this.CartService.cartItemCount$.subscribe(count => {
+          this.itemCount = count || 0;
+        });
+        this.CartService.refreshCartCount();
+
       } else {
         this.username = '';
         this.email = '';
       }
       this.isAdmin = JSON.parse(localStorage.getItem('user') || '{}').role === 'Admin';
       console.log('User role:', this.isAdmin);
-      this.CartService.cartItemCount$.subscribe(count => {
-      this.itemCount = count || 0;
-    });
+    //   this.CartService.cartItemCount$.subscribe(count => {
+    //   this.itemCount = count || 0;
+    // });
     });
 
-    this.CartService.refreshCartCount();
+
     this.getServices();
   }
 

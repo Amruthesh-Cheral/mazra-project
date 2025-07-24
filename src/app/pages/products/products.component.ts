@@ -29,7 +29,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((data:any)=>{
-      console.log(data?.id);
+      if(data?.id)
       this.getCategoryById(data?.id);
     })
 

@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 import e from 'express';
 import { Observable, catchError, EMPTY } from 'rxjs';
 import Swal from 'sweetalert2';
+import { LoginService } from '../../pages/login/service/login.service';
 
 @Injectable()
 export class MyInterceptor implements HttpInterceptor {
-  constructor(private router: Router) { console.log('Interceptor loaded!');}
+  constructor(private router: Router , private authService: LoginService) { console.log('Interceptor loaded!');}
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   const segments = this.router.url.split('/');
@@ -22,7 +23,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
   console.log('First segment of the URL:', firstPosition);
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
-  
+
   if (token) {
     request = request.clone({
       setHeaders: {
@@ -81,6 +82,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
   logout() {
     localStorage.clear();
     sessionStorage.clear();
+    this.authService.islogin.next(false);
     this.router.navigateByUrl('/login').then(() => {
       window.location.reload();
     });

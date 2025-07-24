@@ -32,9 +32,13 @@ export class DataTableComponent {
   tableKeys: string[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.tableSettings , this.tableData);
+
     const tableKeys = Object.keys(this.tableSettings.columns || {});
     if (tableKeys.length > 0) {
       this.tableKeys = tableKeys;
+      console.log(this.tableKeys);
+
     }
     if(this.totalCount){
       this.calculateTotalPages();

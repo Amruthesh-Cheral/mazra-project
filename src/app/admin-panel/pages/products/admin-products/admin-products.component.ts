@@ -70,7 +70,7 @@ export class AdminProductsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Admin Products Component Initialized');
-    
+
     this.getProducts();
   }
 
@@ -106,10 +106,14 @@ export class AdminProductsComponent implements OnInit {
         this.createProduct();
         break;
 
+      case 'edit':
+        this._router.navigate(['/admin-panel/products/add-products', env?.event?.slug]);
+        break;
+
       case 'delete':
         this.deleteProduct(env?.event?._id);
         break;
-    
+
       default:
         break;
     }
@@ -132,5 +136,5 @@ export class AdminProductsComponent implements OnInit {
         }
       });
   }
-  
+
 }
