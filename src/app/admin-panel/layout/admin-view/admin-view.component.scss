@@ -26,7 +26,7 @@
   position: absolute;
   top: 1rem;
   left: 234px; // Default position when sidebar is expanded
-  background-color: #1c7dde;
+  background-color: #44a05b;
   border: none;
   color: #fff;
   height: 30px;
@@ -39,7 +39,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #4c92d8;
+    background-color: #2f8b46;
   }
 
   &.sidebar-collapsed {

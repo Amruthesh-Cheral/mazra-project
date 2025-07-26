@@ -396,10 +396,14 @@ h6 {
 .gutter-y-60 {
     --bs-gutter-y: 60px;
 }
-
+.btn-primary {
+    background-color: #44a05b !important;
+    border-color: #44a05b !important;
+}
 .alefox-btn {
     display: inline-block;
     vertical-align: middle;
+    width: fit-content;
     -webkit-appearance: none;
     border: none;
     outline: none !important;
