@@ -38,8 +38,9 @@
                         <div class="item" *ngFor="let item of product?.images">
                             <div class="product-details__gallery__image">
                                 <img [src]='item.url' alt="mazra products">
-                                <a class="img-popup" [href]="product.url"><span
-                                        class="icon-magnifying-glass"></span></a><!-- /.product-image -->
+                                <!-- <a class="img-popup" [href]="product.url"><span
+                                        class="icon-magnifying-glass"></span></a> -->
+                                        <!-- /.product-image -->
                             </div>
                         </div><!-- item -->
                         <!-- <div class="item">
@@ -138,8 +139,14 @@
                     </div> -->
                     <div class="product-details__excerpt">{{product.description}}</div><!-- /.excerp-text -->
                     <ul class="product-details__feature">
-                        <li><span class="product-details__feature__icon"><i class="icofont-check-alt"></i></span>Excellent audio performance</li>
-                        <li><span class="product-details__feature__icon"><i class="icofont-check-alt"></i></span>Lorem ipsum available, but the majority have suffered.</li>
+                        <li *ngFor="let feature of product.usp">
+                                <span class="product-details_feature_icon">
+                                <i class="icofont-check-alt"></i>
+                                </span>
+                                {{ feature }}
+                            </li>
+
+                        <!-- <li><span class="product-details__feature__icon"><i class="icofont-check-alt"></i></span>Lorem ipsum available, but the majority have suffered.</li> -->
                     </ul>
                     <div class="product-details__qty">
                         <div class="product-details__quantity">

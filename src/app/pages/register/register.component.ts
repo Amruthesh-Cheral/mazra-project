@@ -28,9 +28,8 @@ export class RegisterComponent implements OnInit {
 constructor(private fb: FormBuilder , private router: Router , private registerService:RegisterService ) { }
 
   registerForm = this.fb.group<register>({
-    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-    lastname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
-    // phone: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+    lastname: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
     email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]),
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(15)])
