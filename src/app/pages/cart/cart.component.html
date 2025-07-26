@@ -35,33 +35,33 @@
                                 <td>
                                     <div class="cart-page__table__meta">
                                         <div class="cart-page__table__meta-img">
-                                            <img [src]="item.product.images[0].url" alt="alefox">
+                                            <img [src]="item.product?.images[0]?.url" alt="alefox">
                                         </div>
-                                        <h3 class="cart-page__table__meta-title"><a>{{item.product.name}}</a>
+                                        <h3 class="cart-page__table__meta-title"><a>{{item?.product?.name}}</a>
                                         </h3>
                                     </div>
                                 </td>
-                                <td>${{item.product.discountedPrice}}</td>
+                                <td>${{item.product?.discountedPrice}}</td>
                                 <td>
                                 <div class="product-details__quantity">
                                     <!-- <h3 class="product-details__quantity__title">Quantity</h3> -->
                                     <div class="quantity-box">
-                                        <button type="button" class="sub" (click)="decrease(item.product._id , i)" ><i class="icofont-thin-down"></i></button>
+                                        <button type="button" class="sub" (click)="decrease(item?.product?._id , i)" ><i class="icofont-thin-down"></i></button>
                                           <input
                                           type="number"
-                                          [value]="item.quantity"
-                                          (input)="onInputChange($event, i , item.product._id)"
+                                          [value]="item?.quantity"
+                                          (input)="onInputChange($event, i , item?.product._id)"
                                           class="custom-input"
                                           min="1"
                                           max="99"
                                         />
-                                        <button type="button" class="add" (click)="increase(item.product._id , i)"><i class="icofont-thin-up"></i></button>
+                                        <button type="button" class="add" (click)="increase(item?.product?._id , i)"><i class="icofont-thin-up"></i></button>
                                     </div>
                                 </div>
                                 </td>
-                                <td>${{item.product.discountedPrice * item.quantity}}</td>
+                                <td>${{item?.product?.discountedPrice * item?.quantity}}</td>
                                 <td>
-                                    <a (click)="removeItem(item.product._id , i)" class="cursor-pointer table cart-page__table__remove"><span class="icofont-close-line"></span></a>
+                                    <a (click)="removeItem(item?.product?._id , i)" class="cursor-pointer table cart-page__table__remove"><span class="icofont-close-line"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -82,9 +82,9 @@
                     </div>
                     <div class="col-xl-4 col-lg-5">
                         <ul class="cart-page__cart-total list-unstyled">
-                            <li><span>Subtotal</span><span class="cart-page__cart-total-amount">${{alldetails.total}}</span></li>
+                            <li><span>Subtotal</span><span class="cart-page__cart-total-amount">${{alldetails?.total}}</span></li>
                             <!-- <li><span>Shipping cost</span><span class="cart-page__cart-total-amount">$0.00 </span></li> -->
-                            <li><span>Total</span><span class="cart-page__cart-total-amount">${{alldetails.total}}</span></li>
+                            <li><span>Total</span><span class="cart-page__cart-total-amount">${{alldetails?.total}}</span></li>
                         </ul>
                         <div class="cart-page__buttons">
                             <!-- <a href="cart.html" class="alefox-btn">

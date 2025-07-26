@@ -96,11 +96,11 @@ productForm: FormGroup;
         for (let i = 0; i < this.previewImages.length; i++) {
         const file = await this.urlToFile(this.previewImages[i], `image-${i}.jpg`);
         console.log('File converted from URL:', file);
-        this.onFileChange(file)
-        // this.images.push(file);
-        // console.log('Images after conversion:', this.images);
 
-        }
+        this.images.push(file);
+        console.log('Images after conversion:', this.images);
+
+    }
 
       },
       error: (err) => console.error('Failed to load product', err)
@@ -202,9 +202,7 @@ deleteItem(index: number) {
     return this.productForm.controls;
   }
 
-  onFileChange(event: any) {
-    console.log('File input changed:', event);
-
+  onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const files = input.files ? Array.from(input.files) : [];
 

@@ -28,11 +28,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     // Check if user is logged in
-    this.authService.islogin$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
-      console.log('User is logged in:', isLoggedIn);
-      console.log(JSON.parse(localStorage.getItem('user') || '{}').username)
-      if (this.isLoggedIn) {
+    // this.authService.islogin$.subscribe(isLoggedIn => {
+    //   this.isLoggedIn = isLoggedIn;
+    //   console.log('User is logged in:', this.isLoggedIn);
+      // console.log(JSON.parse(localStorage.getItem('user') || '{}').username)
+      if (localStorage.getItem('token')) {
         this.username = JSON.parse(localStorage.getItem('user') || '{}').username || '';
         this.email = JSON.parse(localStorage.getItem('user') || '{}').email || '';
         console.log('Username:');
@@ -46,11 +46,11 @@ export class HeaderComponent implements OnInit {
         this.email = '';
       }
       this.isAdmin = JSON.parse(localStorage.getItem('user') || '{}').role === 'Admin';
-      console.log('User role:', this.isAdmin);
+      console.log('User role:', this.username);
     //   this.CartService.cartItemCount$.subscribe(count => {
     //   this.itemCount = count || 0;
     // });
-    });
+    // });
 
 
     this.getServices();
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
   goToCart(){
     if(this.itemCount > 0 && localStorage.getItem('token')) {
       this.route.navigate(['/cart']);
-    }else if(this.itemCount === 0 && localStorage.getItem('token')) {
+    }else if(this.itemCount === 0 && !localStorage.getItem('token')) {
       Swal.fire({
         title: 'Empty Cart',
         text: 'Your cart is empty. Please add items to your cart.',

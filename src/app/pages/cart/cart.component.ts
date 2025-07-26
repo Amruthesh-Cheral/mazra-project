@@ -104,11 +104,6 @@ increase(id:string , index: number) {
 
       if (result.isConfirmed) {
         this.removeItemFromCart(id , index);
-        Swal.fire(
-          'Removed!',
-          'Your item has been removed from the cart.',
-          'success'
-        );
       }
     });
   }
@@ -118,10 +113,21 @@ increase(id:string , index: number) {
     this.cartService.removeItem(id).subscribe({
       next: () => {
         // Remove from UI
+        Swal.fire(
+          'Removed!',
+          'Your item has been removed from the cart.',
+          'success'
+        );
         this.cartItems.splice(index, 1);
         this.calculateTotal();
       },
       error: err => {
+        Swal.fire({
+          title: 'Error',
+          text: err?.error?.message ,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         console.error('Remove failed:', err);
       }
     });

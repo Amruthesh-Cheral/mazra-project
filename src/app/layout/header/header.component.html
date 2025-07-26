@@ -70,7 +70,7 @@
                         <li class="dropdown">
                             <a>Services</a>
                             <ul>
-                                @for (item of service; track $index) { 
+                                @for (item of service; track $index) {
                                     <li><a (click)="gotoService(item?._id)">{{item?.name}}</a></li>
                                 }
                             </ul>
@@ -122,7 +122,7 @@
                 </div>
 
                 <!-- Profile Icon Button -->
-                <div *ngIf="isLoggedIn">
+                <div *ngIf="username">
                    <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-trigger">
                      <mat-icon>account_circle</mat-icon>
                     </button>
@@ -141,7 +141,7 @@
                   </button>
                 </mat-menu>
 
-                <div *ngIf="!isLoggedIn">
+                <div *ngIf="username === ''">
                   <button mat-icon-button  class="profile-trigger d-flex" routerLink="/login">
                      <mat-icon>account_circle</mat-icon>
                      Login
