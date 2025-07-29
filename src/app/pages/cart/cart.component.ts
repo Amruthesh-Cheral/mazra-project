@@ -29,7 +29,7 @@ export class CartComponent implements OnInit  {
     // For now, we are just logging the cart items
     this.cartService.cartList().subscribe((res: any) => {
       console.log('Cart Items:', res);
-      this.cartItems = res.data.items;
+      this.cartItems = res?.data?.items || [];
       this.alldetails = res.data;
        this.calculateTotal();
       // Handle the cart items response

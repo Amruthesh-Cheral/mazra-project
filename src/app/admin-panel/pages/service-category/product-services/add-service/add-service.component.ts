@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProductService } from '../../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
 import { ProductServicesService } from '../service/product-services.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-service',
@@ -16,21 +16,25 @@ import { Router } from '@angular/router';
 export class AddServiceComponent {
 serviceForm!: FormGroup;
   images: File[] = [];
-  previewImages: string[] = [];
+  previewImages: any[] = [];
   imageLimitExceeded = false;
   videos: File[] = [];
-  previewVideos: string[] = [];
+  previewVideos: any[] = [];
   videoLimitExceeded = false;
   previewVideo: string | null = null;
   selectedImageFile?: File;
   selectedVideoFile?: File;
+  isEditMode = false;
+  serviceId: string | null = null;
+  existingImages: any[] = [];
+  existingVideos: any[] = [];
 
   @ViewChild('imageInput') imageInputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('videoInput') videoInputRef!: ElementRef<HTMLInputElement>;
 
   // categoryOptions: string[] = ['Residential', 'Commercial', 'Agricultural'];
 
-  constructor(private fb: FormBuilder , private productService: ProductServicesService, private _router:Router) {}
+  constructor(private fb: FormBuilder , private productService: ProductServicesService, private _router:Router , private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.serviceForm = this.fb.group({
@@ -41,7 +45,84 @@ serviceForm!: FormGroup;
       image: [null],
       video: [null]
     });
+
+    this.route.paramMap.subscribe(params => {
+      this.serviceId = params.get('id'); // expects `/edit/:id`
+      if (this.serviceId) {
+        this.isEditMode = true;
+        this.loadService(this.serviceId);
+      }
+    });
   }
+
+  loadService(id: string) {
+    this.productService.getService(id).subscribe(data => {
+      console.log(data)
+      this.serviceForm.patchValue({
+        name: data.data?.name,
+        description: data.data?.description,
+        subdescription: data.data?.subdescription,
+        subhead: data.data?.subhead
+      });
+
+      this.previewImages = data.data.image || [];
+      this.previewVideos = data.data.video || []
+      this.images = [];
+
+
+      data.data.image.forEach((Url: any) => {
+        this.convertMediaUrlToFileAndPush(Url?.url);
+      });
+
+      data.data.video.forEach((Url: any) => {
+        this.convertMediaUrlToFileAndPush(Url?.url);
+      });
+
+
+      // this.existingImages = data.data?.image || [];
+      // this.existingVideos = data.data?.video || [];
+    });
+  }
+
+  async convertMediaUrlToFileAndPush(url: string) {
+    console.log(url)
+    const filename = url.substring(url.lastIndexOf('/') + 1);
+
+    try {
+      const file = await this.urlToMediaFile(url, filename);
+
+      if (file.type.startsWith('image/')) {
+        this.images.push(file);
+      } else if (file.type.startsWith('video/')) {
+        this.videos.push(file);
+      } else {
+        console.warn('Unsupported media type:', file.type);
+      }
+    } catch (err) {
+      console.error('Error converting media URL to File:', err);
+    }
+  }
+
+  async urlToMediaFile(url: string, filename: string): Promise<File> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  console.log('Blob fetched from URL:', blob);
+
+  let mimeType = blob.type;
+
+  // Fallback for unknown MIME types
+  if (!mimeType || (!mimeType.startsWith('image/') && !mimeType.startsWith('video/'))) {
+    if (filename.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      mimeType = 'image/jpeg';
+    } else if (filename.match(/\.(mp4|webm|ogg)$/i)) {
+      mimeType = 'video/mp4';
+    } else {
+      mimeType = 'application/octet-stream'; // generic fallback
+    }
+  }
+
+  return new File([blob], filename, { type: mimeType });
+}
 
   get f() {
     return this.serviceForm.controls;
@@ -93,14 +174,15 @@ serviceForm!: FormGroup;
       };
       reader.readAsDataURL(file);
     });
+  }
 
-    // const file = (event.target as HTMLInputElement)?.files?.[0];
-    // if (file) {
-    //   this.selectedVideoFile = file;
-    //   const reader = new FileReader();
-    //   reader.onload = () => (this.previewVideo = reader.result as string);
-    //   reader.readAsDataURL(file);
-    // }
+  removeImage(index: number) {
+  this.previewImages.splice(index, 1);
+  this.images.splice(index, 1);
+}
+  removeVideo(index: number) {
+    this.previewVideos.splice(index ,1)
+    this.videos.splice(index,1)
   }
 
   onSubmit() {
@@ -121,12 +203,12 @@ serviceForm!: FormGroup;
       formData.append(`video`, file);
     });
 
-    // if (this.selectedVideoFile) {
-    //   formData.append('video', this.selectedVideoFile);
-    // }
 
-    // Call the service to add the service
-    this.productService.addService(formData).subscribe({
+    const request = this.isEditMode
+    ? this.productService.updateService(this.serviceId!, formData)
+    : this.productService.addService(formData);
+
+    request.subscribe({
       next: (response) => {
         console.log('Service added successfully', response);
         if(response && response.success) {

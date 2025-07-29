@@ -109,6 +109,10 @@ export class ServiceListComponent {
         this.createProduct();
         break;
 
+      case 'edit':
+      this._router.navigate(['/admin-panel/service-category/add-service', env?.event?._id]);
+        break;
+
       case 'delete':
         this.deleteProduct(env?.event?._id);
         break;

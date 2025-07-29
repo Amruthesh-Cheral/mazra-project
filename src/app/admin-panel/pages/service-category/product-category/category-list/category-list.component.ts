@@ -69,7 +69,7 @@ tableConfig = {
   }
 
   editProduct(id:string) {
-    this._router.navigateByUrl('/admin-panel/service-category/edit-category/'+id);
+    this._router.navigate(['/admin-panel/service-category/add-category/',id]);
   }
 
   ngOnInit(): void {

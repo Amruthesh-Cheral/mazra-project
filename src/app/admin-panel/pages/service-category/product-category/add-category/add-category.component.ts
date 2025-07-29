@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ProductCategoryService } from './../service/product-category.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,16 +9,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-category',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule , NgFor],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.scss'
 })
 export class AddCategoryComponent {
 categoryForm!: FormGroup;
-  previewImage: string | null = null;
-  // previewVideo: string | null = null;
+  previewImage: any | null = null;
+  imageLimitExceeded = false;
   selectedImageFile?: File;
-  // selectedVideoFile?: File;
+  isEditMode = false;
+  categoryId: string | null = null;
 
   categoryOptions: any[] = [];
   @ViewChild('imageInput') imageInputRef!: ElementRef<HTMLInputElement>;
@@ -36,10 +37,44 @@ categoryForm!: FormGroup;
       image: [null],
       // video: [null]
     });
-    this._activatedRoute.params.subscribe((data:any)=>{
-      console.log(data?.id);
+
+    this._activatedRoute.paramMap.subscribe((data:any)=>{
+      this.categoryId = data.get('id'); // expects `/edit/:id`
+      if (this.categoryId) {
+        this.isEditMode = true;
+        this.loadCategory(this.categoryId);
+      }
     })
     this.getserviceList();
+  }
+
+  async loadCategory(id: string) {
+    try {
+      const res: any = await this.categoryService.getCategoryById(id).toPromise();
+      const data = res?.data;
+
+      this.categoryForm.patchValue({
+        name: data.name,
+        description: data.description,
+        service: data.service,
+      });
+
+      if (data.image) {
+        this.previewImage = data.image;
+
+        // Optional: If you need to convert it back to a File
+        this.selectedImageFile = await this.urlToFile(data.image);
+      }
+    } catch (err) {
+      console.error('Error loading category', err);
+    }
+  }
+
+    async urlToFile(url: string): Promise<File> {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const filename = url.split('/').pop() || 'image.jpg';
+    return new File([blob], filename, { type: blob.type || 'image/jpeg' });
   }
 
   getserviceList() {
@@ -101,6 +136,10 @@ categoryForm!: FormGroup;
     // if (this.selectedVideoFile) {
     //   formData.append('video', this.selectedVideoFile);
     // }
+
+  const request = this.isEditMode ?
+    this.categoryService.updateCategory(this.categoryId!, formData) :
+    this.categoryService.addCategory(formData);
 
     // Call the service to add the service
     this.categoryService.addCategory(formData).subscribe({

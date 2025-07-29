@@ -174,7 +174,15 @@ export const routes: Routes = [
                 loadComponent: () => import('./admin-panel/pages/service-category/product-services/add-service/add-service.component').then(m => m.AddServiceComponent)
             },
            {
+                path: 'service-category/add-service/:id',
+                loadComponent: () => import('./admin-panel/pages/service-category/product-services/add-service/add-service.component').then(m => m.AddServiceComponent)
+            },
+           {
                 path: 'service-category/add-category',
+                loadComponent: () => import('./admin-panel/pages/service-category/product-category/add-category/add-category.component').then(m => m.AddCategoryComponent)
+            },
+           {
+                path: 'service-category/add-category/:id',
                 loadComponent: () => import('./admin-panel/pages/service-category/product-category/add-category/add-category.component').then(m => m.AddCategoryComponent)
             },
             {

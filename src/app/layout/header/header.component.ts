@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
         this.email = JSON.parse(localStorage.getItem('user') || '{}').email || '';
         console.log('Username:');
         this.CartService.cartItemCount$.subscribe(count => {
+          console.log(count)
           this.itemCount = count || 0;
         });
         this.CartService.refreshCartCount();
@@ -57,9 +58,9 @@ export class HeaderComponent implements OnInit {
   }
 
   goToCart(){
-    if(this.itemCount > 0 && localStorage.getItem('token')) {
+    if(this.itemCount >= 0 && localStorage.getItem('token')) {
       this.route.navigate(['/cart']);
-    }else if(this.itemCount === 0 && !localStorage.getItem('token')) {
+    }else if(this.itemCount === 0 && localStorage.getItem('token')) {
       Swal.fire({
         title: 'Empty Cart',
         text: 'Your cart is empty. Please add items to your cart.',

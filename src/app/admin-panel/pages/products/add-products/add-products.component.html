@@ -83,10 +83,19 @@
       <label class="col-sm-2 col-form-label">Product Images *</label>
       <div class="col-sm-10">
         <input type="file" class="form-control" (change)="onFileChange($event)" multiple accept="image/*" />
+        <!-- <small class="form-text text-muted">
+          {{ previewImages.length }} file{{ previewImages.length !== 1 ? 's' : '' }} selected
+        </small> -->
         <div class="form-text">Upload up to 5 images</div>
         <div class="text-danger" *ngIf="imageLimitExceeded">You can upload a maximum of 5 images.</div>
         <div class="mt-3 d-flex flex-wrap gap-2">
-          <img *ngFor="let img of previewImages" [src]="img?.url ? img?.url : img " class="img-thumbnail" width="100" />
+         <div *ngFor="let img of previewImages; let i = index" class="position-relative">
+          <img [src]="img?.url ? img?.url : img " class="img-thumbnail" width="100" />
+
+          <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" (click)="removeImage(i)">
+            <i class="fas fa-times"></i>
+          </button>
+          </div>
         </div>
       </div>
     </div>

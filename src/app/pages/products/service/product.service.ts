@@ -29,7 +29,7 @@ export class ProductService {
       return this.http.get( this.$baseUrl + "/products/" + slug);
     }
 
-    updtaeProduct(id: string, data: any): Observable<any> {
+    updateProduct(id: string, data: any): Observable<any> {
       return this.http.put( this.$baseUrl + "/products/" + id, data);
     }
 }

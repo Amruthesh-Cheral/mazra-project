@@ -33,4 +33,8 @@ export class ProductCategoryService {
     return this.http.get( this.$baseUrl + "/products/category/"+id);
   }
 
+  updateCategory(id:string , data:any): Observable<any> {
+    return this.http.put( this.$baseUrl + "/services/category/" + id, data);
+  }
+
 }

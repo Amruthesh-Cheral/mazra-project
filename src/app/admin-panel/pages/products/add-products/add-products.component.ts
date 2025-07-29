@@ -4,24 +4,23 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule, F
 import { ProductService } from '../../../../pages/products/service/product.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
-import { serviceCategoryMap } from '../../../../core/constant/categories';
 import { ProductCategoryService } from '../../service-category/product-category/service/product-category.service';
 import { ProductServicesService } from '../../service-category/product-services/service/product-services.service';
 
 @Component({
   selector: 'app-add-products',
   standalone: true,
-  imports: [NgIf,NgFor, ReactiveFormsModule , FormsModule],
+  imports: [NgIf, NgFor, ReactiveFormsModule, FormsModule],
   templateUrl: './add-products.component.html',
   styleUrl: './add-products.component.scss'
 })
 export class AddProductsComponent implements OnInit {
-productForm: FormGroup;
+  productForm: FormGroup;
   images: File[] = [];
   previewImages: any[] = [];
   imageLimitExceeded = false;
-  services: any [] = [];
-  categorys:any [] = [];
+  services: any[] = [];
+  categorys: any[] = [];
   isEdit = false;
   productId: string | null = null;
   productSlug: string | null = null;
@@ -29,7 +28,7 @@ productForm: FormGroup;
   constructor(private fb: FormBuilder,
     private _productService: ProductService,
     private _router: Router,
-    private categoryService: ProductCategoryService ,
+    private categoryService: ProductCategoryService,
     private productService: ProductServicesService,
     private route: ActivatedRoute
   ) {
@@ -58,8 +57,8 @@ productForm: FormGroup;
   }
 
   get points(): FormArray {
-  return this.productForm.get('points') as FormArray;
-}
+    return this.productForm.get('points') as FormArray;
+  }
 
   loadProduct(id: string) {
     this._productService.getProductBySlug(id).subscribe({
@@ -90,56 +89,45 @@ productForm: FormGroup;
           this.points.push(this.fb.control(''));
         }
 
-        // Set image preview (existing product images)
         this.previewImages = product.data.images || [];
         this.images = [];
         for (let i = 0; i < this.previewImages.length; i++) {
-        const file = await this.urlToFile(this.previewImages[i], `image-${i}.jpg`);
-        console.log('File converted from URL:', file);
-
-        this.images.push(file);
-        console.log('Images after conversion:', this.images);
-
-    }
+          this.convertImageUrlToFileAndPush(this.previewImages[i]?.url)
+        }
 
       },
       error: (err) => console.error('Failed to load product', err)
     });
   }
 
-    async urlToFile(url: string, filename: string): Promise<File> {
+  async convertImageUrlToFileAndPush(url: any) {
+    const filename = url.substring(url.lastIndexOf('/') + 1);
 
-      const response = await fetch(url);
-      const blob = await response.blob();
-      console.log('Blob fetched from URL:', blob);
-
-      // Default to 'image/jpeg' if blob.type is not valid
-      const mimeType = blob.type.startsWith('image/') ? blob.type : 'image/jpeg';
-
-      return new File([blob], filename, { type: mimeType });
+    try {
+      const file = await this.urlToFile(url, filename);
+      this.images.push(file);
+    } catch (err) {
+      console.error('Error converting image URL to File:', err);
     }
+  }
 
-  // async urlToFile(url: string, filename?: string): Promise<File> {
-  //   const response = await fetch(url, { mode: 'cors' }); // Ensure CORS
-  //   if (!response.ok) throw new Error(`Failed to fetch image: ${response.status}`);
+  async urlToFile(url: string, filename: string): Promise < File > {
 
-  //   const blob = await response.blob();
+    const response = await fetch(url);
+    const blob = await response.blob();
+    console.log('Blob fetched from URL:', blob);
 
-  //   // Verify if it's an image
-  //   if (!blob.type.startsWith('image/')) {
-  //     throw new Error(`Invalid file type fetched: ${blob.type}`);
-  //   }
+    // Default to 'image/jpeg' if blob.type is not valid
+    const mimeType = blob.type.startsWith('image/') ? blob.type : 'image/jpeg';
 
-  //   const extension = blob.type.split('/')[1] || 'jpg';
-  //   const name = filename || `image-${Date.now()}.${extension}`;
-
-  //   return new File([blob], name, { type: blob.type });
-  // }
-
+    return new File([blob], filename, {
+      type: mimeType
+    });
+  }
 
   getserviceList() {
     this.productService.getServiceList().subscribe({
-      next: (response:any) => {
+      next: (response: any) => {
         console.log('Service list fetched successfully', response);
         this.services = response?.data;
         // Handle the response as needed
@@ -157,30 +145,23 @@ productForm: FormGroup;
   }
 
   onServiceChange(event: Event) {
-    console.log(event);
-
-  const selectedServiceId = (event.target as HTMLSelectElement).value;
-
-  console.log('Selected Service ID:', event);
-
-  if (selectedServiceId) {
-    this.getCategoryById(selectedServiceId);
-  } else {
-    this.categorys = [];
-    this.productForm.get('category')?.setValue('');
-    this.productForm.get('category')?.disable();
+    const selectedServiceId = (event.target as HTMLSelectElement).value;
+    if (selectedServiceId) {
+      this.getCategoryById(selectedServiceId);
+    } else {
+      this.categorys = [];
+      this.productForm.get('category')?.setValue('');
+      this.productForm.get('category')?.disable();
+    }
   }
-}
 
   getCategoryById(id: string) {
-    console.log(id);
-
     this.categoryService.getCategoryById(id).subscribe({
       next: (res: any) => {
         this.categorys = res?.data || [];
         this.productForm.get('category')?.enable();
       },
-      error:( err:any)=> {
+      error: (err: any) => {
         console.error('Category fetch error', err);
         this.categorys = [];
         this.productForm.get('category')?.disable();
@@ -190,19 +171,19 @@ productForm: FormGroup;
 
 
 
-addItem() {
-  this.points.push(this.fb.control(''));
-}
+  addItem() {
+    this.points.push(this.fb.control(''));
+  }
 
-deleteItem(index: number) {
-  this.points.removeAt(index);
-}
+  deleteItem(index: number) {
+    this.points.removeAt(index);
+  }
 
   get f() {
     return this.productForm.controls;
   }
 
-  onFileChange(event: Event) {
+  onFileChange(event: any) {
     const input = event.target as HTMLInputElement;
     const files = input.files ? Array.from(input.files) : [];
 
@@ -213,7 +194,6 @@ deleteItem(index: number) {
 
     this.imageLimitExceeded = false;
     this.images = files;
-    console.log('Selected files:', this.images);
     this.previewImages = [];
 
     files.forEach(file => {
@@ -225,15 +205,15 @@ deleteItem(index: number) {
       };
       reader.readAsDataURL(file);
     });
-
-    console.log('Selected images:', this.previewImages);
   }
+
+  removeImage(index: number) {
+  this.previewImages.splice(index, 1);
+  this.images.splice(index, 1);
+}
 
   onSubmit() {
     if (this.productForm.invalid || this.imageLimitExceeded) return;
-
-    console.log('Form Data:', this.productForm.value);
-
 
     const formData = new FormData();
     formData.append('name', this.productForm.value.name);
@@ -245,64 +225,54 @@ deleteItem(index: number) {
     formData.append('service', this.productForm.value.service);
 
     this.productForm.value.points.forEach((point: string, index: number) => {
-    formData.append(`usp[]`, point);
+      formData.append(`usp[]`, point);
     });
+
 
     this.images.forEach((file, index) => {
       formData.append(`images`, file);
     });
 
-     if (this.isEdit && this.productId) {
-    this._productService.updtaeProduct(this.productId, formData).subscribe(
-      (response) => {
-        if (response?.success) {
-          Swal.fire('Success', response.message || 'Product updated successfully', 'success');
-          this._router.navigate(['/admin-panel/products']);
-        }
-      },
-      (error) => Swal.fire('Error', error?.error?.message || 'Failed to update product', 'error')
-    );
-  } else {
+    if (this.isEdit && this.productId) {
+      this._productService.updateProduct(this.productId, formData).subscribe(
+        (response) => {
+          if (response?.success) {
+            Swal.fire('Success', response.message || 'Product updated successfully', 'success');
+            this._router.navigate(['/admin-panel/products']);
+          }
+        },
+        (error) => Swal.fire('Error', error?.error?.message || 'Failed to update product', 'error')
+      );
+    } else {
       this._productService.addProducts(formData).subscribe(
-      response => {
-        if(response && response.success) {
+        response => {
+          if (response && response.success) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: response.message || 'Product added successfully',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this._router.navigate(['/admin-panel/products']);
+          }
+          // Reset form and images after successful submission
+          this.productForm.reset();
+          this.images = [];
+          this.previewImages = [];
+        },
+        error => {
+          console.error('Error adding product', error);
+          // Handle error appropriately
           Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: response.message || 'Product added successfully',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this._router.navigate(['/admin-panel/products']);
+            title: 'Error',
+            text: error?.error?.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
-        // Reset form and images after successful submission
-        this.productForm.reset();
-        this.images = [];
-        this.previewImages = [];
-      },
-      error => {
-        console.error('Error adding product', error);
-        // Handle error appropriately
-        Swal.fire({
-          title: 'Error',
-          text: error?.error?.message,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-    );
+      );
+    }
 
-    // this._productService.addProducts(formData).subscribe(
-    //   (response) => {
-    //     if (response?.success) {
-    //       Swal.fire('Success', response.message || 'Product added successfully', 'success');
-    //       this._router.navigate(['/admin-panel/products']);
-    //     }
-    //   },
-    //   (error) => Swal.fire('Error', error?.error?.message || 'Failed to add product', 'error')
-    // );
-  }
-
-    // Replace this with your API call
   }
 }
