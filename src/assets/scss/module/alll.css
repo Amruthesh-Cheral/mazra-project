@@ -424,6 +424,7 @@ h6 {
     transform: scale(1);
     cursor: pointer;
     display: flex;
+    justify-content: center;
 }
 .cart-page__table__remove:hover {
     transform: scale(0.9);
@@ -4290,6 +4291,7 @@ h6 {
     padding: 8px 20px;
     transition: 400ms;
     margin-bottom: 4px;
+    cursor: pointer;
 }
 
 .main-menu .main-menu__list li ul li>a::after {

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductDetailsService } from './service/product-details.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../cart/service/cart.service';
+declare var $: any;
 
 @Component({
   selector: 'app-product-detail',
@@ -18,6 +19,9 @@ export class ProductDetailComponent implements OnInit {
   product: any;
   quantity: number = 1;
 
+  @ViewChild('mainCarousel', { static: false }) mainCarousel!: ElementRef;
+  @ViewChild('thumbCarousel', { static: false }) thumbCarousel!: ElementRef;
+
   constructor(private route: ActivatedRoute, private productDetailservice: ProductDetailsService, private router: Router, private cartService: CartService) { }
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -27,6 +31,34 @@ export class ProductDetailComponent implements OnInit {
 
     this.getProductDetails();
   }
+
+   ngAfterViewInit(): void {
+    this.initSlick();
+  }
+
+
+    initSlick(): void {
+    $(this.mainCarousel.nativeElement).slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      asNavFor: this.thumbCarousel.nativeElement,
+      arrows: false,
+      autoplay: true,
+      infinite: true
+    });
+
+    $(this.thumbCarousel.nativeElement).slick({
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      asNavFor: this.mainCarousel.nativeElement,
+      focusOnSelect: true,
+      centerMode: true,
+      arrows: false,
+      infinite: true
+    });
+  }
+
+
   getProductDetails() {
     // This method would typically call a service to fetch product details by ID
     // For now, we are just logging the ID
