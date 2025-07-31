@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-category',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule , NgFor],
+  imports: [NgIf, ReactiveFormsModule ],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.scss'
 })
@@ -35,7 +35,6 @@ categoryForm!: FormGroup;
       description: ['', Validators.required],
       service: ['', Validators.required],
       image: [null],
-      // video: [null]
     });
 
     this._activatedRoute.paramMap.subscribe((data:any)=>{
@@ -50,20 +49,20 @@ categoryForm!: FormGroup;
 
   async loadCategory(id: string) {
     try {
-      const res: any = await this.categoryService.getCategoryById(id).toPromise();
+      const res: any = await this.categoryService.getCategoryDetailById(id).toPromise();
       const data = res?.data;
 
       this.categoryForm.patchValue({
         name: data.name,
         description: data.description,
-        service: data.service,
+        service: data.service._id,
       });
 
       if (data.image) {
         this.previewImage = data.image;
 
         // Optional: If you need to convert it back to a File
-        this.selectedImageFile = await this.urlToFile(data.image);
+        this.selectedImageFile = await this.urlToFile(data.image.url);
       }
     } catch (err) {
       console.error('Error loading category', err);
@@ -111,15 +110,6 @@ categoryForm!: FormGroup;
     }
   }
 
-  // onVideoChange(event: Event) {
-  //   const file = (event.target as HTMLInputElement)?.files?.[0];
-  //   if (file) {
-  //     this.selectedVideoFile = file;
-  //     const reader = new FileReader();
-  //     reader.onload = () => (this.previewVideo = reader.result as string);
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
 
   onSubmit() {
     if (this.categoryForm.invalid) return;
@@ -133,19 +123,14 @@ categoryForm!: FormGroup;
       formData.append('image', this.selectedImageFile);
     }
 
-    // if (this.selectedVideoFile) {
-    //   formData.append('video', this.selectedVideoFile);
-    // }
 
   const request = this.isEditMode ?
     this.categoryService.updateCategory(this.categoryId!, formData) :
     this.categoryService.addCategory(formData);
 
     // Call the service to add the service
-    this.categoryService.addCategory(formData).subscribe({
+    request.subscribe({
       next: (response) => {
-        console.log('Service added successfully', response);
-
         if(response && response.success) {
         Swal.fire({
           title: 'Success',
@@ -155,17 +140,13 @@ categoryForm!: FormGroup;
         });
         this._router.navigate(['/admin-panel/service-category']);
         }
-        // Optionally, reset the form or navigate to another page
         this.categoryForm.reset();
         this.previewImage = null;
-        // this.previewVideo = null;
 
       this.imageInputRef.nativeElement.value = '';
-      // this.videoInputRef.nativeElement.value = '';
 
       },
       error: (error) => {
-        console.error('Error adding service', error);
         Swal.fire({
           title: 'Error',
           text: error?.error.message,
@@ -174,9 +155,5 @@ categoryForm!: FormGroup;
         });
       }
     });
-
-
-    // TODO: Call service to POST formData
-    console.log('Submitting form...', formData);
   }
 }

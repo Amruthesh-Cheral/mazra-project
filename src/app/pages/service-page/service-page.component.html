@@ -56,17 +56,17 @@
     <section class="pt-5" style="margin-bottom: 40px;">
       <div class="container">
         <div class="row">
-          @for (item of serviceDetails.image; track $index) {
+          @for (item of serviceDetails?.image; track $index) {
           <div class="col-md-6 col-lg-3 col-sm-12">
-            <img [src]="item.url" class="img-fluid" alt="">
+            <img [src]="item?.url" class="img-fluid" alt="">
           </div>
           }
         </div>
         <div class="row">
-          @for (item of serviceDetails.video; track $index) {
+          @for (item of serviceDetails?.video; track $index) {
           <div class="col-md-6 col-lg-6 col-sm-12 pt-4">
             <video autoplay muted loop playsinline style="max-width: 100%; height: auto; ">
-              <source [src]="item.url" type="video/mp4">
+              <source [src]="item?.url" type="video/mp4">
             </video>
           </div>
           }

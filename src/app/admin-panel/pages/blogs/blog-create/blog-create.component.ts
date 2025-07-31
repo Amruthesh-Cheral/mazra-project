@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductCategoryService } from '../../service-category/product-category/service/product-category.service';
 import { BlogService } from '../service/blog.service';
 import Swal from 'sweetalert2';
@@ -19,8 +19,15 @@ export class BlogCreateComponent implements OnInit {
   previewImage: string | null = null;
   selectedImageFile?: File;
   categorys:any [] = [];
+  blogId: string | null = null;
+  isEditMode = false;
 
-  constructor(private fb: FormBuilder , private router: Router, private categoryService: ProductCategoryService , private blogService: BlogService)
+  constructor(
+    private fb: FormBuilder ,
+    private router: Router,
+    private categoryService: ProductCategoryService ,
+    private _activatedRoute: ActivatedRoute,
+    private blogService: BlogService)
   {
     this.blogForm = this.fb.group({
       title: ['', Validators.required],
@@ -31,6 +38,14 @@ export class BlogCreateComponent implements OnInit {
       content: ['', Validators.required],
       image: [null]
     });
+
+    this._activatedRoute.paramMap.subscribe((data:any)=>{
+    this.blogId = data.get('id'); // expects `/edit/:id`
+    if (this.blogId) {
+      this.isEditMode = true;
+      this.loadBlog(this.blogId);
+    }
+    })
   }
 
   ngOnInit(): void {
@@ -41,12 +56,38 @@ export class BlogCreateComponent implements OnInit {
     return this.blogForm.controls;
   }
 
+ loadBlog(id: string) {
+    this.blogService.getBlogId(id).subscribe({
+      next: async (response:any) => {
+        const data = response?.data;
+        this.blogForm.patchValue({
+          title: data.title,
+          author: data.author,
+          category: data.category,
+          excerpt: data.excerpt,
+          content: data.content,
+        });
+        if (data.image) {
+          this.previewImage = data.image.url;
+        }
+
+        this.selectedImageFile = await this.urlToFile(data.image.url);
+      }
+    });
+  }
+
+  async urlToFile(url: string): Promise<File> {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const filename = url.split('/').pop() || 'image.jpg';
+    return new File([blob], filename, { type: blob.type || 'image/jpeg' });
+  }
+
+
   getCategoryList() {
     this.categoryService.getCategoryList().subscribe({
       next: (response:any) => {
-        console.log('Category list fetched successfully', response);
         this.categorys = response?.data;
-        console.log(this.categorys);
       },
       error: (error) => {
         console.error('Error fetching category list', error);
@@ -67,8 +108,6 @@ export class BlogCreateComponent implements OnInit {
 
   submitBlog() {
     if (this.blogForm.valid) {
-      console.log(this.blogForm.value);
-
       const formData = new FormData();
       formData.append('title', this.blogForm.value.title);
       formData.append('author', this.blogForm.value.author);
@@ -78,36 +117,35 @@ export class BlogCreateComponent implements OnInit {
       if (this.selectedImageFile) {
         formData.append('image', this.selectedImageFile);
       }
-      // Handle form submission
-      // For example, you can send the form data to your backend service
-      this.blogService.addBlog(this.blogForm.value).subscribe({
-        next: (response:any) => {
-          console.log('Blog created successfully', response);
-          // Show success message and redirect
-          if(response && response.success) {
-            Swal.fire({
+
+      const request = this.isEditMode ?
+        this.blogService.updateBlog(this.blogId!, formData) :
+        this.blogService.addBlog(formData);
+      request.subscribe({
+        next: (response: any) => {
+
+          if (response && response.success) {
+            const res = Swal.fire({
               title: 'Success',
-              text: response?.message ,
+              text: response?.message || 'Blog has been created successfully.',
               icon: 'success',
-              confirmButtonText: 'OK'
+              showCancelButton: false,
+              timer: 2000,
             });
-          this.router.navigate(['/admin-panel/blog']);
-        }
+            this.router.navigate(['/admin-panel/blog']);
+          }
           this.blogForm.reset();
           this.previewImage = null;
           this.selectedImageFile = undefined;
         },
-        error: (error:any) => {
-          console.error('Error creating blog', error);
+        error: (error: any) => {
           Swal.fire({
             title: 'Error',
-            text: error?.error?.message,
+            text: error?.error?.message || 'Failed to create blog',
             icon: 'error',
-            confirmButtonText: 'OK'
           });
         }
       });
-      this.router.navigate(['/admin-panel/blog']);
     }
   }
 

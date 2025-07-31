@@ -47,7 +47,7 @@
           <span> {{data?.[item]}} </span>
           }
           @case ('image') {
-          <img [src]="data?.[item]" alt="Image" width="60" height="40" style="object-fit: cover;">
+          <img [src]="data?.[item] ? data?.[item].url : data?.[item]" alt="Image" width="60" height="40" style="object-fit: cover;">
           }
           @case ('id') {
           <span> {{i+1}} </span>

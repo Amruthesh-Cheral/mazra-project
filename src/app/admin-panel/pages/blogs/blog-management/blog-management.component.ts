@@ -142,6 +142,10 @@ export class BlogManagementComponent implements OnInit {
         this.createBlog();
         break;
 
+      case 'edit':
+        this.editBlog(env?.event?._id);
+        break;
+
       case 'delete':
         this.deleteBlog(env?.event?._id);
         break;
@@ -158,8 +162,8 @@ export class BlogManagementComponent implements OnInit {
 
   }
 
-  editBlog(blog: any) {
-    Swal.fire('Edit Blog', `Editing blog "${blog.title}" (dummy).`, 'info');
+  editBlog(id: string) {
+    this.router.navigate(['/admin-panel/blogs/blogs-create' , id]);
   }
 
   deleteBlog(id: string) {

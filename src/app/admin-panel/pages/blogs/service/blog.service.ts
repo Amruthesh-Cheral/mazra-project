@@ -20,6 +20,14 @@ getBlogs(params?:any) {
   return this.http.get(this.$baseUrl + "/blog"+(param ?? ''));
 }
 
+getBlogId(id: string) {
+  return this.http.get(this.$baseUrl + "/blog/" + id);
+}
+
+updateBlog(id: string, blogData: any) {
+  return this.http.put(this.$baseUrl + "/blog/" + id, blogData);
+}
+
 deleteBlog(id: string) {
   return this.http.delete(this.$baseUrl + "/blog/" + id);
 }

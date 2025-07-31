@@ -35,13 +35,13 @@
                                 <td>
                                     <div class="cart-page__table__meta">
                                         <div class="cart-page__table__meta-img">
-                                            <img [src]="item.product?.images[0]?.url" alt="Mazra">
+                                            <img [src]="item?.product?.images[0]?.url" alt="Mazra">
                                         </div>
                                         <h3 class="cart-page__table__meta-title"><a>{{item?.product?.name}}</a>
                                         </h3>
                                     </div>
                                 </td>
-                                <td>${{item.product?.discountedPrice}}</td>
+                                <td>${{item?.product?.discountedPrice}}</td>
                                 <td>
                                 <div class="product-details__quantity">
                                     <!-- <h3 class="product-details__quantity__title">Quantity</h3> -->
