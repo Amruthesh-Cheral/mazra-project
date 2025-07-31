@@ -8,18 +8,15 @@ import { BehaviorSubject, tap } from 'rxjs';
 })
 export class CartService {
   $baseUrl = environment.baseUrl
-  private cartItemCount = new BehaviorSubject<number>(0);
+  public cartItemCount = new BehaviorSubject<number>(0);
   cartItemCount$ = this.cartItemCount.asObservable();
 
   constructor(private http: HttpClient) { }
 
   refreshCartCount() {
     this.cartList().subscribe((res:any) => {
-      console.log('Cart items fetched for count:', res);
-
-      const count = res.data.item ? res.data?.items?.length : 0;
+      const count = res.data.items ? res.data?.items?.length : 0;
       this.cartItemCount.next(count);
-      console.log('Cart item count refreshed:', count);
     });
 
   }

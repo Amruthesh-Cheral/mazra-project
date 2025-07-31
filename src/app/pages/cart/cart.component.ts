@@ -50,7 +50,7 @@ increase(id:string , index: number) {
     if (this.cartItems[index].quantity < 99) {
       this.cartItems[index].quantity++;
       // this.calculateTotal();
-      this.updateCartItemQuantity(id, index)
+      this.updateCartItemQuantity(id, index, 'increase')
     }
   }
 
@@ -58,33 +58,57 @@ increase(id:string , index: number) {
     if (this.cartItems[index].quantity > 1) {
       this.cartItems[index].quantity--;
       // this.calculateTotal();
-      this.updateCartItemQuantity(id, index)
+      this.updateCartItemQuantity(id, index, 'increase')
     }
   }
 
   onInputChange(event: Event, index: number , id: string) {
-    const value = +(event.target as HTMLInputElement).value;
+    let qty = this.cartItems[index].quantity
+    const value = Number((event.target as HTMLInputElement).value);
     this.cartItems[index].quantity = value >= 1 && value <= 99 ? value : 1;
+
     // this.calculateTotal();
-    this.updateCartItemQuantity(id, index)
+    this.updateCartItemQuantity(id, index, qty)
   }
 
   calculateTotal() {
     let total = 0;
     this.cartItems.forEach(item => {
-      total += item.quantity * item.product.discountedPrice;
+      total += item.quantity * item?.product?.discountedPrice;
     });
     this.alldetails.total = total;
   }
 
-  updateCartItemQuantity(id: string, index: number) {
+  updateCartItemQuantity(id: string, index: number, action: string) {
     const data = { quantity: this.cartItems[index].quantity };
-    this.cartService.updateCartItemQuanity(id, data).subscribe({
-      next: () => {
-        console.log('Cart item updated successfully');
+   this.cartService.updateCartItemQuanity(id, data).subscribe({
+      next: ((res:any) => {
+      Swal.fire({
+        title: 'Success',
+        text: res?.message || 'Quantity updated successfully',
+        icon: 'success',
+        showCancelButton: false,
+        timer: 2000,
+      });
         this.calculateTotal();
-      },
+      }),
       error: err => {
+
+        if (action === 'increase') {
+          this.cartItems[index].quantity--;
+        } else if (action === 'decrease') {
+          this.cartItems[index].quantity++;
+        } else {
+          this.cartItems[index].quantity = Number(action);
+        }
+
+        Swal.fire({
+          title: 'Error',
+          text: err?.error?.message || 'Failed to update quantity',
+          icon: 'error',
+          showCancelButton: false,
+          timer: 2000,
+        });
         console.error('Update failed:', err);
       }
     });

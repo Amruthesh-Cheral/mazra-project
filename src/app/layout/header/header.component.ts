@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../pages/login/service/login.service';
 import { ProductServicesService } from '../../admin-panel/pages/service-category/product-services/service/product-services.service';
+import { LoaderService } from '../../core/services/loader.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   service:any;
-  constructor( private route:Router , private CartService: CartService , private authService: LoginService, private productService:ProductServicesService) { }
+  constructor( private route:Router , private CartService: CartService , private authService: LoginService,
+    private productService:ProductServicesService , private loaderService:LoaderService , loginService: LoginService) { }
 
   ngOnInit() {
     // Check if user is logged in
@@ -32,6 +34,9 @@ export class HeaderComponent implements OnInit {
     //   this.isLoggedIn = isLoggedIn;
     //   console.log('User is logged in:', this.isLoggedIn);
       // console.log(JSON.parse(localStorage.getItem('user') || '{}').username)
+      // this.loaderService.loading$.subscribe((islogin: boolean) => {
+      // this.isLoggedIn = islogin;
+      // });
       if (localStorage.getItem('token')) {
         this.username = JSON.parse(localStorage.getItem('user') || '{}').username || '';
         this.email = JSON.parse(localStorage.getItem('user') || '{}').email || '';
@@ -87,6 +92,9 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     localStorage.clear();
+    this.loaderService.hide();
+    this.CartService.cartItemCount.next(0);
+    // this.username =''
     this.route.navigate(['/login']);
     Swal.fire({
       title: 'Logged Out',

@@ -15,6 +15,12 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
     login(data: any) {
-      return this.http.post( this.$baseUrl + "/auth/signin", data)
+      return this.http.post( this.$baseUrl + "/auth/signin", data).pipe(
+        tap((res: any) => {
+          if (res && res.token) {;
+            this.islogin.next(true);
+          }
+        })
+      );
     }
 }

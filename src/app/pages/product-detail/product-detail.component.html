@@ -40,11 +40,11 @@
                                 <img [src]='item.url' alt="mazra products">
                                 <a class="img-popup" [href]="product.url"><span
                                         class="icon-magnifying-glass"></span></a>
-                                        
+
                             </div>
                         </div> -->
                         <!-- item -->
-                        
+
                         <!-- <div class="item">
                             <div class="product-details__gallery__image">
                                 <img src="assets/images/products/mazra-bag-4.jpeg" alt="mazra products">
@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<!-- 
+<!--
                     <ul class="product-details__carousel-thumb alefox-slick__carousel" data-slick-options='{
 						"slidesToShow": 3,
 						"slidesToScroll": 1,
@@ -128,7 +128,7 @@
                         </li>
                     </ul> -->
 
-                    
+
 
 
                     <ul class="product-details__carousel-thumb alefox-slick__carousel" #thumbCarousel>
@@ -148,7 +148,7 @@
                     <div class="product-details__price">
                         <span class="product-details__price__regular">${{product.discountedPrice}}</span>
                         <span class="product-details__price__offer">${{product.price}}</span>
-                        <span class="product-details__price__stock" *ngIf="product.stock > 1; else outOfStock"> In stock</span>
+                        <span class="product-details__price__stock" *ngIf="product.stock >= 1; else outOfStock"> In stock</span>
                         <ng-template #outOfStock>
                           <span class="product-details__price__outofstock"> Out of stock</span>
                         </ng-template>
