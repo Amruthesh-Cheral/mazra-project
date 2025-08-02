@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ProductServicesService } from '../../admin-panel/pages/service-category/product-services/service/product-services.service';
 import { LoaderService } from '../../core/services/loader.service';
 import { filter, take } from 'rxjs';
+import { WishlistService } from '../../pages/wishlist/service/wishlist.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -21,13 +22,14 @@ import { filter, take } from 'rxjs';
 export class HeaderComponent implements OnInit {
 
   itemCount: number = 0;
+  wishlistCount: number = 0;
   username:string = '';
   email:string = '';
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   service:any;
   constructor( private route:Router , private CartService: CartService , private authService: LoginService,
-    private productService:ProductServicesService , private loaderService:LoaderService , ) { }
+    private productService:ProductServicesService , private loaderService:LoaderService , private wishlistService: WishlistService ) { }
 
   // ngOnInit() {
   //   this.authService.islogin$
@@ -69,6 +71,10 @@ export class HeaderComponent implements OnInit {
         this.itemCount = count || 0;
       });
       this.CartService.refreshCartCount();
+      this.wishlistService.wishlistCount$.subscribe(count => {
+        this.wishlistCount = count || 0;
+      });
+      this.wishlistService.refreshWishlistCount();
     // });
   }
   this.getServices();
@@ -100,6 +106,33 @@ export class HeaderComponent implements OnInit {
 
       });
     }
+  }
+
+  goToWishlist() {
+    // if(this.wishlistCount >= 0 && localStorage.getItem('token')) {
+      this.route.navigate(['/wishlist']);
+    // }else if(this.wishlistCount === 0 && localStorage.getItem('token')) {
+    //   Swal.fire({
+    //     title: 'Empty Wishlist',
+    //     text: 'Your wishlist is empty. Please add items to your wishlist.',
+    //     icon: 'info',
+    //     confirmButtonText: 'OK'
+    //   });
+    //   this.route.navigate(['/']);
+    // }else {
+    //   Swal.fire({
+    //     title: 'Login Required',
+    //     text: 'Please login to view your wishlist. Are you sure you want to login?',
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonText: 'Login',
+    //     cancelButtonText: 'Cancel'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       this.route.navigate(['/login']);
+    //     }
+    //   });
+    // }
   }
 
   logout() {

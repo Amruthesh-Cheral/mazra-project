@@ -32,21 +32,21 @@
                                 <td>
                                     <div class="wishlist-page__table__meta">
                                         <div class="wishlist-page__table__meta-img">
-                                            <img [src]="item.product.images[0].url" alt="Mazra">
+                                            <img [src]="item.images[0].url" alt="Mazra">
                                         </div>
-                                        <h3 class="wishlist-page__table__meta-title"><a href="product-details.html">{{item.product.name}}</a>
+                                        <h3 class="wishlist-page__table__meta-title"><a href="product-details.html">{{item.name}}</a>
                                         </h3>
                                     </div>
                                 </td>
                                 <td class="wishlist-page__table__price ">
-                                  <span class="product-details__price__regular d-flex align-items-center">${{item.product.discountedPrice}}/
-                                    <span class="product-details__price__offer m-0">${{item.product.price}}
+                                  <span class="product-details__price__regular d-flex align-items-center">${{item.discountedPrice}}/
+                                    <span class="product-details__price__offer m-0">${{item.price}}
                                     </span>
                                   </span>
                                 </td>
                                 <td>23 Oct 2023</td>
                                 <td class="wishlist-page__table__cart cursor-pointer">
-                                    <a (click)="addToCart(item.product._id)" class="alefox-btn">
+                                    <a (click)="addToCart(item._id)" class="alefox-btn">
                                         <span class="alefox-btn__item"></span>
                                         <span class="alefox-btn__item"></span>
                                         <span class="alefox-btn__item"></span>
@@ -55,7 +55,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a (click)="removeItem(item.product._id)" class="table wishlist-page__table__remove cursor-pointer"><span class="icofont-close-line"></span></a>
+                                    <a (click)="removeItem(item._id)" class="table wishlist-page__table__remove cursor-pointer"><span class="icofont-close-line"></span></a>
                                 </td>
                             </tr>
                             <!-- <tr>
@@ -84,7 +84,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-xl-4 col-lg-5">
+                <div class="col-xl-4 col-lg-5 w-100">
                   <div class="cart-page__buttons">
                     <a (click)="clearWishlist()" class="alefox-btn cursor-pointer">
                       <span class="alefox-btn__item"></span>

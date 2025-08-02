@@ -104,7 +104,12 @@
                             <i class="icon-shopping-cart" aria-hidden="true"></i>
                             <span class="main-header__cart__count">{{itemCount}}</span>
                             <span class="sr-only">Search</span>
-                        </a>
+                    </a>
+                    <a  class="main-header__cart" (click)="goToCart()">
+                            <i class="far fa-heart" aria-hidden="true"></i>
+                            <span class="main-header__cart__count">{{wishlistCount}}</span>
+                            <span class="sr-only">Search</span>
+                    </a>
                     <div class="mobile-nav__btn mobile-nav__toggler">
                         <span></span>
                         <span></span>

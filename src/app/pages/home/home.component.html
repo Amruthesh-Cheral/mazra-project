@@ -672,7 +672,7 @@
      <owl-carousel-o
   [options]="blogCarouselOptions"
   class="blog-one__carousel alefox-owl__carousel alefox-owl__carousel--with-shadow alefox-owl__carousel--basic-nav pb-5">
-  <ng-template carouselSlide *ngFor="let post of blogPosts">
+  <ng-template carouselSlide *ngFor="let post of blogDetails">
     <div class="item">
       <div class="blog-card wow fadeInUp" data-wow-duration="1500ms" data-wow-delay="00ms">
         <div class="blog-card__image">
@@ -685,8 +685,8 @@
 
         <div class="blog-card__content">
           <ul class="list-unstyled blog-card__meta">
-            <li><i class="icofont-ui-user"></i> Admin : {{ post.admin }}</li>
-            <li><i class="icofont-comment"></i> Comments ({{ post.comments }})</li>
+            <li><i class="icofont-ui-user"></i> Admin : {{post.author}}</li>
+            <!-- <li><i class="icofont-comment"></i> Comments ({{ post.comments }})</li> -->
           </ul>
 
           <h3 class="blog-card__title">
@@ -694,7 +694,7 @@
           </h3>
 
           <p class="blog-card__text">
-            {{ post.description }}
+            {{post.content}}
           </p>
         </div>
       </div>

@@ -26,7 +26,7 @@ export class WishlistComponent implements OnInit {
   getCartList() {
     this.WishlistService.getWishlist().subscribe((res: any) => {
       console.log('Wishlist Items:', res);
-      this.wishlistItems = res.data.items;
+      this.wishlistItems = res.data.products;
       // Handle the wishlist items response
     }, error => {
       console.error('Error fetching wishlist items:', error);
