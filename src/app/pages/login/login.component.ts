@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
         // this.dataService.customSnackBar("Login failed", "error", "error");
         Swal.fire({
           title: 'Login Failed',
-          text: 'Invalid email or password',
+          text:   error?.error?.message || 'something went wrong, please try again.' ,
           icon: 'error',
           confirmButtonText: 'OK'
         });
@@ -80,7 +80,8 @@ export class LoginComponent implements OnInit {
 
  saveUserData(data:any){
     // data?.data?.language == 1 ? localStorage.setItem("lang", "en") : localStorage.setItem("lang", "du")
-    localStorage.setItem("user", JSON.stringify(data?.data))
+    // localStorage.setItem("user", JSON.stringify(data?.data))
+    this.LoginService.setUser(data?.data);
     localStorage.setItem("token", data.token)
     this.loggedUser = data?.data?.role;
     localStorage.setItem("role", this.loggedUser)

@@ -1,3 +1,4 @@
+import { LoginService } from './../../pages/login/service/login.service';
 import { CartService } from './../../pages/cart/service/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
@@ -7,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../pages/login/service/login.service';
 import { ProductServicesService } from '../../admin-panel/pages/service-category/product-services/service/product-services.service';
 import { LoaderService } from '../../core/services/loader.service';
+import { filter, take } from 'rxjs';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -26,41 +27,52 @@ export class HeaderComponent implements OnInit {
   isAdmin: boolean = false;
   service:any;
   constructor( private route:Router , private CartService: CartService , private authService: LoginService,
-    private productService:ProductServicesService , private loaderService:LoaderService , loginService: LoginService) { }
+    private productService:ProductServicesService , private loaderService:LoaderService , ) { }
 
+  // ngOnInit() {
+  //   this.authService.islogin$
+  //     .pipe(
+  //       filter(isLogin => isLogin && !!localStorage.getItem('token')), // Wait until logged in AND token exists
+  //       take(1) // Only react to first valid login
+  //     )
+  //     .subscribe(() => {
+  //       const user = JSON.parse(localStorage.getItem('user') || '{}');
+  //       this.username = user.username || '';
+  //       this.email = user.email || '';
+  //       this.isAdmin = user.role === 'Admin';
+
+  //       console.log('Username:', this.username);
+  //       console.log('Email:', this.email);
+  //       console.log('User role:', this.isAdmin);
+
+  //       // Subscribe to cart count
+  //       this.CartService.cartItemCount$.subscribe(count => {
+  //         this.itemCount = count || 0;
+  //       });
+  //       this.CartService.refreshCartCount();
+  //     });
+
+  //   this.getServices();
+  // }
   ngOnInit() {
-    // Check if user is logged in
-    // this.authService.islogin$.subscribe(isLoggedIn => {
-    //   this.isLoggedIn = isLoggedIn;
-    //   console.log('User is logged in:', this.isLoggedIn);
-      // console.log(JSON.parse(localStorage.getItem('user') || '{}').username)
-      // this.loaderService.loading$.subscribe((islogin: boolean) => {
-      // this.isLoggedIn = islogin;
-      // });
-      if (localStorage.getItem('token')) {
-        this.username = JSON.parse(localStorage.getItem('user') || '{}').username || '';
-        this.email = JSON.parse(localStorage.getItem('user') || '{}').email || '';
-        console.log('Username:');
-        this.CartService.cartItemCount$.subscribe(count => {
-          console.log(count)
-          this.itemCount = count || 0;
-        });
-        this.CartService.refreshCartCount();
+  this.authService.currentUser$.subscribe(user => {
+    this.username = user?.username || '';
+    this.email = user?.email || '';
+    this.isAdmin = user?.role === 'Admin';
+  });
 
-      } else {
-        this.username = '';
-        this.email = '';
-      }
-      this.isAdmin = JSON.parse(localStorage.getItem('user') || '{}').role === 'Admin';
-      console.log('User role:', this.username);
-    //   this.CartService.cartItemCount$.subscribe(count => {
-    //   this.itemCount = count || 0;
+  // this.authService.islogin$
+  //   .pipe(filter(isLogin => isLogin && !!localStorage.getItem('token')), take(1))
+  //   .subscribe(() => {
+  if (localStorage.getItem('token')) {
+      this.CartService.cartItemCount$.subscribe(count => {
+        this.itemCount = count || 0;
+      });
+      this.CartService.refreshCartCount();
     // });
-    // });
-
-
-    this.getServices();
   }
+  this.getServices();
+}
 
   goToCart(){
     if(this.itemCount >= 0 && localStorage.getItem('token')) {
@@ -94,7 +106,11 @@ export class HeaderComponent implements OnInit {
     localStorage.clear();
     this.loaderService.hide();
     this.CartService.cartItemCount.next(0);
-    // this.username =''
+    this.authService.islogin.next(false);
+    this.authService.currentUserSubject.next(null);
+    this.username =''
+    this.email = '';
+    this.isLoggedIn = false;
     this.route.navigate(['/login']);
     Swal.fire({
       title: 'Logged Out',
