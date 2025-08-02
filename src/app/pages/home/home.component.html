@@ -495,222 +495,44 @@
       </div>
       <!-- /.sec-title -->
       <div class="testimonials-two__wrapper">
-        <div class="testimonials-two__wrapper__quote" ></div>
-        <div class="testimonials-two__carousel alefox-slick__carousel" data-slick-options='{
-                     "slidesToShow": 1,
-                     "slidesToScroll": 1,
-                     "asNavFor": ".testimonials-two__carousel-thumb",
-                     "autoplay": true,
-                     "infinite": true,
-                     "dots": false,
-                     "autoplaySpeed": 5000,
-                     "centerPadding": 0,
-                     "arrows": false,
-                     "nextArrow": "<button class=\"next\"><i class=\"icon-right-arrow-two1\"></i></button>",
-                     "prevArrow": "<button class=\"prev\"><i class=\"icon-right-arrow-two\"></i></button>"
-                     }'>
-          <div class="item">
-            <div class="testimonials-two__item">
-              <div class="testimonials-two__item__ratings">
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-              </div>
-              <div class="testimonials-two__item__quote">
-                “Partnering with Mazra Care has been a turning point in our sustainability journey. Their hydroponic
-                solutions have
-                not only improved our yield quality but also cut our water consumption drastically. Their hands-on
-                support and tech integration made implementation seamless.”
-              </div>
-            </div>
-            <!-- testimonial-item -->
-          </div>
-          <!-- item -->
-          <div class="item">
-            <div class="testimonials-two__item">
-              <div class="testimonials-two__item__ratings">
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-              </div>
-              <div class="testimonials-two__item__quote">
-                “Mazra Care embodies the future of food security in the UAE. Their closed-loop systems show that
-                sustainable,
-                chemical-free farming is not only possible but scalable. Their vision aligns perfectly with our national
-                sustainability goals.”
+  <div class="testimonials-two__wrapper__quote"></div>
 
-              </div>
-            </div>
-            <!-- testimonial-item -->
-          </div>
-          <!-- item -->
-          <div class="item">
-            <div class="testimonials-two__item">
-              <div class="testimonials-two__item__ratings">
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-              </div>
-              <div class="testimonials-two__item__quote">
-                “Thanks to Mazra Care’s adaptable systems, we now grow fresh vegetables in
-                remote, arid regions where farming was once impossible. This has transformed food access and income
-                generation for rural families.” </div>
-            </div>
-            <!-- testimonial-item -->
-          </div>
-          <!-- item -->
-          <div class="item">
-            <div class="testimonials-two__item">
-              <div class="testimonials-two__item__ratings">
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-              </div>
-              <div class="testimonials-two__item__quote">
-                “As a mother, I was worried about the safety of store-bought vegetables. With Mazra Care’s home-friendly
-                setup, we now grow our own clean produce. It’s healthy, fun, and educational for my kids!”
-
-              </div>
-            </div>
-            <!-- testimonial-item -->
-          </div>
-          <!-- item -->
-          <div class="item">
-            <div class="testimonials-two__item">
-              <div class="testimonials-two__item__ratings">
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-              </div>
-              <div class="testimonials-two__item__quote">
-                “We rely on Mazra Care’s farms for ultra-fresh, pesticide-free greens used in our kitchen daily.
-                Their consistency, flavor, and sustainability credentials give us a competitive edge and peace of mind.”
-
-              </div>
-            </div>
-            <!-- testimonial-item -->
-          </div>
-          <!-- item -->
-          <div class="item">
-            <div class="testimonials-two__item">
-              <div class="testimonials-two__item__ratings">
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-                <i class="icofont-star"></i>
-              </div>
-              <div class="testimonials-two__item__quote">
-                “What attracted me to invest in Mazra Care was their scalable, impact-driven model. They’ve proven that
-                agriculture
-                can be both profitable and planet-positive. This is the kind of leadership the world needs.”
-              </div>
-            </div>
-            <!-- testimonial-item -->
-          </div>
-          <!-- item -->
+  <!-- Main testimonial carousel -->
+  <ngx-slick-carousel
+    class="testimonials-two__carousel"
+    [config]="mainSliderConfig"
+    #mainSlider="slick-carousel"
+  >
+    <div ngxSlickItem *ngFor="let item of testimonials" class="item">
+      <div class="testimonials-two__item">
+        <div class="testimonials-two__item__ratings">
+          <i *ngFor="let star of [].constructor(item.rating)" class="icofont-star"></i>
         </div>
-        <!-- testimonial-content -->
-        <ul class="testimonials-two__carousel-thumb alefox-slick__carousel" data-slick-options='{
-                     "slidesToShow": 5,
-                     "slidesToScroll": 1,
-                     "autoplay": true,
-                     "infinite": true,
-                     "centerMode": true,
-                     "asNavFor": ".testimonials-two__carousel",
-                     "focusOnSelect": true,
-                     "dots": false,
-                     "centerPadding": 0,
-                     "arrows": false,
-                     "responsive": [
-                     {
-                     "breakpoint": 501,
-                     "settings": {
-                     "slidesToShow": 3,
-                     "slidesToScroll": 1
-                     }
-                     }
-                     ]
-                     }'>
-          <li role="presentation">
-            <div class="item">
-              <span class="testimonials-two__meta-thumb"><img src="../assets/images/team/person.jpeg"
-                  alt="mazra"></span>
-              <span class="testimonials-two__meta">
-                <span class="testimonials-two__meta__name">Mike Hardson</span>
-                <span class="testimonials-two__meta__designation">Customer</span>
-              </span>
-            </div>
-          </li>
-          <!-- Testimonial Item -->
-          <li role="presentation">
-            <div class="item">
-              <span class="testimonials-two__meta-thumb"><img src="../assets/images/team/person.jpeg"
-                  alt="mazra"></span>
-              <span class="testimonials-two__meta">
-                <span class="testimonials-two__meta__name">Joseph Kennedy</span>
-                <span class="testimonials-two__meta__designation">Founder</span>
-              </span>
-            </div>
-          </li>
-          <!-- Testimonial Item -->
-          <li role="presentation">
-            <div class="item">
-              <span class="testimonials-two__meta-thumb"><img src="../assets/images/team/person.jpeg"
-                  alt="mazra"></span>
-              <span class="testimonials-two__meta">
-                <span class="testimonials-two__meta__name">Mike Hardson</span>
-                <span class="testimonials-two__meta__designation">Customer</span>
-              </span>
-            </div>
-          </li>
-          <!-- Testimonial Item -->
-          <li role="presentation">
-            <div class="item">
-              <span class="testimonials-two__meta-thumb"><img src="../assets/images/team/person.jpeg"
-                  alt="mazra"></span>
-              <span class="testimonials-two__meta">
-                <span class="testimonials-two__meta__name">Joseph Kennedy</span>
-                <span class="testimonials-two__meta__designation">Founder</span>
-              </span>
-            </div>
-          </li>
-          <!-- Testimonial Item -->
-          <li role="presentation">
-            <div class="item">
-              <span class="testimonials-two__meta-thumb"><img src="../assets/images/team/person.jpeg"
-                  alt="mazra"></span>
-              <span class="testimonials-two__meta">
-                <span class="testimonials-two__meta__name">Mike Hardson</span>
-                <span class="testimonials-two__meta__designation">Customer</span>
-              </span>
-            </div>
-          </li>
-          <!-- Testimonial Item -->
-          <li role="presentation">
-            <div class="item">
-              <span class="testimonials-two__meta-thumb"><img src="../assets/images/team/person.jpeg"
-                  alt="mazra"></span>
-              <span class="testimonials-two__meta">
-                <span class="testimonials-two__meta__name">Mark Smith</span>
-                <span class="testimonials-two__meta__designation">Manager</span>
-              </span>
-            </div>
-          </li>
-          <!-- Testimonial Item -->
-        </ul>
-        <!-- Testimonial Thumb -->
+        <div class="testimonials-two__item__quote">
+          “{{ item.quote }}”
+        </div>
       </div>
+    </div>
+  </ngx-slick-carousel>
+
+  <!-- Thumbnail carousel -->
+  <ngx-slick-carousel
+    class="testimonials-two__carousel-thumb"
+    [config]="thumbSliderConfig"
+    #thumbSlider="slick-carousel"
+  >
+    <div ngxSlickItem *ngFor="let item of testimonials" class="item" role="presentation">
+      <span class="testimonials-two__meta-thumb">
+        <img [src]="item.image" alt="mazra" />
+      </span>
+      <span class="testimonials-two__meta">
+        <span class="testimonials-two__meta__name">{{ item.name }}</span>
+        <span class="testimonials-two__meta__designation">{{ item.designation }}</span>
+      </span>
+    </div>
+  </ngx-slick-carousel>
+</div>
+
     </div>
     <!-- /.container -->
   </section>
@@ -727,81 +549,30 @@
         <!-- /.sec-title__title -->
       </div>
       <!-- /.sec-title -->
-      <div
-        class="project-two__carousel alefox-owl__carousel alefox-owl__carousel--with-shadow alefox-owl__carousel--basic-nav owl-carousel owl-theme"
-        data-owl-options='{
-                  "items": 1,
-                  "margin": 30,
-                  "loop": false,
-                  "smartSpeed": 700,
-                  "nav": false,
-                  "navText": ["<span class=\"icofont-bubble-left\"></span>","<span class=\"icofont-bubble-righ\"></span>"],
-                  "dots": true,
-                  "autoplay": false,
-                  "responsive": {
-                  "0": {
-                  "items": 1
-                  },
-                  "768": {
-                  "items": 2
-                  },
-                  "1024": {
-                  "items": 3
-                  },
-                  "1400": {
-                  "items": 4
-                  }
-                  }
-                  }'>
-        <div class="item">
-          <div class="project-two__item">
-            <img src="../assets/images/pintrest/Image_2.png.jpg" alt="mazra">
-            <div class="project-two__item__content">
-              <h5 class="project-two__item__title"><a routerLink="/residential">Residential</a></h5>
-              <a routerLink="/residential" class="project-two__item__rm">
-                <i class="icofont-arrow-right"></i>
-              </a>
-            </div>
-          </div>
+<owl-carousel-o
+  [options]="customOptions"
+  class="project-two__carousel alefox-owl__carousel alefox-owl__carousel--with-shadow alefox-owl__carousel--basic-nav"
+>
+  <ng-template carouselSlide *ngFor="let project of projects">
+    <div class="item">
+      <div class="project-two__item">
+        <img [src]="project.image" [alt]="project.title">
+        <div class="project-two__item__content">
+          <h5 class="project-two__item__title">
+            <a [routerLink]="project.link">{{ project.title }}</a>
+          </h5>
+          <a [routerLink]="project.link" class="project-two__item__rm">
+            <i class="icofont-arrow-right"></i>
+          </a>
         </div>
-        <!-- /.item -->
-        <div class="item">
-          <div class="project-two__item">
-            <img src="../assets/images/pintrest/agri2.jpg" alt="mazra">
-            <div class="project-two__item__content">
-              <h5 class="project-two__item__title"><a routerLink="/commercial">Commercial </a></h5>
-              <a routerLink="/commercial" class="project-two__item__rm">
-                <i class="icofont-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- /.item -->
-        <div class="item">
-          <div class="project-two__item">
-            <img src="../assets/images/pintrest/indr4.jpg" alt="mazra">
-            <div class="project-two__item__content">
-              <h5 class="project-two__item__title"><a routerLink="/industrial">Industrial </a></h5>
-              <a routerLink="/industrial" class="project-two__item__rm">
-                <i class="icofont-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- /.item -->
-        <div class="item">
-          <div class="project-two__item">
-            <img src="../assets/images/pintrest/school2.jpg" alt="mazra">
-            <div class="project-two__item__content">
-              <h5 class="project-two__item__title"><a routerLink="/institutional">Institutional</a></h5>
-              <a routerLink="/institutional" class="project-two__item__rm">
-                <i class="icofont-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
       </div>
+    </div>
+  </ng-template>
+</owl-carousel-o>
+
+
+
+
     </div>
     <!-- /.container -->
   </section>
@@ -897,133 +668,40 @@
         <!-- /.sec-title__title -->
       </div>
       <!-- /.sec-title -->
-      <div
-        class="blog-one__carousel alefox-owl__carousel alefox-owl__carousel--with-shadow alefox-owl__carousel--basic-nav owl-carousel owl-theme"
-        data-owl-options='{
-                  "items": 1,
-                  "margin": 30,
-                  "loop": false,
-                  "smartSpeed": 700,
-                  "nav": false,
-                  "navText": ["<span class=\"icofont-bubble-left\"></span>","<span class=\"icofont-bubble-righ\"></span>"],
-                  "dots": false,
-                  "autoplay": false,
-                  "responsive": {
-                  "0": {
-                  "items": 1
-                  },
-                  "768": {
-                  "items": 2
-                  },
-                  "992": {
-                  "items": 3
-                  }
-                  }
-                  }'>
-        <div class="item">
-          <div class="blog-card wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='00ms'>
-            <div class="blog-card__image">
-              <img src="../assets/images/blog/blog-1-1.jpg" alt="This Leader in Organic Agriculture Growth">
-              <img src="../assets/images/blog/blog-1-1.jpg" alt="This Leader in Organic Agriculture Growth">
-              <a routerLink="/#" class="blog-card__image__link">
-                <span class="sr-only">Cultivating a Greener Future with Mazra Care’s Smart Farming Solutions</span>
-                <!-- /.sr-only -->
-              </a>
-            </div>
-            <!-- /.blog-card__image -->
-            <div class="blog-card__content">
-              <ul class="list-unstyled blog-card__meta">
-                <li><i class="icofont-ui-user"></i>Admin : sam <a routerLink="/#"></a></li>
-                <li><i class="icofont-comment"></i>Comments (5)</li>
-              </ul>
-              <!-- /.list-unstyled blog-card__meta -->
-              <h3 class="blog-card__title"><a routerLink="/#">Agriculture is Important same as Education</a></h3>
-              <!-- /.blog-card__title -->
-              <p class="blog-card__text">
-                Let kids get their hands dirty while learning about sustainable farming and healthy eating. It's all
-                about inspiring <br> curiosity, teaching responsibility,</p>
-              <!-- /.blog-card__text -->
-              <!-- <a routerLink="/about" class="blog-card__link">
-                           <i class="icofont-arrow-right"></i>
-                           Read more
-                           </a>/.blog-card__link -->
-            </div>
-            <!-- /.blog-card__content -->
-          </div>
-          <!-- /.blog-card -->
+
+     <owl-carousel-o
+  [options]="blogCarouselOptions"
+  class="blog-one__carousel alefox-owl__carousel alefox-owl__carousel--with-shadow alefox-owl__carousel--basic-nav pb-5">
+  <ng-template carouselSlide *ngFor="let post of blogPosts">
+    <div class="item">
+      <div class="blog-card wow fadeInUp" data-wow-duration="1500ms" data-wow-delay="00ms">
+        <div class="blog-card__image">
+          <img [src]="post.image" [alt]="post.title" />
+          <img [src]="post.image" [alt]="post.title" />
+          <a routerLink="/#" class="blog-card__image__link">
+            <span class="sr-only">{{ post.srText }}</span>
+          </a>
         </div>
-        <!-- /.item -->
-        <div class="item">
-          <div class="blog-card wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='100ms'>
-            <div class="blog-card__image">
-              <img src="../assets/images/blog/blog-1-2.jpg" alt="How to Findout Healthy Food For Body">
-              <img src="../assets/images/blog/blog-1-2.jpg" alt="How to Findout Healthy Food For Body">
-              <a routerLink="/#" class="blog-card__image__link">
-                <span class="sr-only">Empowering Communities Through Agriculture and Wellness </span>
-                <!-- /.sr-only -->
-              </a>
-            </div>
-            <!-- /.blog-card__image -->
-            <div class="blog-card__content">
-              <ul class="list-unstyled blog-card__meta">
-                <li><i class="icofont-ui-user"></i>Admin : Alex <a routerLink="/#"></a></li>
-                <li><i class="icofont-comment"></i>Comments (9)</li>
-              </ul>
-              <!-- /.list-unstyled blog-card__meta -->
-              <h3 class="blog-card__title"><a routerLink="/#">Why Mazra Care Rock's for students </a></h3>
-              <!-- /.blog-card__title -->
-              <p class="blog-card__text">
-                Connecting with the environment in an fun & interactive way. Hands on lesson in suitable farming.
-                Learning about food and where it comes from
-              </p>
-              <!-- /.blog-card__text -->
-              <!-- <a routerLink="/about" class="blog-card__link">
-                           <i class="icofont-arrow-right"></i>
-                           Read more -->
-              <!-- /.blog-card__link -->
-            </div>
-            <!-- /.blog-card__content -->
-          </div>
-          <!-- /.blog-card -->
+
+        <div class="blog-card__content">
+          <ul class="list-unstyled blog-card__meta">
+            <li><i class="icofont-ui-user"></i> Admin : {{ post.admin }}</li>
+            <li><i class="icofont-comment"></i> Comments ({{ post.comments }})</li>
+          </ul>
+
+          <h3 class="blog-card__title">
+            <a routerLink="/#">{{ post.title }}</a>
+          </h3>
+
+          <p class="blog-card__text">
+            {{ post.description }}
+          </p>
         </div>
-        <!-- /.item -->
-        <div class="item">
-          <div class="blog-card wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='200ms'>
-            <div class="blog-card__image">
-              <img src="../assets/images/blog/blog-1-3.jpg" alt="We Are Ripening Fruits Healthy Blog">
-              <img src="../assets/images/blog/blog-1-3.jpg" alt="We Are Ripening Fruits Healthy Blog">
-              <a routerLink="/#" class="blog-card__image__link">
-                <span class="sr-only">Pure, Ethical, and Powerful: The Mazra Care Wellness Revolution</span>
-                <!-- /.sr-only -->
-              </a>
-            </div>
-            <!-- /.blog-card__image -->
-            <div class="blog-card__content">
-              <ul class="list-unstyled blog-card__meta">
-                <li><i class="icofont-ui-user"></i>Admin : sam<a routerLink="/#"></a></li>
-                <li><i class="icofont-comment"></i>Comments (5)</li>
-              </ul>
-              <!-- /.list-unstyled blog-card__meta -->
-              <h3 class="blog-card__title"><a routerLink="/#">Boost your Farm with Quality Products</a></h3>
-              <!-- /.blog-card__title -->
-              <p class="blog-card__text">
-                Learn proven strategies to increase your revenue within just a year Mazra Care offers pure, organic
-                alternatives for skincare, nutrition, and personal care—all made with love and sustainability in mind..
-              </p>
-              <!-- /.blog-card__text -->
-              <!-- <a routerLink="/about" class="blog-card__link">
-                           <i class="icofont-arrow-right"></i>
-                           Read more
-                           </a>/.blog-card__link -->
-              <!-- </div> -->
-              <!-- /.blog-card__content -->
-            </div>
-            <!-- /.blog-card -->
-          </div>
-          <!-- /.item -->
-        </div>
-        <!-- /.row -->
       </div>
+    </div>
+  </ng-template>
+</owl-carousel-o>
+
       <!-- /.container -->
        </div>
   </section>
