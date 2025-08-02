@@ -87,7 +87,7 @@ tableConfig = {
       (response:any) => {
         console.log(response);
         this.tableData = response?.data;
-        this.totalCount = response?.data.length || 0;
+        this.totalCount = response?.total;
         this.isLoading = false;
       },
       error => {

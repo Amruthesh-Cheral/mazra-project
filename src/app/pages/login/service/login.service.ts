@@ -9,18 +9,31 @@ import { BehaviorSubject, tap } from 'rxjs';
 export class LoginService {
   $baseUrl = environment.baseUrl
 
-    public islogin = new BehaviorSubject<boolean>(false);
-    islogin$ = this.islogin.asObservable();
+  public islogin = new BehaviorSubject < boolean > (false);
+  islogin$ = this.islogin.asObservable();
+  public currentUserSubject = new BehaviorSubject < any > (this.getUserFromStorage());
+  currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    login(data: any) {
-      return this.http.post( this.$baseUrl + "/auth/signin", data).pipe(
-        tap((res: any) => {
-          if (res && res.token) {;
-            this.islogin.next(true);
-          }
-        })
-      );
-    }
+
+  setUser(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
+  getUserFromStorage() {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
+  login(data: any) {
+    return this.http.post(this.$baseUrl + "/auth/signin", data).pipe(
+      tap((res: any) => {
+        if (res && res.token) {
+          ;
+          this.islogin.next(true);
+        }
+      })
+    );
+  }
 }
