@@ -10,27 +10,27 @@ import { ProductCategoryService } from '../../admin-panel/pages/service-category
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [NgIf, NgFor, DecimalPipe ,RouterModule],
+  imports: [NgIf, NgFor, DecimalPipe, RouterModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
 
-  products:any[] = [];
+  products: any[] = [];
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService ,
-    private route: Router ,
+    private cartService: CartService,
+    private route: Router,
     private wishlistService: WishlistService,
     private _activatedRoute: ActivatedRoute,
     private categoryService: ProductCategoryService
   ) { }
 
   ngOnInit(): void {
-    this._activatedRoute.params.subscribe((data:any)=>{
-      if(data?.id)
-      this.getCategoryById(data?.id);
+    this._activatedRoute.params.subscribe((data: any) => {
+      if (data?.id)
+        this.getCategoryById(data?.id);
     })
 
 
@@ -95,36 +95,36 @@ export class ProductsComponent implements OnInit {
   }
 
 
-addToWishlist(id: string) {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You want to add this product to the wishlist?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, add it!',
-    cancelButtonText: 'No, cancel!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.wishlistService.addToWishlist({
-        productId: id
-      }).subscribe((res: any) => {
-        console.log('Product added to wishlist:', res);
-        Swal.fire({
-          title: 'Added!',
-          text: res.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
+  addToWishlist(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to add this product to the wishlist?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, add it!',
+      cancelButtonText: 'No, cancel!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.wishlistService.addToWishlist({
+          productId: id
+        }).subscribe((res: any) => {
+          console.log('Product added to wishlist:', res);
+          Swal.fire({
+            title: 'Added!',
+            text: res.message,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+        }, error => {
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         });
-      }, error => {
-        Swal.fire({
-          title: 'Error',
-          text: error?.error?.message,
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      });
-    }
-  });
-}
+      }
+    });
+  }
 
 }
