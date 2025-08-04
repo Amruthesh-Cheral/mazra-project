@@ -38,7 +38,6 @@
 //   }
 
 //   // Popular Causes Progress Bar
-  
 //   if ($(".count-bar").length) {
 //     $(".count-bar").appear(
 //       function () {
@@ -130,7 +129,6 @@
 //   }
 
 //   // custom coursor
-
 //   // if ($(".custom-cursor").length) {
 //   //   var cursor = document.querySelector(".custom-cursor__cursor");
 //   //   var cursorinner = document.querySelector(".custom-cursor__cursor-two");
@@ -851,7 +849,7 @@
 
 //     var scrollToTopBtn = ".scroll-to-top";
 //     if (scrollToTopBtn.length) {
-//     if ($(window).scrollTop() > 500) {
+//       if ($(window).scrollTop() > 500) {
 //         $(scrollToTopBtn).addClass("show");
 //       } else {
 //         $(scrollToTopBtn).removeClass("show");
@@ -879,7 +877,6 @@
 //   }
 
 //   /*------ Count Down -----*/
-
 //   if ($(".countdown-one__list").length) {
 //     let mainDate = $(".countdown-one__list").data("deadline-date");
 //     let yearsCondition =
