@@ -87,3 +87,38 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+
+#google_translate_element {
+  display: inline-block;
+  margin-left: auto;
+  font-size: 14px;
+  z-index: 9999;
+
+  select {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .goog-te-gadget {
+    color: transparent; /* Hide default "Powered by" text */
+  }
+
+  .goog-te-gadget span {
+    display: none; /* Hide original text label */
+  }
+}

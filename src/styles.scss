@@ -38,6 +38,7 @@
 
 .mat-mdc-menu-panel {
   background-color: #fff;
+  background: #fff !important;
   border-radius: 10px !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
 }
@@ -54,4 +55,16 @@
 
 .mat-mdc-divider {
   margin: 6px 0 !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+#google_translate_element {
+  z-index: 9999;
 }

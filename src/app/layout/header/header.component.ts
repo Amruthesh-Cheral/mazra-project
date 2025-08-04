@@ -1,6 +1,6 @@
 import { LoginService } from './../../pages/login/service/login.service';
 import { CartService } from './../../pages/cart/service/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatMenuModule } from '@angular/material/menu';
@@ -20,7 +20,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit , AfterViewInit  {
 
   itemCount: number = 0;
   wishlistCount: number = 0;
@@ -81,6 +81,34 @@ export class HeaderComponent implements OnInit {
   this.getServices();
 }
 
+   ngAfterViewInit(){
+    this.loadGoogleTranslateScript();
+  }
+
+    loadGoogleTranslateScript(): void {
+    if ((window as any).google?.translate?.TranslateElement) {
+      this.initializeGoogleTranslate();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
+
+    // Define the global callback (Google expects this function)
+    (window as any).googleTranslateElementInit = () => {
+      this.initializeGoogleTranslate();
+    };
+  }
+
+  initializeGoogleTranslate(): void {
+    new (window as any).google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+  
   goToCart(){
     if(this.itemCount >= 0 && localStorage.getItem('token')) {
       this.route.navigate(['/cart']);

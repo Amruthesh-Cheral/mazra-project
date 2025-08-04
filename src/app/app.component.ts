@@ -11,4 +11,5 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 })
 export class AppComponent {
   title = 'mazra-angular-project';
+  
 }
