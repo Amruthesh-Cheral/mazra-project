@@ -62,7 +62,7 @@
                 <nav class="main-header__nav main-menu">
                     <ul class="main-menu__list">
                         <li>
-                            <a routerLink="/home" routerLinkActive="active">Home</a>
+                            <a routerLink="/home" routerLinkActive="active">{{'Home' | translate }}</a>
                         </li>
                         <li>
                             <a routerLink="/about" routerLinkActive="active">About</a>
@@ -110,6 +110,12 @@
                             <span class="main-header__cart__count">{{wishlistCount}}</span>
                             <span class="sr-only">Search</span>
                     </a>
+                      <button mat-button [matMenuTriggerFor]="menu">Language</button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="switchLang('en')">English</button>
+                        <button mat-menu-item (click)="switchLang('fr')">Français</button>
+                        <button mat-menu-item (click)="switchLang('ar')">Arabic</button>
+                      </mat-menu>
                     <div class="mobile-nav__btn mobile-nav__toggler">
                         <span></span>
                         <span></span>

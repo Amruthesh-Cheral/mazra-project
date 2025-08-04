@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
   HTTP_INTERCEPTORS,
+  HttpClient,
   provideHttpClient,
   withInterceptors,
   withInterceptorsFromDi
@@ -13,8 +14,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderInterceptor } from './core/interceptor/loader/loader.interceptor';
-
-
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from './shared/translate-loader';
+import { TRANSLATE_HTTP_LOADER_CONFIG, TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,8 +36,22 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       MatNativeDateModule,
       BrowserAnimationsModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      }
+    }),
     ),
+  {
+    provide: TRANSLATE_HTTP_LOADER_CONFIG,
+    useValue: {
+      prefix: './assets/i18n/',
+      suffix: '.json'
+    }
+  },
     provideClientHydration(),
   ],
 };

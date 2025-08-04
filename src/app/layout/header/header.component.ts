@@ -12,10 +12,11 @@ import { ProductServicesService } from '../../admin-panel/pages/service-category
 import { LoaderService } from '../../core/services/loader.service';
 import { filter, take } from 'rxjs';
 import { WishlistService } from '../../pages/wishlist/service/wishlist.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule , MatMenuModule , MatMenuModule , MatButtonModule , MatIconModule, MatDividerModule , CommonModule],
+  imports: [RouterModule , MatMenuModule , MatMenuModule , MatButtonModule , MatIconModule, MatDividerModule , CommonModule,TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   service:any;
-  constructor( private route:Router , private CartService: CartService , private authService: LoginService,
+  constructor( private route:Router , private CartService: CartService , private authService: LoginService, private translate: TranslateService,
     private productService:ProductServicesService , private loaderService:LoaderService , private wishlistService: WishlistService ) { }
 
   // ngOnInit() {
@@ -133,6 +134,10 @@ export class HeaderComponent implements OnInit {
     //     }
     //   });
     // }
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 
   logout() {
