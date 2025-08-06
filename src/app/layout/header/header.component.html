@@ -113,31 +113,40 @@
                     </ul>
                 </nav>
                 <!-- /.main-header__nav -->
-                <div class="main-header__right">
-                    <a  class="main-header__cart" (click)="goToCart()">
-                            <i class="icon-shopping-cart" aria-hidden="true"></i>
-                            <span class="main-header__cart__count">{{itemCount}}</span>
-                            <span class="sr-only">Search</span>
-                    </a>
-                    <a  class="main-header__cart" (click)="goToCart()">
-                            <i class="far fa-heart" aria-hidden="true"></i>
-                            <span class="main-header__cart__count">{{wishlistCount}}</span>
-                            <span class="sr-only">Search</span>
-                    </a>
-                    
+                <div class="main-header__right position-relative">
+
+                  
+
                     <div class="mobile-nav__btn mobile-nav__toggler">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
+
                     <img src="../assets/images/favicons/24.png" alt="" width="55px" style="margin-left: 30px;">
                     <!-- /.mobile-nav__toggler -->
                     <div class="main-header__right__border"></div>
+
+                     <div class="head-icons d-flex align-items-center">
+                     <a  class="main-header__cart " (click)="goToCart()">
+                            <i class="icon-shopping-cart" aria-hidden="true"></i>
+                            <span class="main-header__cart__count">{{itemCount}}</span>
+                           
+                    </a>
+
+                    <a  class="main-header__cart" (click)="goToCart()">
+                            <i class="far fa-heart" aria-hidden="true"></i>
+                            <span class="main-header__cart__count">{{wishlistCount}}</span>
+                             
+                    </a>
+                   </div>
+                   
                     <div class="main-header__call">
                         <div class="main-header__call__icon"><span class="icon-phone-call-two"></span></div>
                         <div class="main-header__call__title">Requesting a Call:</div>
                         <a class="main-header__call__text" href="tel:88012365499">+00971545233222</a>
                     </div>
+
                     <!-- /. main-header__info -->
                 </div>
 
