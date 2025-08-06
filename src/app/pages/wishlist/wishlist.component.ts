@@ -20,13 +20,13 @@ export class WishlistComponent implements OnInit {
   constructor(private WishlistService: WishlistService , private cartService: CartService , private route: Router ) { }
 
   ngOnInit() {
-    this.getCartList();
+    this.getWishList();
   }
 
-  getCartList() {
+  getWishList() {
     this.WishlistService.getWishlist().subscribe((res: any) => {
       console.log('Wishlist Items:', res);
-      this.wishlistItems = res.data.products;
+      this.wishlistItems = res.data?.products ? res.data?.products : res.data;
       // Handle the wishlist items response
     }, error => {
       console.error('Error fetching wishlist items:', error);
@@ -50,7 +50,7 @@ export class WishlistComponent implements OnInit {
             'Your item has been removed from the wishlist.',
             'success'
           );
-          this.getCartList(); // Refresh the wishlist
+          this.getWishList(); // Refresh the wishlist
         }, error => {
           Swal.fire({
             title: 'Error',
@@ -80,7 +80,7 @@ export class WishlistComponent implements OnInit {
             'Your wishlist has been cleared.',
             'success'
           );
-          this.getCartList(); // Refresh the wishlist
+          this.getWishList(); // Refresh the wishlist
         }, error => {
           Swal.fire({
             title: 'Error',
@@ -98,7 +98,7 @@ export class WishlistComponent implements OnInit {
     if(!localStorage.getItem('token')) {
       Swal.fire({
         title: 'Login Required',
-        text: 'Please login to add items to your cart.',
+        text: 'Please login to add items to your wishlist.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Login',
@@ -114,20 +114,20 @@ export class WishlistComponent implements OnInit {
         quantity: 1
       }).subscribe((res: any) => {
         Swal.fire({
-          title: 'Added to Cart',
+          title: 'Added to wishlist',
           text: res.message,
           icon: 'success',
           confirmButtonText: 'OK'
         });
         // Optionally navigate to cart or refresh the cart items
         this.WishlistService.removeItem(id).subscribe(() => {
-          this.getCartList(); // Refresh the wishlist
+          this.getWishList(); // Refresh the wishlist
         })
         this.route.navigate(['/cart']);
       }, error => {
         Swal.fire({
           title: 'Error',
-          text: error?.error?.message || 'Failed to add product to cart',
+          text: error?.error?.message || 'Failed to add product to wishlist',
           icon: 'error',
           confirmButtonText: 'OK'
         });

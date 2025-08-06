@@ -32,31 +32,7 @@ export class HeaderComponent implements OnInit {
   constructor( private route:Router , private CartService: CartService , private authService: LoginService, private translate: TranslateService,
     private productService:ProductServicesService , private loaderService:LoaderService , private wishlistService: WishlistService ) { }
 
-  // ngOnInit() {
-  //   this.authService.islogin$
-  //     .pipe(
-  //       filter(isLogin => isLogin && !!localStorage.getItem('token')), // Wait until logged in AND token exists
-  //       take(1) // Only react to first valid login
-  //     )
-  //     .subscribe(() => {
-  //       const user = JSON.parse(localStorage.getItem('user') || '{}');
-  //       this.username = user.username || '';
-  //       this.email = user.email || '';
-  //       this.isAdmin = user.role === 'Admin';
 
-  //       console.log('Username:', this.username);
-  //       console.log('Email:', this.email);
-  //       console.log('User role:', this.isAdmin);
-
-  //       // Subscribe to cart count
-  //       this.CartService.cartItemCount$.subscribe(count => {
-  //         this.itemCount = count || 0;
-  //       });
-  //       this.CartService.refreshCartCount();
-  //     });
-
-  //   this.getServices();
-  // }
   ngOnInit() {
   this.authService.currentUser$.subscribe(user => {
     this.username = user?.username || '';
@@ -110,30 +86,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToWishlist() {
-    // if(this.wishlistCount >= 0 && localStorage.getItem('token')) {
       this.route.navigate(['/wishlist']);
-    // }else if(this.wishlistCount === 0 && localStorage.getItem('token')) {
-    //   Swal.fire({
-    //     title: 'Empty Wishlist',
-    //     text: 'Your wishlist is empty. Please add items to your wishlist.',
-    //     icon: 'info',
-    //     confirmButtonText: 'OK'
-    //   });
-    //   this.route.navigate(['/']);
-    // }else {
-    //   Swal.fire({
-    //     title: 'Login Required',
-    //     text: 'Please login to view your wishlist. Are you sure you want to login?',
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonText: 'Login',
-    //     cancelButtonText: 'Cancel'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       this.route.navigate(['/login']);
-    //     }
-    //   });
-    // }
   }
 
   switchLang(lang: string) {
