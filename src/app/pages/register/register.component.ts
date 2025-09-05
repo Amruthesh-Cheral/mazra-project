@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterService } from './service/register.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 
 export interface register {
   username: FormControl<string | null>;

@@ -4,7 +4,7 @@ import { DecimalPipe, NgIf, NgFor } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from './service/product.service';
 import { CartService } from '../cart/service/cart.service';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { ProductCategoryService } from '../../admin-panel/pages/service-category/product-category/service/product-category.service';
 
 @Component({

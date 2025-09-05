@@ -2,7 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, FormsModule, FormArray } from '@angular/forms';
 import { ProductService } from '../../../../pages/products/service/product.service';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCategoryService } from '../../service-category/product-category/service/product-category.service';
 import { ProductServicesService } from '../../service-category/product-services/service/product-services.service';

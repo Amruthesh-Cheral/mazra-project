@@ -2,7 +2,7 @@ import { LoginService } from './../../pages/login/service/login.service';
 import { CartService } from './../../pages/cart/service/cart.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit , AfterViewInit  {
       'google_translate_element'
     );
   }
-  
+
   goToCart(){
     if(this.itemCount >= 0 && localStorage.getItem('token')) {
       this.route.navigate(['/cart']);

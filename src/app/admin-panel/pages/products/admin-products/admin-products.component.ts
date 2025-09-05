@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../../pages/products/service/product.service';
 import { DataTableComponent } from '../../../../core/components/data-table/data-table.component';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 @Component({
   selector: 'app-admin-products',
   standalone: true,

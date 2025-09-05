@@ -9,7 +9,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 
 @Component({
   selector: 'app-reset-password',
