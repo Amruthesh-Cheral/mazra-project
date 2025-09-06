@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import e from 'express';
 import { Observable, catchError, EMPTY } from 'rxjs';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { LoginService } from '../../pages/login/service/login.service';
 
 @Injectable()

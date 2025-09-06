@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DataTableComponent } from '../../../../../core/components/data-table/data-table.component';
 import { ProductService } from '../../../../../pages/products/service/product.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { ProductServicesService } from '../service/product-services.service';
 
 
