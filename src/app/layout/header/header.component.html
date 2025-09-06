@@ -26,11 +26,11 @@
                     <div class="topbar-one__social">
 
                         <div class="me-3">
-                            <div id="google_translate_element" > </div>
+                            <div id="google_translate_element"> </div>
                         </div>
 
 
-<!-- 
+                        <!-- 
                           <button mat-button [matMenuTriggerFor]="menu">Language</button>
                       <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="switchLang('en')">English</button>
@@ -69,7 +69,7 @@
             <div class="main-header__inner">
                 <div class="main-header__logo">
                     <a routerLink="/home">
-                        <img src="../assets/images/logo-dark.png" alt="mazra" width="147">
+                        <img src="../assets/images/logo-dark.png" alt="mazra" class="main-logo" >
                     </a>
                 </div>
                 <!-- /.main-header__logo -->
@@ -85,7 +85,7 @@
                             <a>Services</a>
                             <ul>
                                 @for (item of service; track $index) {
-                                    <li><a (click)="gotoService(item?._id)">{{item?.name}}</a></li>
+                                <li><a (click)="gotoService(item?._id)">{{item?.name}}</a></li>
                                 }
                             </ul>
                         </li>
@@ -108,41 +108,44 @@
                             </ul>
                         </li> -->
                         <li *ngIf="isAdmin">
-                            <a routerLink="/admin-panel"  routerLinkActive="active">Admin Panel</a>
+                            <a routerLink="/admin-panel" routerLinkActive="active">Admin Panel</a>
                         </li>
                     </ul>
                 </nav>
                 <!-- /.main-header__nav -->
                 <div class="main-header__right">
-                   
-                      <!-- <button mat-button [matMenuTriggerFor]="menu">Language</button>
+
+                    <!-- <button mat-button [matMenuTriggerFor]="menu">Language</button>
                       <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="switchLang('en')">English</button>
                         <button mat-menu-item (click)="switchLang('fr')">Français</button>
                         <button mat-menu-item (click)="switchLang('ar')">Arabic</button>
                       </mat-menu> -->
-                    <div class="mobile-nav__btn mobile-nav__toggler">
+
+                    <div class="mobile-nav__btn mobile-nav__toggler" (click)="toggleMenu()">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
 
-                    <img src="../assets/images/favicons/24.png" alt="" width="55px" style="margin-left: 30px;">
+                    <img src="../assets/images/favicons/24.png" alt=""  class="full-time">
                     <!-- /.mobile-nav__toggler -->
                     <div class="main-header__right__border"></div>
 
+
                     <div class="head-icons d-flex align-items-center">
-                     <a  class="main-header__cart" (click)="goToCart()">
+                        <a class="main-header__cart" (click)="goToCart()">
                             <i class="icon-shopping-cart" aria-hidden="true"></i>
                             <span class="main-header__cart__count">{{itemCount}}</span>
                             <span class="sr-only">Search</span>
-                    </a>
-                    <a  class="main-header__cart" (click)="goToWishlist()">
+                        </a>
+                        <a class="main-header__cart" (click)="goToWishlist()">
                             <i class="far fa-heart" aria-hidden="true"></i>
                             <span class="main-header__cart__count">{{wishlistCount}}</span>
                             <span class="sr-only">Search</span>
-                    </a>
-                   </div>
+                        </a>
+                    </div>
+
                     <div class="main-header__call">
                         <div class="main-header__call__icon"><span class="icon-phone-call-two"></span></div>
                         <div class="main-header__call__title">Requesting a Call:</div>
@@ -154,29 +157,29 @@
 
                 <!-- Profile Icon Button -->
                 <div *ngIf="username">
-                   <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-trigger">
-                     <mat-icon>account_circle</mat-icon>
+                    <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-trigger">
+                        <mat-icon>account_circle</mat-icon>
                     </button>
                 </div>
 
                 <!-- Profile Dropdown Menu -->
                 <mat-menu #profileMenu="matMenu" class="profile-menu">
-                  <div style="padding: 10px 16px; max-width: 200px;">
-                    <div style="font-size: 18px; font-weight: bold;">{{ username }}</div>
-                    <div style="font-size: 13px; color: gray;">{{ email }}</div>
-                  </div>
-                  <!-- <mat-divider></mat-divider> -->
-                  <button mat-menu-item (click)="logout()">
-                    <mat-icon>logout</mat-icon>
-                    <span style="font-size: 18px;">Logout</span>
-                  </button>
+                    <div style="padding: 10px 16px; max-width: 200px;">
+                        <div style="font-size: 18px; font-weight: bold;">{{ username }}</div>
+                        <div style="font-size: 13px; color: gray;">{{ email }}</div>
+                    </div>
+                    <!-- <mat-divider></mat-divider> -->
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon>logout</mat-icon>
+                        <span style="font-size: 18px;">Logout</span>
+                    </button>
                 </mat-menu>
 
                 <div *ngIf="username === ''">
-                  <button mat-icon-button  class="profile-trigger d-flex" routerLink="/login">
-                     <mat-icon>account_circle</mat-icon>
-                     Login
-                  </button>
+                    <button mat-icon-button class="profile-trigger d-flex" routerLink="/login">
+                        <mat-icon>account_circle</mat-icon>
+                        <span class="login-text">Login</span>
+                    </button>
                 </div>
 
                 <!-- /.main-header__right -->
@@ -186,3 +189,83 @@
         <!-- /.container-fluid -->
     </header>
 </div>
+
+
+
+<div class="mobile-nav__wrapper" [ngClass]="{'expanded': isExpanded}">
+    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <!-- /.mobile-nav__overlay -->
+    <div class="mobile-nav__content">
+
+        <span class="mobile-nav__close mobile-nav__toggler" (click)="toggleMenu()"><i class="fa fa-times"></i></span>
+
+        <div class="logo-box">
+            <a routerLink="/home" aria-label="logo image"><img src="../assets/images/logo-light.png" width="155"
+                    alt=""></a>
+        </div>
+        <!-- /.logo-box -->
+        <div class="mobile-nav__container"></div>
+        <!-- /.mobile-nav__container -->
+
+        <nav class="">
+            <ul class="main-menu__list">
+                <li>
+                    <a routerLink="/home" routerLinkActive="active">{{'Home' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/about" routerLinkActive="active">About</a>
+                </li>
+                <li class="dropdown">
+                    <a>Services</a>
+                    <ul>
+                        @for (item of service; track $index) {
+                        <li><a (click)="gotoService(item?._id)">{{item?.name}}</a></li>
+                        }
+                    </ul>
+                </li>
+                <li>
+                    <a routerLink="/career" routerLinkActive="active">Career</a>
+                </li>
+                <li>
+                    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+                </li>
+
+                <li *ngIf="isAdmin">
+                    <a routerLink="/admin-panel" routerLinkActive="active">Admin Panel</a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <ul class="mobile-nav__contact list-unstyled">
+             
+            <li>
+                <i class="fa fa-phone-alt"></i>
+                <a href="tel:+00971545233222">+00971545233222</a>
+            </li>
+        </ul>
+        <!-- /.mobile-nav__contact -->
+        <div class="mobile-nav__social">
+            <a href="https://facebook.com">
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                <span class="sr-only">Facebook</span>
+            </a>
+            <a href="https://pinterest.com">
+                <i class="fab fa-pinterest-p" aria-hidden="true"></i>
+                <span class="sr-only">Pinterest</span>
+            </a>
+            <a href="https://twitter.com">
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+                <span class="sr-only">Twitter</span>
+            </a>
+            <a href="https://instagram.com">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+                <span class="sr-only">Instagram</span>
+            </a>
+        </div>
+        <!-- /.mobile-nav__social -->
+    </div>
+    <!-- /.mobile-nav__content -->
+</div>
+
+<!-- /.mobile-nav__wrapper -->

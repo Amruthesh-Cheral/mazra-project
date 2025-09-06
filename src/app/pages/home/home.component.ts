@@ -2,11 +2,12 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { BlogService } from '../../admin-panel/pages/blogs/service/blog.service';
 import { NgFor } from '@angular/common';
+
 declare var $: any;
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, NgFor],
+  imports: [RouterModule, NgFor,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('thumbCarousel') thumbCarousel!: ElementRef;
   @ViewChild('projectCarousel') projectCarousel!: ElementRef;
   @ViewChild('blogCarousel') blogCarousel!: ElementRef;
+
 
   projectSlides = [
     {
@@ -112,8 +114,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       slidesToShow: 4,
       slidesToScroll: 1,
       autoplay: true,
-      dots: false,
-      arrows: false,
+      dots: true,
+      arrows: true,
       speed: 700,
       responsive: [
         {
@@ -131,7 +133,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         {
           breakpoint: 768,
           settings: {
-            slidesToShow: 2
+            slidesToShow: 1
           }
         },
         {
@@ -143,47 +145,48 @@ export class HomeComponent implements OnInit, AfterViewInit {
       ]
     });
 
-    $(this.blogCarousel.nativeElement).slick({
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      autoplay: true,
-      dots: false,
-      arrows: false,
-      speed: 700,
-      responsive: [
-        {
-          breakpoint: 1700,
-          settings: {
-            slidesToShow: 4
-          }
-        },
-        {
-          breakpoint: 1500,
-          settings: {
-            slidesToShow: 3
-          }
-        },
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3
-          }
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2
-          }
-        },
-        {
-          breakpoint: 0,
-          settings: {
-            slidesToShow: 1
-          }
-        }
-      ]
-    });
+    // $(this.blogCarousel.nativeElement).slick({
+    //   slidesToShow: 3,
+    //   slidesToScroll: 1,
+    //   autoplay: true,
+    //   dots: true,
+    //   arrows: true,
+    //   speed: 700,
+    //   draggable: true,
+    //   responsive: [
+    //     {
+    //       breakpoint: 1600,
+    //       settings: {
+    //         slidesToShow: 4,
+    //         slidesToScroll: 1
+    //       }
+    //     },
+    //     {
+    //       breakpoint: 1100,
+    //       settings: {
+    //         slidesToShow: 3,
+    //         slidesToScroll: 1
+    //       }
+    //     },
+    //     {
+    //       breakpoint: 768,
+    //       settings: {
+    //         slidesToShow: 2,
+    //         slidesToScroll: 1
+    //       }
+    //     },
+    //     {
+    //       breakpoint: 480,
+    //       settings: {
+    //         slidesToShow: 1,
+    //         slidesToScroll: 1
+    //       }
+    //     }
+    //   ]
+    // });
   }
+
+
 
   loadBlogs() {
     this.blogService.getBlogs().subscribe({
@@ -204,8 +207,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     asNavFor: '.testimonials-two__carousel-thumb',
     autoplay: true,
     infinite: true,
-    dots: false,
-    arrows: false,
+    dots: true,
+    arrows: true,
     autoplaySpeed: 5000,
     centerPadding: 0
   };
@@ -218,8 +221,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     focusOnSelect: true,
     autoplay: true,
     infinite: true,
-    dots: false,
-    arrows: false,
+    dots: true,
+    arrows: true,
     centerPadding: 0,
     responsive: [
       {
@@ -277,22 +280,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     }
   };
-
-
-  blogCarouselOptions = {
-    loop: false,
-    margin: 30,
-    smartSpeed: 700,
-    nav: false,
-    dots: false,
-    autoplay: false,
-    responsive: {
-      0: { items: 1 },
-      768: { items: 2 },
-      992: { items: 3 }
-    }
-  };
-
-
-
 }

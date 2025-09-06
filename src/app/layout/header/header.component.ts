@@ -21,7 +21,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit , AfterViewInit  {
-
+  isExpanded = false;
   itemCount: number = 0;
   wishlistCount: number = 0;
   username:string = '';
@@ -59,6 +59,11 @@ export class HeaderComponent implements OnInit , AfterViewInit  {
 
    ngAfterViewInit(){
     this.loadGoogleTranslateScript();
+  }
+
+
+   toggleMenu() {
+    this.isExpanded = !this.isExpanded;
   }
 
     loadGoogleTranslateScript(): void {

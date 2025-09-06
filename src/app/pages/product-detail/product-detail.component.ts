@@ -41,21 +41,23 @@ export class ProductDetailComponent implements OnInit {
     $(this.mainCarousel.nativeElement).slick({
       slidesToShow: 1,
       slidesToScroll: 1,
-      asNavFor: this.thumbCarousel.nativeElement,
-      arrows: false,
+      // asNavFor: this.thumbCarousel.nativeElement,
+      arrows: true,
+      dots: true,
       autoplay: true,
-      infinite: true
+      infinite: true,
+
     });
 
-    $(this.thumbCarousel.nativeElement).slick({
-      slidesToShow: 2,
-      slidesToScroll: 1,
-      asNavFor: this.mainCarousel.nativeElement,
-      focusOnSelect: true,
-      centerMode: true,
-      arrows: false,
-      infinite: true
-    });
+    // $(this.thumbCarousel.nativeElement).slick({
+    //   slidesToShow: 2,
+    //   slidesToScroll: 1,
+    //   asNavFor: this.mainCarousel.nativeElement,
+    //   focusOnSelect: true,
+    //   centerMode: true,
+    //   arrows: false,
+    //   infinite: true
+    // });
   }
 
 

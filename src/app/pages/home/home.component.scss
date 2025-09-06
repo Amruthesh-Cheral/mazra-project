@@ -41,7 +41,24 @@
   margin: 0 auto;
   display: flex;
   .item {
-    width: calc(100% / 3);
+    // width: calc(100% / 3);
     padding: 0 15px;
   }
+}
+
+@media (max-width: 575.98px) { 
+  .blog-one__carousel {
+  .item {
+    // width: 100%;
+  }
+}
+}
+
+
+.slick-dots {
+  display: block;
+}
+
+.slick-slide {
+  cursor: grab;
 }

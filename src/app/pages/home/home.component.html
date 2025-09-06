@@ -651,17 +651,17 @@
     </div>
     <!-- /.sec-title -->
     <!-- slick carousel for blogs -->
-    <div #blogCarousel class="blog-one__carousel">
-      <div class="item" *ngFor="let blog of blogDetails; let i = index">
-        <div class="blog-card wow fadeInUp" data-wow-duration="1500ms" data-wow-delay="00ms">
+    <div class="row blog-one__carousel alefox-owl__carousel alefox-owl__carousel--with-shadow alefox-owl__carousel--basic-nav owl-carousel owl-theme">
+      <div class="item col-md-4 col-sm-12" *ngFor="let blog of blogDetails; let i = index" [hidden]="i >= 3">
+       <div class="blog-card">
           <div class="blog-card__image">
-            <img src="../assets/images/blog/blog-1-1.jpg" alt="This Leader in Organic Agriculture Growth" />
-            <img src="../assets/images/blog/blog-1-1.jpg" alt="This Leader in Organic Agriculture Growth" />
-            <a routerLink="/#" class="blog-card__image__link">
+            <img src="../assets/images/blog/blog-1-1.jpg" class="img-fluid" alt="This Leader in Organic Agriculture Growth" />
+            <img src="../assets/images/blog/blog-1-1.jpg" class="img-fluid" alt="This Leader in Organic Agriculture Growth" />
+            <!-- <a routerLink="/#" class="blog-card__image__link">
               <span class="sr-only">
                 Cultivating a Greener Future with Mazra Care’s Smart Farming Solutions
               </span>
-            </a>
+            </a> -->
           </div>
           <div class="blog-card__content">
             <ul class="list-unstyled blog-card__meta">

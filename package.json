@@ -36,6 +36,7 @@
     "rxjs": "~7.8.0",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.22.2",
+    "swiper": "^11.2.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
