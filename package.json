@@ -30,7 +30,7 @@
     "bootstrap": "^5.3.7",
     "jquery": "^3.7.1",
     "ng-apexcharts": "^1.16.0",
-    "ngx-owl-carousel-o": "^20.0.0",
+    "ngx-owl-carousel-o": "^20.0.1",
     "ngx-slick-carousel": "^19.0.0",
     "owl.carousel": "^2.3.4",
     "rxjs": "~7.8.0",

@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('blogCarousel') blogCarousel!: ElementRef;
 
 
+  
   projectSlides = [
     {
       title: 'Residential',

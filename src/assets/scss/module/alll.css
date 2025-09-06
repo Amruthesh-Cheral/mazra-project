@@ -5994,7 +5994,12 @@ body.megamenu-popup-active .mobile-nav__content {
     position: relative;
     margin-bottom: 22px;
 }
-
+@media (max-width: 765px) {
+.testimonials-two__carousel-thumb .item .testimonials-two__meta-thumb {
+        width: 65px;
+    height: 65px;
+}
+}
 .testimonials-two__carousel-thumb .item .testimonials-two__meta-thumb::after {
     position: absolute;
     left: -5px;
