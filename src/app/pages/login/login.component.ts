@@ -46,13 +46,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
-      console.log('Form Data:', formData);
 
       // Call the login service here
       // this.dataService.customSnackBar("Login successful", "success", "success");
       // this.router.navigate(['/dashboard']);
       this.LoginService.login(formData).subscribe(res => {
-        console.log('Login successful', res);
         this.saveUserData(res)
         if(this.loggedUser === 'Admin')
           this.router.navigate(['/admin-panel/dashboard']);
@@ -65,7 +63,6 @@ export class LoginComponent implements OnInit {
           confirmButtonText: 'OK'
         });
       }, error => {
-        console.error('Login failed', error);
         // Handle login error, e.g., show a notification
         // this.dataService.customSnackBar("Login failed", "error", "error");
         Swal.fire({
