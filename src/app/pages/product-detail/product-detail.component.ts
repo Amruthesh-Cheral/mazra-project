@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductDetailsService } from './service/product-details.service';
 import Swal from 'sweetalert2/dist/sweetalert2.all.js';
@@ -15,7 +15,7 @@ declare var $: any;
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit , AfterViewInit {
 
   slug: string | null = null;
   product: any;
@@ -28,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private route: ActivatedRoute, private productDetailservice: ProductDetailsService, private router: Router, private cartService: CartService) { }
   ngOnInit() {
+    
     this.route.paramMap.subscribe(params => {
       this.slug = params.get('id');
       console.log('Product ID:', this.slug);
@@ -35,35 +36,22 @@ export class ProductDetailComponent implements OnInit {
 
     this.getProductDetails();
   }
+ 
 
-  ngAfterViewInit(): void {
+   ngAfterViewInit(): void {
     this.initSlick();
   }
 
-
-  initSlick(): void {
+    initSlick(): void {
     $(this.mainCarousel.nativeElement).slick({
       slidesToShow: 1,
       slidesToScroll: 1,
-      // asNavFor: this.thumbCarousel.nativeElement,
       arrows: true,
       dots: true,
       autoplay: true,
-      infinite: true,
-
+      infinite: true
     });
-
-    // $(this.thumbCarousel.nativeElement).slick({
-    //   slidesToShow: 2,
-    //   slidesToScroll: 1,
-    //   asNavFor: this.mainCarousel.nativeElement,
-    //   focusOnSelect: true,
-    //   centerMode: true,
-    //   arrows: false,
-    //   infinite: true
-    // });
   }
-
 
   getProductDetails() {
     // This method would typically call a service to fetch product details by ID

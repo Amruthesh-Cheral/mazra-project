@@ -1,11 +1,44 @@
 <div>
-    <h4 class="p-4">Residential Customization Form</h4>
+    <h4 class="p-4"> New product detail form</h4>
     <hr class="p-0 m-0" />
     <!-- CROPS / SPECIES SELECTION -->
     <form [formGroup]="enquiryForm" (ngSubmit)="onSubmit()" class="agri-form p-3 pt-0 p-md-4">
         <div class="container">
-           <div class="scrollbar">
-             <label class="form-label">Preferred Crops / Species</label>
+
+            <h6 class="mb-3">We are glad to know you are interested in customising our product.
+Let us know where you want to set up be it in the Kitchen, Balcony,Open Terrace , Backyard or where ever you want.We are here to help you.</h6>
+            <!-- TYPE OF SPACE -->
+            <div class="scrollbar">
+                <div class="mb-3">
+                <label class="form-label">Type of Space:</label>
+                <div class="d-flex flex-wrap gap-3">
+                    <div
+                        *ngFor="let space of ['Indoor','Outdoor','Terrace','Balcony','Backyard','Frontyard','Rooftop','Empty Plot / Land']">
+                        <input type="radio" [value]="space" formControlName="typeOfSpace" [id]="space"
+                            class="form-check-input" />
+                        <label [for]="space" class="form-check-label ms-1">{{ space }}</label>
+                    </div>
+                </div>
+            </div>
+            <!-- SITE AREA -->
+            <div class="mb-3">
+                <label class="form-label">Site Area (in sq ft or sqm):</label>
+                <div class="d-flex flex-wrap gap-3">
+                    <div
+                        *ngFor="let area of ['Less than 100 sqft','100–300 sqft','300–1000 sqft','1000–5000 sqft','More than 5000 sqft','Custom']">
+                        <input type="radio" [value]="area" formControlName="siteArea" [id]="area"
+                            class="form-check-input" (change)="onSiteAreaChange(area)" />
+                        <label [for]="area" class="form-check-label ms-1">{{ area }}</label>
+                    </div>
+                </div>
+
+                <!-- Show custom field if 'Custom' selected -->
+                <div class="mt-2" *ngIf="enquiryForm.get('siteArea')?.value === 'Custom'">
+                    <input type="text" class="form-control" placeholder="Enter custom site area"
+                        formControlName="customSiteArea" />
+                </div>
+            </div>
+            <label class="form-label">Preferred Crops / Species</label>
             <div class="accordion" id="cropAccordion">
 
                 <!-- Leafy Greens -->
@@ -166,9 +199,7 @@
                     </div>
                 </div>
             </div>
-
             <label class="form-label pt-2 pb-2">Customize Size</label>
-
             <div class="row g-2 mb-3">
                 <div class="col">
                     <input type="number" class="form-control" placeholder="Width (cm)" formControlName="width" />
@@ -177,20 +208,18 @@
                     <input type="number" class="form-control" placeholder="Height (cm)" formControlName="height" />
                 </div>
             </div>
-           </div>
+            </div>
 
             <div class="d-flex justify-content-end gap-2 mt-4">
                 <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
-
-                 <a routerLink="/about" class="alefox-btn">
-                <span class="alefox-btn__item"></span>
-                <span class="alefox-btn__item"></span>
-                <span class="alefox-btn__item"></span>
-                <span class="alefox-btn__item"></span>
-                Submit
-              </a>
+                <a routerLink="/about" class="alefox-btn">
+                    <span class="alefox-btn__item"></span>
+                    <span class="alefox-btn__item"></span>
+                    <span class="alefox-btn__item"></span>
+                    <span class="alefox-btn__item"></span>
+                    Submit
+                </a>
             </div>
-
         </div>
     </form>
 </div>

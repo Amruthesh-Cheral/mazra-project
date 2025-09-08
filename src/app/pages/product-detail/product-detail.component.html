@@ -77,10 +77,11 @@
                     <div class="product-details__carousel alefox-slick__carousel" #mainCarousel>
                         <div class="item" *ngFor="let item of product?.images">
                             <div class="product-details__gallery__image">
-                                <img [src]="item.url" alt="mazra products">
+                                <img [src]="item.url" alt="mazra products" />
                             </div>
                         </div>
                     </div>
+
 
                     <!--
                     <ul class="product-details__carousel-thumb alefox-slick__carousel" data-slick-options='{
@@ -163,7 +164,7 @@
                     </div> -->
                     <div class="product-details__excerpt">{{product?.description}}</div><!-- /.excerp-text -->
                     <ul class="product-details__feature">
-                        <li *ngFor="let feature of product?.usp">
+                        <li *ngFor="let feature of product.usp">
                             <span class="product-details_feature_icon">
                                 <i class="icofont-check-alt"></i>
                             </span>
@@ -203,18 +204,18 @@
                                     class="far fa-heart"></i></a> -->
                         </div><!-- /.qty-btn -->
 
-                      
+
                     </div>
 
-                      <div>
-                             <a (click)="customization()" class="alefox-btn">
-                                <span class="alefox-btn__item"></span>
-                                <span class="alefox-btn__item"></span>
-                                <span class="alefox-btn__item"></span>
-                                <span class="alefox-btn__item"></span>
-                                    Customization Project
-                            </a>
-                        </div>
+                    <div>
+                        <a (click)="customization()" class="alefox-btn">
+                            <span class="alefox-btn__item"></span>
+                            <span class="alefox-btn__item"></span>
+                            <span class="alefox-btn__item"></span>
+                            <span class="alefox-btn__item"></span>
+                            Customization Project
+                        </a>
+                    </div>
 
                     <!-- <ul class="product-details__info">
                         <li><span class="product-details__info__icon"><i
@@ -252,5 +253,3 @@
     </div>
 </section>
 <!-- Products End -->
-
- 

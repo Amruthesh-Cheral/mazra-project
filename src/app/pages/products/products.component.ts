@@ -6,6 +6,8 @@ import { ProductService } from './service/product.service';
 import { CartService } from '../cart/service/cart.service';
 import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { ProductCategoryService } from '../../admin-panel/pages/service-category/product-category/service/product-category.service';
+import { ProductsNewFormComponent } from './products-new-form/products-new-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +26,8 @@ export class ProductsComponent implements OnInit {
     private route: Router,
     private wishlistService: WishlistService,
     private _activatedRoute: ActivatedRoute,
-    private categoryService: ProductCategoryService
+    private categoryService: ProductCategoryService,
+    private dialog: MatDialog, 
   ) { }
 
   ngOnInit(): void {
@@ -127,4 +130,15 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+
+  addProductForm(){
+     const dialogRef = this.dialog.open(ProductsNewFormComponent, {
+          width: '600px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            console.log('User clicked Save');
+          }
+        });
+  }
 }
