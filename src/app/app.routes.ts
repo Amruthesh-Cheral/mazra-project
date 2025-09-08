@@ -24,6 +24,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { BlogDetailsComponent } from './pages/blog-details/blog-details.component';
 import { ServicePageComponent } from './pages/service-page/service-page.component';
 import { BlogListComponent } from './admin-panel/pages/blogs/blog-list/blog-list.component';
+import { CustomizationFormComponent } from './pages/customization-form/customization-form.component';
 
 export const routes: Routes = [
     {
@@ -68,6 +69,10 @@ export const routes: Routes = [
                 path: 'service/:id',
                 component: ServicePageComponent
             },
+             {
+                path: 'customize-form',
+                component: CustomizationFormComponent
+            },
             {
                 path: 'commercial',
                 component: CommercialComponent
@@ -92,6 +97,7 @@ export const routes: Routes = [
                 path: 'terms-conditions',
                 component: TermsConditionsComponent
             },
+           
             // etc pages
 
 

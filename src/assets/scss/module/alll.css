@@ -2667,6 +2667,10 @@ h6 {
     color: var(--alefox-text-dark, #b7b7b7);
     transition: all 500ms ease;
     border-radius: 50%;
+    text-decoration: none;
+    list-style-type: none;
+
+
 }
 
 .footer-widget__social a i {

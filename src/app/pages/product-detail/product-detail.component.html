@@ -10,7 +10,6 @@
             <li><span>Products Details</span></li> <br>
         </ul><!-- /.thm-breadcrumb list-unstyled -->
         <br>
-
     </div><!-- /.container -->
 </section><!-- /.page-header -->
 
@@ -142,17 +141,18 @@
 
             <div class="col-lg-6 col-xl-6 wow fadeInRight" data-wow-delay="300ms">
                 <div class="product-details__content">
-                    <h3 class="product-details__title">{{product.name}}</h3><!-- /.product-title -->
+                    <h3 class="product-details__title">{{product?.name}}</h3><!-- /.product-title -->
                     <div class="product-details__price">
-                        <span class="product-details__price__regular">${{product.discountedPrice}}</span>
-                        <span class="product-details__price__offer">${{product.price}}</span>
-                        <span class="product-details__price__stock" *ngIf="product.stock >= 1; else outOfStock"> In
+                        <span class="product-details__price__regular">${{product?.discountedPrice}}</span>
+                        <span class="product-details__price__offer">${{product?.price}}</span>
+                        <span class="product-details__price__stock" *ngIf="product?.stock >= 1; else outOfStock"> In
                             stock</span>
                         <ng-template #outOfStock>
                             <span class="product-details__price__outofstock"> Out of stock</span>
                         </ng-template>
 
-                    </div><!-- /.product-price -->
+                    </div>
+                    <!-- /.product-price -->
                     <!-- <div class="product-details__review">
                         <span class="icofont-star"></span>
                         <span class="icofont-star"></span>
@@ -161,9 +161,9 @@
                         <span class="icofont-star"></span>
                         <a href="product-details.html">( 5 Customer Review )</a>
                     </div> -->
-                    <div class="product-details__excerpt">{{product.description}}</div><!-- /.excerp-text -->
+                    <div class="product-details__excerpt">{{product?.description}}</div><!-- /.excerp-text -->
                     <ul class="product-details__feature">
-                        <li *ngFor="let feature of product.usp">
+                        <li *ngFor="let feature of product?.usp">
                             <span class="product-details_feature_icon">
                                 <i class="icofont-check-alt"></i>
                             </span>
@@ -202,7 +202,20 @@
                             <!-- <a href="wishlist.html" class="product-details__buttons__wishlist"><i
                                     class="far fa-heart"></i></a> -->
                         </div><!-- /.qty-btn -->
+
+                      
                     </div>
+
+                      <div>
+                             <a (click)="customization()" class="alefox-btn">
+                                <span class="alefox-btn__item"></span>
+                                <span class="alefox-btn__item"></span>
+                                <span class="alefox-btn__item"></span>
+                                <span class="alefox-btn__item"></span>
+                                    Customization Project
+                            </a>
+                        </div>
+
                     <!-- <ul class="product-details__info">
                         <li><span class="product-details__info__icon"><i
                                     class="icofont-check-alt"></i></span><strong>Estimated Delivery:</strong> 60-60 days
@@ -239,3 +252,5 @@
     </div>
 </section>
 <!-- Products End -->
+
+ 

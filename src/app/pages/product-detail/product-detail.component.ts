@@ -4,12 +4,14 @@ import { ProductDetailsService } from './service/product-details.service';
 import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../cart/service/cart.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CustomizePopupComponent } from './customize-popup/customize-popup.component';
 declare var $: any;
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatDialogModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
@@ -18,11 +20,13 @@ export class ProductDetailComponent implements OnInit {
   slug: string | null = null;
   product: any;
   quantity: number = 1;
+  showPopup = false;
+
 
   @ViewChild('mainCarousel', { static: false }) mainCarousel!: ElementRef;
   @ViewChild('thumbCarousel', { static: false }) thumbCarousel!: ElementRef;
 
-  constructor(private route: ActivatedRoute, private productDetailservice: ProductDetailsService, private router: Router, private cartService: CartService) { }
+  constructor(private dialog: MatDialog, private route: ActivatedRoute, private productDetailservice: ProductDetailsService, private router: Router, private cartService: CartService) { }
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.slug = params.get('id');
@@ -32,12 +36,12 @@ export class ProductDetailComponent implements OnInit {
     this.getProductDetails();
   }
 
-   ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     this.initSlick();
   }
 
 
-    initSlick(): void {
+  initSlick(): void {
     $(this.mainCarousel.nativeElement).slick({
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -175,4 +179,14 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  customization() {
+    const dialogRef = this.dialog.open(CustomizePopupComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('User clicked Save');
+      }
+    });
+  }
 }
